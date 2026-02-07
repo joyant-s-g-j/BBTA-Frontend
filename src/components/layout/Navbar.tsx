@@ -3,16 +3,10 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
 import { 
   Coffee, 
   Menu, 
-  X, 
-  ChevronDown,
   GraduationCap,
-  Award,
-  Briefcase,
-  Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
@@ -53,18 +47,25 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
         isScrolled
-          ? "glass-strong shadow-lg shadow-black/10"
-          : "bg-transparent"
+          ? "bg-white/95 backdrop-blur-xl border-b border-border/50 shadow-sm"
+          : "bg-transparent border-b border-transparent"
       )}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20 transition-[height] duration-300">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className=" rounded-xl p-1">
-              <Image src="/bbtalogo.webp" alt="BBTA Logo" width={64} height={64} className="h-14 w-14 lg:h-16 lg:w-24" />
+          <Link href="/" className="flex items-center gap-2 group relative z-10">
+            <div className="rounded-xl p-1 bg-white/0 transition-colors">
+              <Image 
+                src="/bbtalogo.webp" 
+                alt="BBTA Logo" 
+                width={64} 
+                height={64} 
+                className="h-12 w-auto lg:h-16 lg:w-24 object-contain" 
+                priority
+              />
             </div>
           </Link>
 
@@ -168,11 +169,11 @@ export function Navbar() {
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
             {/* Book Now Button (Desktop) */}
-            <Link href="/contact" className="hidden lg:block">
+            <Link href="/certificate-verification" className="hidden lg:block">
               <Button 
                 className="bg-primary text-primary-foreground hover:bg-primary/90 glow-gold-hover font-semibold"
               >
-                Book Now
+                Certificate Verification
               </Button>
             </Link>
 
@@ -183,15 +184,12 @@ export function Navbar() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full sm:w-100 glass-strong">
+              <SheetContent side="right" className="w-80 glass-strong">
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
-                  <div className="flex items-center gap-2 mb-8">
-                    <div className="bg-white rounded-xl p-1">
-                      <Image src="/bbtalogo.webp" alt="BBTA Logo" width={48} height={48} className="h-12 w-12" />
+                  <div className=" rounded-xl p-1">
+                      <Image src="/bbtalogo.webp" alt="BBTA Logo" width={48} height={48} className="h-12 w-20" />
                     </div>
-                    <span className="font-serif text-2xl font-bold">BBTA</span>
-                  </div>
 
                   {/* Mobile Nav Links */}
                   <nav className="flex-1 space-y-2">
