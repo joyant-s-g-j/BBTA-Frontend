@@ -215,26 +215,6 @@ export default function CateringPage() {
         </div>
       </section>
 
-      {/* Booking Form */}
-      {/* <section id="booking" className="section-padding bg-[#F8F8F8]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-8">
-              <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                Book Now
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold">
-                Request Event Booking
-              </h2>
-            </div>
-            <EnrollmentForm
-              title="Event Details"
-              description="Tell us about your event and we'll provide a custom quote within 24 hours."
-            />
-          </div>
-        </div>
-      </section> */}
-
       {/* CTA */}
       <CTABanner
         title="Make Your Event Memorable"

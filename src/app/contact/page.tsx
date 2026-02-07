@@ -5,6 +5,7 @@ import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { BranchesMap } from "@/components/sections/BranchesMap";
 import { Badge } from "@/components/ui/badge";
 import { branches } from "@/lib/data";
+import Address from "@/components/sections/Address";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -53,43 +54,24 @@ export default function ContactPage() {
                 </Badge>
               </div>
 
-              <p className="text-muted-foreground mb-8">
-                Visit us at one of our training centers or reach out online.
-                We&apos;re here to help you start your coffee journey.
-              </p>
-
               {/* Branch Cards */}
               <div className="space-y-6">
-                {branches.map((branch) => (
-                  <div
-                    key={branch.name}
-                    className="bg-card rounded-xl border border-border p-6"
-                  >
-                    <h3 className="font-serif text-lg font-bold mb-4 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-primary" />
-                      {branch.name}
-                    </h3>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-start gap-3 text-muted-foreground">
-                        <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <span>{branch.address}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Phone className="h-5 w-5 text-primary shrink-0" />
-                        <a
-                          href={`tel:${branch.phone}`}
-                          className="hover:text-primary transition-colors"
-                        >
-                          {branch.phone}
-                        </a>
-                      </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Clock className="h-5 w-5 text-primary shrink-0" />
-                        <span>{branch.hours}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                <div className="text-muted-foreground mb-6 leading-relaxed">
+  <p className="mb-4">
+    Experience world-class coffee training at Bangladesh Barista Training Academy&apos;s two convenient Dhaka locations. Visit our flagship hub in the <strong>Baridhara Diplomatic Zone</strong> at House 45, Road 11, Dhaka 1212, or join us at our <strong>Dhanmondi</strong> campus located at House 12, Road 8, Dhaka 1205.
+  </p>
+  <p className="mb-4">
+    Both centers are fully equipped with professional espresso machines, grinders, brewing tools, and comfortable learning spaces designed for hands-on practice. Our curriculum covers a wide range of courses including <strong>Barista Foundation, Advanced Coffee Techniques, Latte Art, Hand Brewing, Roasting, and Mixology</strong>, ensuring that students at every skill level find programs tailored to their needs.
+  </p>
+  
+  <p className="mb-4">
+    Both centers are open <strong>Saturday to Friday, 9:00 AM - 9:00 PM</strong>, making it convenient for working professionals and enthusiasts to join. We also offer flexible course schedules, weekend workshops, and private sessions upon request.
+  </p>
+  <p>
+    For more information, inquiries, or enrollment assistance, reach us at <a href="tel:+8801745045500" className="hover:text-primary transition-colors font-medium">+880 1745-045500</a> or <a href="tel:+8801745045501" className="hover:text-primary transition-colors font-medium">+880 1745-045501</a>. You can also visit our website for online course registration, upcoming events, and special promotions.
+  </p>
+</div>
+
 
                 {/* Email */}
                 <div className="flex items-center gap-3 text-muted-foreground">
@@ -116,25 +98,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-16 bg-[#F8F8F8]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-3xl font-bold text-center mb-8">
-            Find Us
-          </h2>
-          <div className="h-125 rounded-2xl overflow-hidden border border-border">
-            <iframe
-              src={branches[0].mapUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="BBTA Location Map"
-            />
-          </div>
-        </div>
+      {/* Address Section */}
+      <section className="section-padding px-4 sm:px-6 lg:px-8">
+        <Address />
       </section>
     </>
   );
