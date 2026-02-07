@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
+import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { CTABanner } from "@/components/sections/CTABanner";
 import {
   Accordion,
@@ -51,28 +52,42 @@ export default function CoursesPage() {
       {/* FAQs Section */}
       <section className="section-padding bg-[#F8F8F8]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Common Questions
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Frequently Asked Questions
-            </h2>
-          </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: FAQs */}
+            <div>
+              <div className="mb-8">
+                <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
+                  Common Questions
+                </p>
+                <h2 className="font-serif text-3xl md:text-4xl font-bold">
+                  Frequently Asked Questions
+                </h2>
+                <p className="text-muted-foreground mt-4">
+                  Everything you need to know about our courses and certification.
+                </p>
+              </div>
 
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`faq-${index}`}>
-                  <AccordionTrigger className="text-left font-medium hover:text-primary">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`faq-${index}`}>
+                    <AccordionTrigger className="text-left font-medium hover:text-primary">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+
+            {/* Right: Enrollment Form */}
+            <div className="lg:sticky lg:top-24">
+              <EnrollmentForm
+                title="Course Inquiry"
+                description="Interested in a course? Fill out the form below and our team will get back to you with details."
+              />
+            </div>
           </div>
         </div>
       </section>

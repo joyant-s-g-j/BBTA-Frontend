@@ -19,6 +19,7 @@ import { courses, type Course } from "@/lib/data";
 
 interface CourseGridProps {
   maxCourses?: number;
+  mobileMaxCourses?: number;
   showFilters?: boolean;
   showHeader?: boolean;
   title?: string;
@@ -31,6 +32,7 @@ interface CourseGridProps {
  */
 export function CourseGrid({
   maxCourses,
+  mobileMaxCourses,
   showFilters = true,
   showHeader = true,
   title = "Our Courses",
@@ -165,7 +167,16 @@ export function CourseGrid({
                 {filteredCourses.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredCourses.map((course, index) => (
-                      <CourseCard key={course.slug} course={course} index={index} />
+                      <CourseCard
+                        key={course.slug}
+                        course={course}
+                        index={index}
+                        className={
+                          mobileMaxCourses && index >= mobileMaxCourses
+                            ? "hidden md:block"
+                            : ""
+                        }
+                      />
                     ))}
                   </div>
                 ) : (
@@ -195,7 +206,16 @@ export function CourseGrid({
         {!showFilters && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCourses.map((course, index) => (
-              <CourseCard key={course.slug} course={course} index={index} />
+              <CourseCard
+                key={course.slug}
+                course={course}
+                index={index}
+                className={
+                  mobileMaxCourses && index >= mobileMaxCourses
+                    ? "hidden md:block"
+                    : ""
+                }
+              />
             ))}
           </div>
         )}

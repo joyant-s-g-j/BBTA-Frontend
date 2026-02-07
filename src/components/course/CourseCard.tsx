@@ -13,13 +13,14 @@ import type { Course } from "@/lib/data";
 interface CourseCardProps {
   course: Course;
   index?: number;
+  className?: string;
 }
 
 /**
  * CourseCard Component
  * 3D tiltable card with hover effects, badges, and gradient overlays
  */
-export function CourseCard({ course, index = 0 }: CourseCardProps) {
+export function CourseCard({ course, index = 0, className }: CourseCardProps) {
   // Level color mapping
   const levelColors: Record<string, string> = {
     Beginner: "bg-primary text-white border-primary",
@@ -39,7 +40,7 @@ export function CourseCard({ course, index = 0 }: CourseCardProps) {
       }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.3 }}
-      className="group h-full rounded-2xl"
+      className={cn("group h-full rounded-2xl", className)}
     >
       <div className="relative bg-card rounded-2xl overflow-hidden border border-border h-full flex flex-col transition-shadow duration-300">
         {/* Image Container */}

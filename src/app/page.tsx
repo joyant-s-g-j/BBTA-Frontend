@@ -33,6 +33,7 @@ export default function HomePage() {
       {/* Featured Courses */}
       <CourseGrid
         maxCourses={6}
+        mobileMaxCourses={4}
         showFilters={false}
         title="Popular Courses"
         subtitle="Start Your Journey"
