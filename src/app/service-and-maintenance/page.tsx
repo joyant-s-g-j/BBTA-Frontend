@@ -11,12 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+
 import { maintenanceServices } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -85,89 +80,62 @@ export default function ServiceMaintenancePage() {
         showScrollIndicator={false}
       />
 
-      {/* Services Accordion */}
+      {/* Services Grid */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div>
-              <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                Our Services
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-                Comprehensive Equipment Care
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Our certified technicians specialize in maintaining and repairing
-                all major coffee equipment brands to keep your cafe running
-                smoothly.
-              </p>
+          <div className="text-center mb-12">
+            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
+              Our Services
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold">
+              Comprehensive Equipment Care
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
+              Our certified technicians specialize in maintaining and repairing
+              all major coffee equipment brands to keep your cafe running
+              smoothly.
+            </p>
+          </div>
 
-              <Accordion type="single" collapsible className="w-full">
-                {maintenanceServices.map((service, index) => {
-                  const IconComponent =
-                    (LucideIcons as any)[
-                      service.icon
-                    ] || LucideIcons.Wrench;
+          <div className="grid md:grid-cols-2 gap-6">
+            {maintenanceServices.map((service) => {
+              const IconComponent =
+                (LucideIcons as any)[
+                  service.icon
+                ] || LucideIcons.Wrench;
 
-                  return (
-                    <AccordionItem key={service.title} value={`service-${index}`}>
-                      <AccordionTrigger className="hover:text-primary">
-                        <span className="flex items-center gap-3">
-                          <IconComponent className="h-5 w-5 text-primary" />
-                          {service.title}
-                        </span>
-                      </AccordionTrigger>
-                      <AccordionContent className="pl-8">
-                        <p className="text-muted-foreground mb-3">
-                          {service.description}
-                        </p>
-                        <ul className="space-y-2">
-                          {service.features.map((feature) => (
-                            <li
-                              key={feature}
-                              className="flex items-center gap-2 text-sm"
-                            >
-                              <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
-            </div>
-
-            {/* Brands We Service */}
-            <div>
-              <h3 className="font-serif text-xl font-bold mb-6">
-                Brands We Service
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  "La Marzocco",
-                  "Nuova Simonelli",
-                  "Victoria Arduino",
-                  "Slayer",
-                  "Synesso",
-                  "Rocket",
-                  "Breville",
-                  "Rancilio",
-                  "Mahlkönig",
-                  "Mazzer",
-                  "Eureka",
-                  "Baratza",
-                ].map((brand) => (
-                  <div
-                    key={brand}
-                    className="bg-card rounded-lg border border-border p-4 text-center hover:border-primary/50 transition-colors"
-                  >
-                    <span className="text-sm font-medium">{brand}</span>
+              return (
+                <div
+                  key={service.title}
+                  className="bg-card rounded-2xl border border-border p-8 card-hover"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-xl bg-primary/10">
+                      <IconComponent className="h-8 w-8 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-serif text-xl font-bold mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-4">
+                        {service.description}
+                      </p>
+                      <ul className="space-y-2">
+                        {service.features.map((feature) => (
+                          <li
+                            key={feature}
+                            className="flex items-center gap-2 text-sm text-muted-foreground"
+                          >
+                            <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
