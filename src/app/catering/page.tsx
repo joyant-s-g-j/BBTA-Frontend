@@ -145,8 +145,8 @@ export default function CateringPage() {
             {[
               "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
               "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400",
-              "https://images.unsplash.com/photo-1554118811-1e0d58224f54?w=400",
-              "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400",
+              "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
+              "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400"
             ].map((image, index) => (
               <div
                 key={index}
