@@ -47,7 +47,7 @@ export function HeroSection({
 
   const overlayClasses = {
     dark: "bg-gradient-to-b from-black/70 via-black/50 to-black/30",
-    gradient: "bg-gradient-to-b from-black/60 via-black/80 to-background",
+    gradient: "bg-[linear-gradient(135deg,rgba(255,255,255,0.35)_0%,transparent_35%),linear-gradient(to_bottom,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.8)_100%)]",
     none: "",
   };
 

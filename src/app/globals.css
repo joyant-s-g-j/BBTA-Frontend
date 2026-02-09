@@ -138,6 +138,19 @@
     @apply backdrop-blur-xl border border-white/5;
     background: rgba(10, 10, 10, 0.95);
   }
+
+  /* Premium Navbar Gradient for logo visibility */
+  .navbar-premium-gradient {
+    @apply backdrop-blur-md border-b border-white/10 shadow-lg;
+    background: linear-gradient(
+      to right, 
+      rgba(255, 255, 255, 0.98) 0%, 
+      rgba(255, 255, 255, 0.95) 15%, 
+      rgba(255, 255, 255, 0.5) 25%,
+      rgba(10, 10, 10, 0.8) 40%, 
+      rgba(10, 10, 10, 0.95) 100%
+    );
+  }
   
   /* Red glow effect */
   .glow-gold {
@@ -200,7 +213,7 @@
                 0 0 30px rgba(177, 18, 38, 0.2);
   }
   
-  /* Animated underline — BBTA Red */
+  /* Animated underline — Positioned outside the box */
   .underline-animated {
     position: relative;
   }
@@ -208,7 +221,7 @@
   .underline-animated::after {
     content: "";
     position: absolute;
-    bottom: -2px;
+    bottom: -4px;
     left: 0;
     width: 0;
     height: 2px;

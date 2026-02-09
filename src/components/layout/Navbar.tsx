@@ -47,9 +47,9 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "glass"
+          ? "navbar-premium-gradient"
           : "bg-transparent border-b border-transparent"
       )}
     >
@@ -57,7 +57,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20 transition-[height] duration-300">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group relative z-10">
-            <div className="rounded-xl p-1 bg-white/90 transition-colors hover:bg-white">
+            <div className="rounded-xl p-1 transition-colors">
               <Image 
                 src="/bbtalogo.webp" 
                 alt="BBTA Logo" 
@@ -78,8 +78,10 @@ export function Navbar() {
                   <NavigationMenuLink
                     asChild
                     className={cn(
-                      "px-4 py-2 text-sm font-medium transition-colors underline-animated",
-                      pathname === "/" ? "text-primary" : "text-foreground hover:text-primary"
+                      "px-4 py-2 text-sm font-medium rounded-md transition-colors underline-animated",
+                      pathname === "/" 
+                        ? "bg-primary text-white" 
+                        : "text-foreground hover:bg-primary hover:text-white"
                     )}
                   >
                     <Link href="/">
@@ -92,10 +94,10 @@ export function Navbar() {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={cn(
-                      "px-4 py-2 text-sm font-medium bg-transparent",
+                      "px-4 py-2 text-sm font-medium bg-transparent rounded-md transition-colors underline-animated",
                       pathname.includes("/bbta-courses") || courses.some(c => pathname === `/${c.slug}`)
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
+                        ? "bg-primary text-white"
+                        : "text-foreground hover:bg-primary hover:text-white"
                     )}
                   >
                     Courses
@@ -110,10 +112,10 @@ export function Navbar() {
                         >
                           <GraduationCap className="h-8 w-8 text-primary" />
                           <div>
-                            <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            <div className="font-semibold text-foreground group-hover:text-white transition-colors">
                               View All Courses
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-muted-foreground group-hover:text-white/80">
                               Explore our complete range of professional training
                             </p>
                           </div>
@@ -124,16 +126,16 @@ export function Navbar() {
                           <Link
                             key={course.slug}
                             href={`/${course.slug}`}
-                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-card transition-colors group"
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-primary transition-colors group"
                           >
                             <div className="p-2 rounded-md bg-primary/10">
                               <Coffee className="h-4 w-4 text-primary" />
                             </div>
                             <div>
-                              <div className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
+                              <div className="font-medium text-sm text-foreground group-hover:text-white transition-colors">
                                 {course.title}
                               </div>
-                              <p className="text-xs text-muted-foreground mt-0.5">
+                              <p className="text-xs text-muted-foreground group-hover:text-white/70 mt-0.5">
                                 {course.duration} • {course.level}
                               </p>
                             </div>
@@ -150,10 +152,10 @@ export function Navbar() {
                     <NavigationMenuLink
                       asChild
                       className={cn(
-                        "px-4 py-2 text-sm font-medium transition-colors underline-animated",
+                        "px-4 py-2 text-sm font-medium rounded-md transition-colors underline-animated",
                         pathname === link.href
-                          ? "text-primary"
-                          : "text-foreground hover:text-primary"
+                          ? "bg-primary text-white"
+                          : "text-foreground hover:bg-primary hover:text-white"
                       )}
                     >
                       <Link href={link.href}>
@@ -180,7 +182,7 @@ export function Navbar() {
             {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" aria-label="Open menu">
+                <Button variant="ghost" size="icon" aria-label="Open menu" className="hover:bg-primary hover:text-white">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
@@ -198,10 +200,10 @@ export function Navbar() {
                         <Link
                           href={link.href}
                           className={cn(
-                            "flex items-center py-3 px-4 rounded-lg text-lg font-medium transition-colors",
+                            "flex items-center py-3 px-4 rounded-lg text-lg font-medium transition-colors underline-animated",
                             pathname === link.href
-                              ? "bg-primary/10 text-primary"
-                              : "text-muted-foreground hover:text-foreground hover:bg-card"
+                              ? "bg-primary text-white"
+                              : "text-muted-foreground hover:text-white hover:bg-primary"
                           )}
                         >
                           {link.label}
