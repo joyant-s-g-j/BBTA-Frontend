@@ -142,7 +142,7 @@ export default function CertificateVerificationPage() {
                           <div className="relative">
                             <Input
                               placeholder="e.g., BBTA-2025-001"
-                              className="bg-muted/50 border-border pl-10 text-lg py-6"
+                              className="bg-card/50 border-border pl-10 text-lg py-6"
                               {...field}
                             />
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -278,7 +278,7 @@ export default function CertificateVerificationPage() {
               </p>
               <p className="mt-2">
                 For demo purposes, try:{" "}
-                <code className="bg-muted px-2 py-1 rounded text-xs">
+                <code className="bg-card px-2 py-1 rounded text-xs">
                   BBTA-2025-001
                 </code>
               </p>

@@ -156,7 +156,7 @@ export default function AboutPage() {
                         index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
                       }`}
                     >
-                      <div className="bg-muted rounded-xl p-6">
+                      <div className="bg-card rounded-xl p-6">
                         <span className="text-primary font-bold text-lg">
                           {item.year}
                         </span>
@@ -177,7 +177,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="section-padding bg-[#F8F8F8]">
+      <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
@@ -246,7 +246,7 @@ export default function AboutPage() {
             ].map((cert) => (
               <div
                 key={cert.name}
-                className="bg-muted rounded-2xl p-6 text-center hover:bg-muted/80 transition-colors"
+                className="bg-card rounded-2xl p-6 text-center hover:bg-card/80 transition-colors"
               >
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl text-primary font-bold">

@@ -25,7 +25,7 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group text-center p-6 rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 card-hover shadow-sm"
+      className="group text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 card-hover shadow-sm"
     >
       {/* Icon Container */}
       <motion.div
@@ -55,7 +55,7 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
  */
 export function FeaturesGrid() {
   return (
-    <section className="section-padding bg-[#F8F8F8] relative overflow-hidden">
+    <section className="section-padding relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <motion.div

@@ -141,7 +141,7 @@ export default function ServiceMaintenancePage() {
       </section>
 
       {/* Pricing & Service Request */}
-      <section className="section-padding bg-[#F8F8F8]">
+      <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
             {/* Pricing Table */}

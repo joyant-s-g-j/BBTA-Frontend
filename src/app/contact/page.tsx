@@ -57,20 +57,20 @@ export default function ContactPage() {
               {/* Branch Cards */}
               <div className="space-y-6">
                 <div className="text-muted-foreground mb-6 leading-relaxed">
-  <p className="mb-4">
-    Experience world-class coffee training at Bangladesh Barista Training Academy&apos;s two convenient Dhaka locations. Visit our flagship hub in the <strong>Baridhara Diplomatic Zone</strong> at House 45, Road 11, Dhaka 1212, or join us at our <strong>Dhanmondi</strong> campus located at House 12, Road 8, Dhaka 1205.
-  </p>
-  <p className="mb-4">
-    Both centers are fully equipped with professional espresso machines, grinders, brewing tools, and comfortable learning spaces designed for hands-on practice. Our curriculum covers a wide range of courses including <strong>Barista Foundation, Advanced Coffee Techniques, Latte Art, Hand Brewing, Roasting, and Mixology</strong>, ensuring that students at every skill level find programs tailored to their needs.
-  </p>
-  
-  <p className="mb-4">
-    Both centers are open <strong>Saturday to Friday, 9:00 AM - 9:00 PM</strong>, making it convenient for working professionals and enthusiasts to join. We also offer flexible course schedules, weekend workshops, and private sessions upon request.
-  </p>
-  <p>
-    For more information, inquiries, or enrollment assistance, reach us at <a href="tel:+8801745045500" className="hover:text-primary transition-colors font-medium">+880 1745-045500</a> or <a href="tel:+8801745045501" className="hover:text-primary transition-colors font-medium">+880 1745-045501</a>. You can also visit our website for online course registration, upcoming events, and special promotions.
-  </p>
-</div>
+                  <p className="mb-4">
+                    Experience world-class coffee training at Bangladesh Barista Training Academy&apos;s two convenient Dhaka locations. Visit our flagship hub in the <strong>Baridhara Diplomatic Zone</strong> at House 45, Road 11, Dhaka 1212, or join us at our <strong>Dhanmondi</strong> campus located at House 12, Road 8, Dhaka 1205.
+                  </p>
+                  <p className="mb-4">
+                    Both centers are fully equipped with professional espresso machines, grinders, brewing tools, and comfortable learning spaces designed for hands-on practice. Our curriculum covers a wide range of courses including <strong>Barista Foundation, Advanced Coffee Techniques, Latte Art, Hand Brewing, Roasting, and Mixology</strong>, ensuring that students at every skill level find programs tailored to their needs.
+                  </p>
+                  
+                  <p className="mb-4">
+                    Both centers are open <strong>Saturday to Friday, 9:00 AM - 9:00 PM</strong>, making it convenient for working professionals and enthusiasts to join. We also offer flexible course schedules, weekend workshops, and private sessions upon request.
+                  </p>
+                  <p>
+                    For more information, inquiries, or enrollment assistance, reach us at <a href="tel:+8801745045500" className="hover:text-primary transition-colors font-medium">+880 1745-045500</a> or <a href="tel:+8801745045501" className="hover:text-primary transition-colors font-medium">+880 1745-045501</a>. You can also visit our website for online course registration, upcoming events, and special promotions.
+                  </p>
+                </div>
 
 
                 {/* Email */}
@@ -99,7 +99,7 @@ export default function ContactPage() {
       </section>
 
       {/* Address Section */}
-      <section className="section-padding px-4 sm:px-6 lg:px-8">
+      <section className="section-padding bg-card px-4 sm:px-6 lg:px-8">
         <Address />
       </section>
     </>

@@ -103,7 +103,7 @@ export function StatsSection() {
   ];
 
   return (
-    <section className="section-padding bg-[#F8F8F8] relative overflow-hidden">
+    <section className="section-padding relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />

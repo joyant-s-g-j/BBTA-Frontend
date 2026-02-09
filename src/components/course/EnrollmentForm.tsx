@@ -131,7 +131,7 @@ export function EnrollmentForm({
                 <FormControl>
                   <Input
                     placeholder="Your full name"
-                    className="bg-muted/50 border-border"
+                    className="bg-card/50 border-border"
                     {...field}
                   />
                 </FormControl>
@@ -156,7 +156,7 @@ export function EnrollmentForm({
                     <Input
                       type="email"
                       placeholder="your@email.com"
-                      className="bg-muted/50 border-border"
+                      className="bg-card/50 border-border"
                       {...field}
                     />
                   </FormControl>
@@ -178,7 +178,7 @@ export function EnrollmentForm({
                     <Input
                       type="tel"
                       placeholder="+880 1XXX-XXXXXX"
-                      className="bg-muted/50 border-border"
+                      className="bg-card/50 border-border"
                       {...field}
                     />
                   </FormControl>
@@ -201,7 +201,7 @@ export function EnrollmentForm({
                 <FormControl>
                   <Input
                     placeholder="Your full address"
-                    className="bg-muted/50 border-border"
+                    className="bg-card/50 border-border"
                     {...field}
                   />
                 </FormControl>
@@ -222,7 +222,7 @@ export function EnrollmentForm({
                 </FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="bg-muted/50 border-border">
+                    <SelectTrigger className="bg-card/50 border-border">
                       <SelectValue placeholder="Choose a course" />
                     </SelectTrigger>
                   </FormControl>
@@ -253,7 +253,7 @@ export function EnrollmentForm({
                   <FormControl>
                     <Textarea
                       placeholder="Any questions or special requests..."
-                      className="bg-muted/50 border-border min-h-25 resize-none"
+                      className="bg-card/50 border-border min-h-25 resize-none"
                       {...field}
                     />
                   </FormControl>

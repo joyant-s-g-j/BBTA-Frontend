@@ -81,7 +81,7 @@ export function CourseGrid({
   const levels = ["Beginner", "Intermediate", "Advanced", "Expert"];
 
   return (
-    <section className="section-padding relative">
+    <section className="section-padding bg-card relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         {showHeader && (
@@ -117,7 +117,7 @@ export function CourseGrid({
             {/* Tabs for Level Filter */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-                <TabsList className="bg-muted/50 p-1">
+                <TabsList className="bg-card/50 p-1">
                   <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     All Courses
                   </TabsTrigger>
@@ -141,13 +141,13 @@ export function CourseGrid({
                       placeholder="Search courses..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10 sm:w-50 bg-muted/50 border-border"
+                      className="pl-10 sm:w-50 bg-card/50 border-border"
                     />
                   </div>
 
                   {/* Mobile Level Filter */}
                   <Select value={levelFilter} onValueChange={setLevelFilter}>
-                    <SelectTrigger className="w-32.5 sm:hidden bg-muted/50 border-border">
+                    <SelectTrigger className="w-32.5 sm:hidden bg-card/50 border-border">
                       <SelectValue placeholder="Level" />
                     </SelectTrigger>
                     <SelectContent>

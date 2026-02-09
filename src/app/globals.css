@@ -55,30 +55,40 @@
 :root {
   --radius: 0.625rem;
   
-  /* BBTA White-Dominant — Red accent, Green tertiary */
-  --background: #FFFFFF;
-  --foreground: #1A1A1A;
-  --card: #FFFFFF;
-  --card-foreground: #1A1A1A;
-  --popover: #FFFFFF;
-  --popover-foreground: #1A1A1A;
-  --primary: #B11226;
+  /* BBTA Dark-Dominant — Eye Friendly Dark Mode */
+  --background: #0a0a0a; /* Deep black-gray */
+  --foreground: #ededed; /* Soft white/gray */
+  
+  --card: #171717; /* Dark gray card */
+  --card-foreground: #ededed;
+  
+  --popover: #171717;
+  --popover-foreground: #ededed;
+  
+  --primary: #B11226; /* Brand Red - kept same */
   --primary-foreground: #FFFFFF;
-  --secondary: #F8F8F8;
-  --secondary-foreground: #1A1A1A;
-  --muted: #F5F5F5;
-  --muted-foreground: #6B7280;
-  --accent: #1E7F5C;
+  
+  --secondary: #262626; /* Darker gray for secondary */
+  --secondary-foreground: #ededed;
+  
+  --muted: #262626;
+  --muted-foreground: #a3a3a3; /* Muted text */
+  
+  --accent: #1E7F5C; /* Brand Green Accent */
   --accent-foreground: #FFFFFF;
+  
   --destructive: #ef4444;
-  --border: #E5E7EB;
-  --input: #E5E7EB;
+  
+  --border: #2e2e2e; /* Dark border */
+  --input: #2e2e2e;
+  
   --ring: #B11226;
+  
   --chart-1: #B11226;
   --chart-2: #1E7F5C;
-  --chart-3: #1A1A1A;
-  --chart-4: #6B7280;
-  --chart-5: #F5F5F5;
+  --chart-3: #ededed;
+  --chart-4: #a3a3a3;
+  --chart-5: #262626;
   
   /* BBTA Custom Colors */
   --bbta-red: #B11226;
@@ -118,50 +128,50 @@
 }
 
 @layer utilities {
-  /* Glassmorphism — White glass for navbar */
+  /* Glassmorphism — Dark glass for navbar */
   .glass {
-    @apply backdrop-blur-md border border-border/50;
-    background: rgba(255, 255, 255, 0.85);
+    @apply backdrop-blur-md border border-white/5;
+    background: rgba(10, 10, 10, 0.8);
   }
   
   .glass-strong {
-    @apply backdrop-blur-xl border border-border/50;
-    background: rgba(255, 255, 255, 0.95);
+    @apply backdrop-blur-xl border border-white/5;
+    background: rgba(10, 10, 10, 0.95);
   }
   
   /* Red glow effect */
   .glow-gold {
-    box-shadow: 0 0 20px rgba(177, 18, 38, 0.20),
-                0 0 40px rgba(177, 18, 38, 0.06);
+    box-shadow: 0 0 20px rgba(177, 18, 38, 0.30),
+                0 0 40px rgba(177, 18, 38, 0.10);
   }
   
   .glow-gold-hover:hover {
-    box-shadow: 0 0 30px rgba(177, 18, 38, 0.30),
-                0 0 60px rgba(177, 18, 38, 0.12);
+    box-shadow: 0 0 30px rgba(177, 18, 38, 0.40),
+                0 0 60px rgba(177, 18, 38, 0.20);
   }
   
-  /* Gradient backgrounds */
+  /* Gradient backgrounds - Darkened */
   .bg-gradient-dark {
-    background: linear-gradient(to bottom right, #F8F8F8, rgba(177, 18, 38, 0.03));
+    background: linear-gradient(to bottom right, #0a0a0a, #110204);
   }
   
   .bg-gradient-hero {
     background: linear-gradient(
       to bottom,
-      #FFFFFF 0%,
-      #FFFFFF 80%,
-      rgba(177, 18, 38, 0.05) 100%
+      #0a0a0a 0%,
+      #0d0d0d 80%,
+      rgba(177, 18, 38, 0.1) 100%
     );
   }
   
   .bg-gradient-gold {
-    background: linear-gradient(135deg, #B11226 0%, #B11226/80 100%);
+    background: linear-gradient(135deg, #B11226 0%, #8a0e1d 100%);
   }
   
   /* Text gradients */
   .text-gradient-gold {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #B11226, #D41A30);
+    background-image: linear-gradient(135deg, #B11226, #ff4d63);
   }
   
   /* Noise texture overlay */
@@ -173,9 +183,10 @@
     content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.02;
+    opacity: 0.03;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    filter: invert(1);
   }
   
   /* Card hover effects — Red glow only */
@@ -185,8 +196,8 @@
   
   .card-hover:hover {
     @apply -translate-y-1;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06),
-                0 0 30px rgba(177, 18, 38, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(177, 18, 38, 0.2);
   }
   
   /* Animated underline — BBTA Red */
@@ -231,14 +242,14 @@
   }
 }
 
-/* Custom scrollbar — Light track, Red thumb */
+/* Custom scrollbar — Dark track, Red thumb */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F5F5;
+  background: #171717;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -252,8 +263,8 @@
 
 /* Selection color */
 ::selection {
-  background: rgba(177, 18, 38, 0.20);
-  color: #1A1A1A;
+  background: rgba(177, 18, 38, 0.40);
+  color: #ededed;
 }
 
 /* Focus visible — Green ring for subtle tertiary accent */

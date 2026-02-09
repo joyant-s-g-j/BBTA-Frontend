@@ -130,7 +130,7 @@ export default function CateringPage() {
       </section>
 
       {/* Gallery Teaser */}
-      <section className="section-padding bg-[#F8F8F8]">
+      <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">

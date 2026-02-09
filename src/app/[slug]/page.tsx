@@ -95,7 +95,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-white/30 via-white/50 to-white" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-background" />
         </div>
 
         {/* Content */}
@@ -166,7 +166,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   {course.features.map((feature) => (
                     <div
                       key={feature}
-                      className="flex items-start gap-3 p-3 rounded-lg bg-muted/50"
+                      className="flex items-start gap-3 p-3 rounded-lg bg-card/50"
                     >
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                       <span className="text-sm">{feature}</span>

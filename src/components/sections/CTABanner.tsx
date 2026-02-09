@@ -26,15 +26,15 @@ export function CTABanner({
   variant = "green",
 }: CTABannerProps) {
   const variantStyles = {
-    green: "bg-[#f8f8f8] text-black", // Explicit light green background
+    green: "bg-secondary text-foreground", // Explicit light green background
   };
 
   return (
     <section className={`py-16 md:py-24 relative overflow-hidden ${variantStyles["green"]}`}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-black rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-black rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -47,10 +47,10 @@ export function CTABanner({
         >
           {/* Text Content */}
           <div className="text-center md:text-left max-w-2xl">
-            <h2 className="font-serif text-black text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="font-serif text-foreground text-3xl md:text-4xl font-bold mb-4">
               {title}
             </h2>
-            <p className="text-black/70">
+            <p className="text-muted-foreground">
               {description}
             </p>
           </div>
@@ -59,7 +59,7 @@ export function CTABanner({
           <Link href={ctaHref}>
             <Button
               size="lg"
-              className="group px-8 py-6 text-lg font-semibold bg-red-600 text-white hover:bg-red-700 shadow-lg"
+              className="group px-8 py-6 text-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg"
             >
               {ctaText}
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

@@ -46,8 +46,8 @@ export function HeroSection({
   };
 
   const overlayClasses = {
-    dark: "bg-gradient-to-b from-white/20 via-white/35 to-white/60",
-    gradient: "bg-gradient-to-b from-white/15 via-white/30 to-white/50",
+    dark: "bg-gradient-to-b from-black/70 via-black/50 to-black/30",
+    gradient: "bg-gradient-to-b from-black/60 via-black/80 to-background",
     none: "",
   };
 
@@ -149,13 +149,13 @@ export function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="text-lg sm:text-xl text-black font-bold mb-8 max-w-2xl mx-auto"
+              className="text-lg sm:text-xl text-foreground font-bold mb-8 max-w-2xl mx-auto"
               style={{
                 textShadow: `
-                  1px 1px 0 #ffffff,
-                  -1px 1px 0 #ffffff,
-                  1px -1px 0 #ffffff,
-                  -1px -1px 0 #ffffff
+                  1px 1px 0 #000000,
+                  -1px 1px 0 #000000,
+                  1px -1px 0 #000000,
+                  -1px -1px 0 #000000
                 `
               }}
             >

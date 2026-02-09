@@ -49,7 +49,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
         isScrolled
-          ? "bg-white/95 backdrop-blur-xl border-b border-border/50 shadow-sm"
+          ? "glass"
           : "bg-transparent border-b border-transparent"
       )}
     >
@@ -57,7 +57,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20 transition-[height] duration-300">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group relative z-10">
-            <div className="rounded-xl p-1 bg-white/0 transition-colors">
+            <div className="rounded-xl p-1 bg-white/90 transition-colors hover:bg-white">
               <Image 
                 src="/bbtalogo.webp" 
                 alt="BBTA Logo" 
@@ -79,7 +79,7 @@ export function Navbar() {
                     asChild
                     className={cn(
                       "px-4 py-2 text-sm font-medium transition-colors underline-animated",
-                      pathname === "/" ? "text-primary" : "text-black hover:text-foreground"
+                      pathname === "/" ? "text-primary" : "text-foreground hover:text-primary"
                     )}
                   >
                     <Link href="/">
@@ -95,7 +95,7 @@ export function Navbar() {
                       "px-4 py-2 text-sm font-medium bg-transparent",
                       pathname.includes("/bbta-courses") || courses.some(c => pathname === `/${c.slug}`)
                         ? "text-primary"
-                        : "text-black hover:text-foreground"
+                        : "text-foreground hover:text-primary"
                     )}
                   >
                     Courses
@@ -124,7 +124,7 @@ export function Navbar() {
                           <Link
                             key={course.slug}
                             href={`/${course.slug}`}
-                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted transition-colors group"
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-card transition-colors group"
                           >
                             <div className="p-2 rounded-md bg-primary/10">
                               <Coffee className="h-4 w-4 text-primary" />
@@ -153,7 +153,7 @@ export function Navbar() {
                         "px-4 py-2 text-sm font-medium transition-colors underline-animated",
                         pathname === link.href
                           ? "text-primary"
-                          : "text-black hover:text-white"
+                          : "text-foreground hover:text-primary"
                       )}
                     >
                       <Link href={link.href}>
@@ -187,8 +187,8 @@ export function Navbar() {
               <SheetContent side="right" className="w-80 glass-strong">
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
-                  <div className=" rounded-xl p-1">
-                      <Image src="/bbtalogo.webp" alt="BBTA Logo" width={48} height={48} className="h-12 w-20" />
+                  <div className="bg-white/90 rounded-xl p-1 w-fit">
+                      <Image src="/bbtalogo.webp" alt="BBTA Logo" width={48} height={48} className="h-12 w-20 object-contain" />
                     </div>
 
                   {/* Mobile Nav Links */}
@@ -201,7 +201,7 @@ export function Navbar() {
                             "flex items-center py-3 px-4 rounded-lg text-lg font-medium transition-colors",
                             pathname === link.href
                               ? "bg-primary/10 text-primary"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                              : "text-muted-foreground hover:text-foreground hover:bg-card"
                           )}
                         >
                           {link.label}

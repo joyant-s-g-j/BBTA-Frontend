@@ -52,7 +52,7 @@ export function TestimonialsCarousel() {
   };
 
   return (
-    <section className="section-padding bg-secondary relative overflow-hidden">
+    <section className="section-padding bg-card relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-10 left-10 text-primary/10">
         <Quote className="h-32 w-32" />
