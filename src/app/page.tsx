@@ -2,14 +2,15 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
 import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
+import { CareerGrowthSection } from "@/components/sections/CareerGrowthSection";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
+import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
 import { BranchesMap } from "@/components/sections/BranchesMap";
 import { CTABanner } from "@/components/sections/CTABanner";
 
-
 /**
  * Home Page
- * Main landing page with hero, stats, courses, features, testimonials, and CTA
+ * Main landing page with hero, stats, courses, features, career growth, testimonials, FAQ, and CTA
  */
 export default function HomePage() {
   return (
@@ -39,11 +40,17 @@ export default function HomePage() {
         subtitle="Start Your Journey"
       />
 
-      {/* Features Grid */}
+      {/* Features Grid — Why Choose BBTA */}
       <FeaturesGrid />
+
+      {/* How Barista Training Grows Your Career */}
+      <CareerGrowthSection />
 
       {/* Testimonials */}
       <TestimonialsCarousel />
+
+      {/* FAQ Section */}
+      <HomeFAQSection />
 
       {/* Branches Map */}
       <BranchesMap />

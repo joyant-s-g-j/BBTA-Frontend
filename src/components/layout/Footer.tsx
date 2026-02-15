@@ -59,7 +59,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="bg-white rounded-xl p-1">
-                <Image src="/bbtalogo.webp" alt="BBTA Logo" width={56} height={56} className="h-14 w-14" />
+                <Image src="/bbtalogo.webp" alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
