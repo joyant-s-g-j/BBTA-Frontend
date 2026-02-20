@@ -186,24 +186,17 @@ export function Navbar() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 glass-strong">
+              <SheetContent side="right" className="w-80 glass-strong py-4">
                 <div className="flex flex-col h-full">
-                  {/* Mobile Logo */}
-                  <div className="bg-white/90 rounded-xl p-1 w-fit">
-                      <Image src="/bbtalogo.webp" alt="BBTA Logo" width={48} height={48} className="h-12 w-20 object-contain" />
-                    </div>
 
                   {/* Mobile Nav Links */}
-                  <nav className="flex-1 space-y-2">
+                  <nav className="flex-1 space-y-1 overflow-y-auto">
                     {navLinks.map((link) => (
                       <SheetClose asChild key={link.href}>
                         <Link
                           href={link.href}
                           className={cn(
-                            "flex items-center py-3 px-4 rounded-lg text-lg font-medium transition-colors underline-animated",
-                            pathname === link.href
-                              ? "bg-primary text-white"
-                              : "text-muted-foreground hover:text-white hover:bg-primary"
+                            "flex items-center py-2 px-4 rounded-lg text-base font-medium transition-colors text-muted-foreground hover:text-white hover:bg-primary"
                           )}
                         >
                           {link.label}
@@ -214,8 +207,8 @@ export function Navbar() {
 
                   {/* Mobile Book Now */}
                   <SheetClose asChild>
-                    <Link href="/contact" className="mt-6">
-                      <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-gold font-semibold py-6 text-lg">
+                    <Link href="/contact" className="mt-4">
+                      <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-gold font-semibold py-5 text-base">
                         Book Now
                       </Button>
                     </Link>

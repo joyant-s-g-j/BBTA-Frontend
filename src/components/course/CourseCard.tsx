@@ -26,7 +26,7 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
       // whileHover={{ y: -10 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className={cn("group h-full rounded-2xl relative overflow-hidden", className)}
+      className={cn("group h-full rounded-lg relative overflow-hidden", className)}
     >
       {/* Full Card Background Image */}
       <div className="absolute inset-0 z-0">
@@ -34,7 +34,7 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
           src={course.image}
           alt={course.title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="object-cover transition-transform duration-700 "
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {/* Dark Overlay for Text Readability */}
@@ -44,24 +44,24 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
       {/* Content Overlay */}
       <div className="relative z-10 h-full flex flex-col pt-10 px-8">
         {/* Top Header */}
-        <p className="text-white/60 text-[10px] md:text-xs font-medium uppercase tracking-[0.25em] mb-4">
+        <p className="text-white/60 text-xs font-medium uppercase tracking-[0.25em] mb-4">
           FOR GROWING BARISTA
         </p>
 
         {/* Main Title */}
-        <h3 className="font-sans text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+        <h3 className="font-sans text-3xl font-bold text-white mb-6 leading-tight">
           {course.title}
         </h3>
 
         {/* Course Details Line */}
-        <div className="flex items-center gap-2 text-white/90 text-sm md:text-base mb-6">
+        <div className="flex items-center gap-2 text-white/90 text-xs mb-6">
           <span>Duration <span className="font-bold">{course.duration}</span></span>
           <span className="text-white/40 mx-1">|</span>
           <span>Course Fee <span className="font-bold">{course.price}</span></span>
         </div>
 
         {/* Description */}
-        <p className="text-white/80 text-sm md:text-base leading-relaxed mb-10 line-clamp-4">
+        <p className="text-white/80 text-sm md:text-base leading-relaxed mb-10 ">
           {course.description}
         </p>
 
@@ -69,7 +69,7 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
         <div className="mt-auto -mx-8">
           <Link href={`/${course.slug}`}>
             <Button
-              className="w-full flex items-center justify-center rounded-none h-14 bg-[#ee2a4a] hover:bg-[#0f3d2e] text-white font-bold text-lg transition-colors border-none"
+              className="w-full flex items-center justify-center rounded-none h-8 bg-[#ee2a4a] hover:bg-[#0f3d2e] text-white font-bold text-lg transition-colors border-none"
             >
               Course Details
             </Button>

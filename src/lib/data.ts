@@ -76,7 +76,7 @@ export const courses: Course[] = [
     duration: "3 Days",
     price: "5,990 BDT",
     level: "Beginner",
-    description: "Basics of espresso making, grinding, and tamping. Hands-on practice.",
+    description: "Master the fundamentals of espresso preparation, including coffee bean knowledge, precision grinding, and perfect tamping techniques with intensive hands-on practice.",
     fullDescription: "Start your barista journey with our comprehensive foundation course. Learn the fundamentals of espresso preparation, from understanding coffee beans to perfecting your grinding and tamping techniques. This hands-on course provides the essential skills every aspiring barista needs.",
     features: ["Espresso basics", "Machine handling", "Grinding techniques", "Tamping mastery", "Certification included"],
     curriculum: [
@@ -92,7 +92,7 @@ export const courses: Course[] = [
     duration: "7 Days",
     price: "11,990 BDT",
     level: "Intermediate",
-    description: "Milk steaming, latte art intro, maintenance routines.",
+    description: "Take your skills to the next level with advanced milk steaming, an introduction to latte art patterns, and professional equipment maintenance routines.",
     fullDescription: "Elevate your barista skills with advanced milk techniques and latte art fundamentals. Master the art of steaming milk to silky perfection and create beautiful designs that will impress any coffee lover. Learn essential maintenance routines to keep your equipment in top condition.",
     features: ["Milk steaming techniques", "Latte art basics", "Machine maintenance", "Temperature control", "Texture perfection"],
     curriculum: [
@@ -109,7 +109,7 @@ export const courses: Course[] = [
     duration: "12 Days",
     price: "20,990 BDT",
     level: "Advanced",
-    description: "Advanced espresso, sensory evaluation, job readiness.",
+    description: "A comprehensive program focusing on advanced espresso theory, sensory flavor evaluation, workflow optimization, and professional job readiness for the specialty coffee industry.",
     fullDescription: "Become a professional-grade barista with our intensive 12-day program. Develop sophisticated sensory evaluation skills, master advanced espresso techniques, and prepare for a successful career in the specialty coffee industry. This course is designed for those serious about coffee excellence.",
     features: ["Sensory skills", "Advanced extraction", "Job readiness", "Customer service", "Menu development"],
     curriculum: [
@@ -126,7 +126,7 @@ export const courses: Course[] = [
     duration: "18 Days",
     price: "39,990 BDT",
     level: "Expert",
-    description: "Brewing methods, baking integration, flair bartending.",
+    description: "Our most advanced program covering diverse brewing methods, baking integration for cafes, and professional flair bartending to become a versatile industry expert.",
     fullDescription: "Our flagship program for those aspiring to reach the pinnacle of barista excellence. This comprehensive course covers everything from advanced brewing methods to baking integration and flair bartending techniques. Graduate ready to work in world-class establishments or open your own specialty cafe.",
     features: ["Flair techniques", "Baking integration", "International standards", "Competition prep", "Business fundamentals"],
     curriculum: [
@@ -144,7 +144,7 @@ export const courses: Course[] = [
     duration: "2 Days",
     price: "6,990 BDT",
     level: "Beginner",
-    description: "Pour-over, Aeropress, French Press techniques.",
+    description: "Explore the fascinating world of manual brewing, mastering techniques for Pour-over, Aeropress, and French Press to highlight the unique character of premium beans.",
     fullDescription: "Discover the art of manual coffee brewing with our intensive hands-on workshop. Master various brewing methods including pour-over, Aeropress, and French Press. Learn to extract the best flavors from specialty beans using traditional techniques that highlight coffee's unique characteristics.",
     features: ["Manual brewing", "Taste profiling", "Equipment setup", "Recipe development", "Water chemistry basics"],
     curriculum: [
@@ -159,7 +159,7 @@ export const courses: Course[] = [
     duration: "2 Days",
     price: "6,990 BDT",
     level: "Beginner",
-    description: "Blended drinks, smoothies, iced lattes.",
+    description: "Learn to craft refreshing summer favorites, including professional-grade blended drinks, fruity smoothies, and perfectly balanced iced lattes.",
     fullDescription: "Perfect for those hot summer days! Learn to create refreshing ice-crushed beverages, smoothies, and iced coffee drinks that will keep your customers coming back. Master blending techniques, flavor combinations, and stunning presentation skills.",
     features: ["Blending techniques", "Flavor balancing", "Presentation", "Seasonal menus", "Ingredient sourcing"],
     curriculum: [
@@ -174,7 +174,7 @@ export const courses: Course[] = [
     duration: "3 Days",
     price: "6,990 BDT",
     level: "Beginner",
-    description: "Basic baking for cafe items like croissants, cakes.",
+    description: "Master the essentials of cafe-style baking, learning to create delicious croissants, artisanal cakes, and pastries that perfectly complement your coffee menu.",
     fullDescription: "Complement your coffee skills with essential baking techniques. Learn to create delicious cafe staples including croissants, muffins, cookies, and simple cakes that pair perfectly with coffee. Perfect for aspiring cafe owners or baristas looking to expand their skill set.",
     features: ["Dough handling", "Oven techniques", "Coffee pairing", "Presentation", "Storage and freshness"],
     curriculum: [
@@ -190,7 +190,7 @@ export const courses: Course[] = [
     duration: "3 Days",
     price: "9,990 BDT",
     level: "Intermediate",
-    description: "Mocktails, infused drinks, cafe beverage innovation.",
+    description: "Dive into the art of beverage innovation, focusing on creative mocktails, botanical infusions, and unique signature drinks for modern cafe menus.",
     fullDescription: "Expand your beverage repertoire with creative mixology skills. Learn to craft stunning mocktails, infused drinks, and innovative cafe beverages that will set your menu apart. Perfect for cafes looking to offer unique, Instagram-worthy drinks.",
     features: ["Ingredient mixing", "Garnishing", "Menu integration", "Signature drinks", "Cost management"],
     curriculum: [
@@ -206,7 +206,7 @@ export const courses: Course[] = [
     duration: "1 Day",
     price: "4,990 BDT",
     level: "All",
-    description: "Latte art, plating, visual appeal mastery.",
+    description: "Perfect the visual appeal of your beverages through advanced latte art, elegant plating techniques, and the secrets of professional drink aesthetics.",
     fullDescription: "Master the visual art of beverage presentation. Learn advanced latte art techniques, plating aesthetics, and presentation skills that will elevate your drinks from ordinary to extraordinary. A must for any barista focused on customer experience.",
     features: ["Visual appeal", "Customer service", "Photography tips", "Social media ready", "Consistency training"],
     curriculum: [
@@ -220,7 +220,7 @@ export const courses: Course[] = [
     duration: "5 Days",
     price: "15,990 BDT",
     level: "Advanced",
-    description: "Bean roasting, quality control, profile development.",
+    description: "Understand the science of the roast, from bean selection and quality control to developing unique roast profiles for different coffee varieties.",
     fullDescription: "Dive deep into the world of coffee roasting. Learn to transform green beans into perfectly roasted coffee with our comprehensive roasting program. Understand roast profiles, quality control, and develop your own signature roasts that will define your coffee brand.",
     features: ["Roast profiles", "Equipment mastery", "Quality control", "Cupping", "Business applications"],
     curriculum: [
@@ -237,7 +237,7 @@ export const courses: Course[] = [
     duration: "2 Days",
     price: "7,990 BDT",
     level: "Intermediate",
-    description: "Advanced patterns, free-pouring, competition tips.",
+    description: "An intensive workshop focusing on intricate free-pour patterns, advanced etching techniques, and professional tips for latte art competitions.",
     fullDescription: "Take your latte art to the next level with our intensive workshop. Learn advanced free-pour patterns, etching techniques, and competition-level presentations. Perfect for baristas looking to compete or simply impress their customers with stunning coffee art.",
     features: ["Heart and rosetta", "Tulip mastery", "Etching techniques", "Competition prep", "Speed and consistency"],
     curriculum: [
