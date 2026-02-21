@@ -4,13 +4,14 @@ import { CourseGrid } from "@/components/course/CourseGrid";
 import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
 import { CareerGrowthSection } from "@/components/sections/CareerGrowthSection";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
+import { CertificationSection } from "@/components/sections/CertificationSection";
 import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
 import { BranchesMap } from "@/components/sections/BranchesMap";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 /**
  * Home Page
- * Main landing page with hero, stats, courses, features, career growth, testimonials, FAQ, and CTA
+ * Main landing page with hero, stats, courses, features, career growth, testimonials, certification, FAQ, and CTA
  */
 export default function HomePage() {
   return (
@@ -48,6 +49,9 @@ export default function HomePage() {
 
       {/* Testimonials */}
       <TestimonialsCarousel />
+
+      {/* Certification Section */}
+      <CertificationSection />
 
       {/* FAQ Section */}
       <HomeFAQSection />

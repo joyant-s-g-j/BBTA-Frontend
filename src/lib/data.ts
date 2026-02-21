@@ -68,6 +68,59 @@ export interface Service {
   features: string[];
 }
 
+export interface Certification {
+  id: number;
+  title: string;
+  issuer: string;
+  description: string;
+  icon: string;
+  image?: string;
+}
+
+// ============ CERTIFICATIONS DATA ============
+export const certifications: Certification[] = [
+  {
+    id: 1,
+    title: "ISO 9001:2015 Certified",
+    issuer: "International Organization for Standardization",
+    description: "Our quality management system is internationally certified, ensuring the highest standards in vocational training and education excellence.",
+    icon: "ShieldCheck",
+    image: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800"
+  },
+  {
+    id: 2,
+    title: "Professional Barista Diploma",
+    issuer: "Bangladesh Barista Training Academy",
+    description: "Our flagship diploma recognized by the hospitality industry across Bangladesh and the Middle East for professional excellence.",
+    icon: "GraduationCap",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800"
+  },
+  {
+    id: 3,
+    title: "International Recognition",
+    issuer: "Global Hospitality Standards",
+    description: "Aligned with City & Guilds and international coffee standards, making our graduates eligible for global employment opportunities.",
+    icon: "Globe",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800"
+  },
+  {
+    id: 4,
+    title: "SCA Aligned Curriculum",
+    issuer: "Specialty Coffee Association",
+    description: "Training programs designed in accordance with Specialty Coffee Association (SCA) protocols for sensory and technical skills.",
+    icon: "Award",
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800"
+  },
+  {
+    id: 5,
+    title: "Vocational Excellence Award",
+    issuer: "National Training Board",
+    description: "Recognized as a leading institution for skill development in the coffee and beverage sector in Bangladesh.",
+    icon: "Medal",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800"
+  }
+];
+
 // ============ COURSES DATA ============
 export const courses: Course[] = [
   {
