@@ -6,6 +6,7 @@ import { BranchesMap } from "@/components/sections/BranchesMap";
 import { Badge } from "@/components/ui/badge";
 import { branches } from "@/lib/data";
 import Address from "@/components/sections/Address";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -42,9 +43,12 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-2">
-              <h2 className="font-serif text-3xl font-bold mb-6">
-                Contact Information
-              </h2>
+              <SectionHeader
+                subtitle="Reach Out"
+                title="Contact Information"
+                align="left"
+                titleSize="text-3xl"
+              />
 
               {/* Hotline Badge */}
               <div className="mb-8">
@@ -63,7 +67,7 @@ export default function ContactPage() {
                   <p className="mb-4">
                     Both centers are fully equipped with professional espresso machines, grinders, brewing tools, and comfortable learning spaces designed for hands-on practice. Our curriculum covers a wide range of courses including <strong>Barista Foundation, Advanced Coffee Techniques, Latte Art, Hand Brewing, Roasting, and Mixology</strong>, ensuring that students at every skill level find programs tailored to their needs.
                   </p>
-                  
+
                   <p className="mb-4">
                     Both centers are open <strong>Saturday to Friday, 9:00 AM - 9:00 PM</strong>, making it convenient for working professionals and enthusiasts to join. We also offer flexible course schedules, weekend workshops, and private sessions upon request.
                   </p>
@@ -99,8 +103,10 @@ export default function ContactPage() {
       </section>
 
       {/* Address Section */}
-      <section className="section-padding bg-card px-4 sm:px-6 lg:px-8">
-        <Address />
+      <section className="section-padding bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Address />
+        </div>
       </section>
     </>
   );

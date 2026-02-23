@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Address from "./Address";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface BranchesMapProps {
   compact?: boolean;
@@ -18,24 +19,12 @@ export function BranchesMap({ compact = false }: BranchesMapProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         {!compact && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Visit Us
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Our Training Centers
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              State-of-the-art facilities equipped with professional-grade 
-              coffee equipment in prime Dhaka locations.
-            </p>
-          </motion.div>
+          <SectionHeader
+            subtitle="Visit Us"
+            title="Our Training Centers"
+            description="State-of-the-art facilities equipped with professional-grade coffee equipment in prime Dhaka locations."
+            titleSize="text-3xl md:text-4xl"
+          />
         )}
 
         <Address />

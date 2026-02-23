@@ -6,6 +6,7 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { Badge } from "@/components/ui/badge";
 import { cateringServices } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Event Catering",
@@ -81,20 +82,17 @@ export default function CateringPage() {
       {/* Services Grid */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Our Services
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Events We Serve
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Our Services"
+            title="Events We Serve"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {cateringServices.map((service, index) => {
               const IconComponent =
                 (LucideIcons as any)[
-                  service.icon
+                service.icon
                 ] || LucideIcons.Coffee;
 
               return (
@@ -132,14 +130,11 @@ export default function CateringPage() {
       {/* Gallery Teaser */}
       <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Past Events
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Event Highlights
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Past Events"
+            title="Event Highlights"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -168,24 +163,20 @@ export default function CateringPage() {
       {/* Pricing Tiers */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Pricing
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Choose Your Package
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Pricing"
+            title="Choose Your Package"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {pricingTiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`relative bg-card rounded-2xl border p-8 ${
-                  tier.popular
+                className={`relative bg-card rounded-2xl border p-8 ${tier.popular
                     ? "border-primary ring-2 ring-primary/20"
                     : "border-border"
-                }`}
+                  }`}
               >
                 {tier.popular && (
                   <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground">

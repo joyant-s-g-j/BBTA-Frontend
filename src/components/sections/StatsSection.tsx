@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, useInView } from "motion/react";
 import { GraduationCap, Users, BookOpen, MapPin } from "lucide-react";
 import { stats } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface StatItemProps {
   icon: React.ElementType;
@@ -17,13 +18,13 @@ interface StatItemProps {
  * Animated Counter Component
  * Counts up from 0 to target value when in view
  */
-function AnimatedCounter({ 
-  value, 
-  suffix = "", 
-  duration = 2 
-}: { 
-  value: number; 
-  suffix?: string; 
+function AnimatedCounter({
+  value,
+  suffix = "",
+  duration = 2
+}: {
+  value: number;
+  suffix?: string;
   duration?: number;
 }) {
   const [count, setCount] = React.useState(0);
@@ -41,11 +42,11 @@ function AnimatedCounter({
       if (!startTime) startTime = currentTime;
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / (duration * 1000), 1);
-      
+
       // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       const currentValue = Math.floor(startValue + (endValue - startValue) * easeOutQuart);
-      
+
       setCount(currentValue);
 
       if (progress < 1) {
@@ -112,20 +113,11 @@ export function StatsSection() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-            Our Impact
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
-            Transforming Coffee Careers
-          </h2>
-        </motion.div>
+        <SectionHeader
+          subtitle="Our Impact"
+          title="Transforming Coffee Careers"
+          titleSize="text-3xl md:text-4xl"
+        />
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">

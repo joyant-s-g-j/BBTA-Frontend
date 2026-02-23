@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { teamMembers } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -79,12 +80,13 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                Our Mission
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-                Transforming Coffee Culture in Bangladesh
-              </h2>
+              <SectionHeader
+                subtitle="Our Mission"
+                title="Transforming Coffee Culture in Bangladesh"
+                align="left"
+                titleSize="text-3xl md:text-4xl"
+                className="mb-6"
+              />
               <div className="space-y-4 text-muted-foreground">
                 <p>
                   At Bangladesh Barista Training Academy, we believe that every
@@ -124,14 +126,11 @@ export default function AboutPage() {
       {/* History Timeline */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Our Journey
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              History & Milestones
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Our Journey"
+            title="History & Milestones"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="max-w-4xl mx-auto">
             <div className="relative">
@@ -143,18 +142,16 @@ export default function AboutPage() {
                 {timeline.map((item, index) => (
                   <div
                     key={item.year}
-                    className={`relative flex items-center gap-8 ${
-                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
+                    className={`relative flex items-center gap-8 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                      }`}
                   >
                     {/* Dot */}
                     <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background -translate-x-1/2 z-10" />
 
                     {/* Content */}
                     <div
-                      className={`ml-12 md:ml-0 md:w-1/2 ${
-                        index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
-                      }`}
+                      className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
+                        }`}
                     >
                       <div className="bg-card rounded-xl p-6">
                         <span className="text-primary font-bold text-lg">
@@ -179,14 +176,11 @@ export default function AboutPage() {
       {/* Team Section */}
       <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Meet the Experts
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Our Leadership Team
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Meet the Experts"
+            title="Our Leadership Team"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, index) => (
@@ -224,18 +218,12 @@ export default function AboutPage() {
       {/* Certifications */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Industry Recognition
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Certifications & Accreditations
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our training programs are recognized by leading international
-              coffee organizations.
-            </p>
-          </div>
+          <SectionHeader
+            subtitle="Industry Recognition"
+            title="Certifications & Accreditations"
+            description="Our training programs are recognized by leading international coffee organizations."
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[

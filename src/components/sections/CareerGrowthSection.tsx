@@ -13,6 +13,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const careerBenefits = [
   {
@@ -74,26 +75,11 @@ export function CareerGrowthSection() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-primary font-medium text-sm tracking-wider uppercase mb-3">
-            Build Your Future
-          </p>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold mb-5 text-white">
-            How Barista Training Helps{" "}
-            <span className="text-primary">Grow Your Career</span>
-          </h2>
-          <p className="text-white/60 max-w-2xl mx-auto text-base md:text-lg">
-            The coffee industry is one of the fastest-growing sectors in
-            Bangladesh and globally. Here&apos;s why professional barista
-            training is the smartest career move you can make.
-          </p>
-        </motion.div>
+        <SectionHeader
+          subtitle="Build Your Future"
+          title="How Barista Training Helps Grow Your Career"
+          description="The coffee industry is one of the fastest-growing sectors in Bangladesh and globally. Here's why professional barista training is the smartest career move you can make."
+        />
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -114,7 +100,7 @@ export function CareerGrowthSection() {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-sans text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                <h3 className="font-sans text-lg font-bold mb-2 text-gradient-gold transition-colors pb-1">
                   {benefit.title}
                 </h3>
 

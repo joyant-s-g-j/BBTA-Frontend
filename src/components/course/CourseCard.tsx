@@ -49,7 +49,7 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
         </p>
 
         {/* Main Title */}
-        <h3 className="font-sans text-3xl font-bold text-white mb-6 leading-tight">
+        <h3 className="font-sans text-3xl font-bold text-gradient-gold mb-6 leading-tight pb-1">
           {course.title}
         </h3>
 
@@ -69,7 +69,7 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
         <div className="mt-auto -mx-8">
           <Link href={`/${course.slug}`}>
             <Button
-              className="w-full flex items-center justify-center rounded-none h-8 bg-[#ee2a4a] hover:bg-[#0f3d2e] text-white font-bold text-lg transition-colors border-none"
+              className="w-full flex items-center justify-center rounded-none h-8 bg-[#ee2a4a] hover:bg-[#0f3d2e] text-foreground font-bold text-lg transition-colors border-none"
             >
               Course Details
             </Button>

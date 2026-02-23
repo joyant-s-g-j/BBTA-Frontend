@@ -12,6 +12,8 @@ interface FeatureItemProps {
   index: number;
 }
 
+import { SectionHeader } from "@/components/ui/SectionHeader";
+
 /**
  * Individual Feature Item
  */
@@ -37,7 +39,7 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
       </motion.div>
 
       {/* Title */}
-      <h3 className="font-serif text-lg font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+      <h3 className="font-serif text-lg font-bold mb-2 text-gradient-gold transition-colors pb-1">
         {title}
       </h3>
 
@@ -58,24 +60,13 @@ export function FeaturesGrid() {
     <section className="section-padding relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-            Why Choose Us
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-foreground">
-            The BBTA Advantage
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Experience world-class training with ISO-certified curriculum, 
-            expert instructors, and career-focused programs.
-          </p>
-        </motion.div>
+        {/* Section Header */}
+        <SectionHeader
+          subtitle="Why Choose Us"
+          title="The BBTA Advantage"
+          description="Experience world-class training with ISO-certified curriculum, expert instructors, and career-focused programs."
+          titleSize="text-3xl md:text-4xl"
+        />
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

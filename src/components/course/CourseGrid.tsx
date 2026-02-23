@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CourseCard } from "@/components/course/CourseCard";
 import { courses, type Course } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface CourseGridProps {
   maxCourses?: number;
@@ -85,24 +86,12 @@ export function CourseGrid({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         {showHeader && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              {subtitle}
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              {title}
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              From beginner foundations to advanced professional training,
-              find the perfect course for your coffee career.
-            </p>
-          </motion.div>
+          <SectionHeader
+            subtitle={subtitle}
+            title={title}
+            description="From beginner foundations to advanced professional training, find the perfect course for your coffee career."
+            titleSize="text-3xl md:text-4xl"
+          />
         )}
 
         {/* Filters */}

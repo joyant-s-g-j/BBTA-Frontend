@@ -5,17 +5,18 @@ import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { 
-  Shield, 
-  Search, 
-  CheckCircle2, 
-  XCircle, 
+import {
+  Shield,
+  Search,
+  CheckCircle2,
+  XCircle,
   Award,
   Calendar,
   User,
   GraduationCap
 } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -120,14 +121,14 @@ export default function CertificateVerificationPage() {
                 <div className="p-3 rounded-xl bg-primary/10">
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
-                <div>
-                  <h2 className="font-serif text-2xl font-bold">
-                    Certificate Verification
-                  </h2>
-                  <p className="text-muted-foreground text-sm">
-                    Enter the certificate ID found on your document
-                  </p>
-                </div>
+                <SectionHeader
+                  subtitle="Verification"
+                  title="Certificate Verification"
+                  align="left"
+                  titleSize="text-2xl"
+                  description="Enter the certificate ID found on your document"
+                  className="mb-0"
+                />
               </div>
 
               <Form {...form}>

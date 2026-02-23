@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { testimonials } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 /**
  * TestimonialsCarousel Component
@@ -63,20 +64,11 @@ export function TestimonialsCarousel() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-            Success Stories
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold">
-            What Our Graduates Say
-          </h2>
-        </motion.div>
+        <SectionHeader
+          subtitle="Success Stories"
+          title="What Our Graduates Say"
+          titleSize="text-3xl md:text-4xl"
+        />
 
         {/* Carousel Container */}
         <div className="max-w-4xl mx-auto">
@@ -114,11 +106,10 @@ export function TestimonialsCarousel() {
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-5 w-5 ${
-                          i < currentTestimonial.rating
-                            ? "text-primary fill-primary"
-                            : "text-muted"
-                        }`}
+                        className={`h-5 w-5 ${i < currentTestimonial.rating
+                          ? "text-primary fill-primary"
+                          : "text-muted"
+                          }`}
                       />
                     ))}
                   </div>
@@ -163,11 +154,10 @@ export function TestimonialsCarousel() {
                     setDirection(index > currentIndex ? 1 : -1);
                     setCurrentIndex(index);
                   }}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentIndex
-                      ? "w-8 bg-primary"
-                      : "bg-primary/50 hover:bg-primary/70"
-                  }`}
+                  className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
+                    ? "w-8 bg-primary"
+                    : "bg-primary/50 hover:bg-primary/70"
+                    }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}

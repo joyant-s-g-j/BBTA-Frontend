@@ -47,7 +47,7 @@ export function CTABanner({
         >
           {/* Text Content */}
           <div className="text-center md:text-left max-w-2xl">
-            <h2 className="font-serif text-foreground text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="font-serif text-gradient-gold text-3xl md:text-4xl font-bold mb-4 pb-1">
               {title}
             </h2>
             <p className="text-muted-foreground">

@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 /**
  * HomeFAQSection
@@ -24,31 +25,14 @@ export function HomeFAQSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-5 gap-12 items-start">
           {/* Left Column — Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-2 lg:sticky lg:top-28"
-          >
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-3">
-              Common Questions
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Everything you need to know about our courses, certification, and
-              career opportunities. Can&apos;t find what you&apos;re looking for?{" "}
-              <a
-                href="/contact"
-                className="text-primary underline-animated font-medium"
-              >
-                Contact us
-              </a>
-              .
-            </p>
-          </motion.div>
+          <SectionHeader
+            subtitle="Common Questions"
+            title="Frequently Asked Questions"
+            align="left"
+            description="Everything you need to know about our courses, certification, and career opportunities."
+            titleSize="text-3xl md:text-4xl"
+            className="lg:col-span-2 lg:sticky lg:top-28 mb-0"
+          />
 
           {/* Right Column — Accordion */}
           <motion.div

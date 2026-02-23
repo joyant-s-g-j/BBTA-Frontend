@@ -22,6 +22,7 @@ import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { CourseCard } from "@/components/course/CourseCard";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { courses, type Course } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface CoursePageProps {
   params: Promise<{ slug: string }>;
@@ -253,14 +254,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Related Courses */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Continue Learning
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Related Courses
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Continue Learning"
+            title="Related Courses"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedCourses.map((relatedCourse, index) => (

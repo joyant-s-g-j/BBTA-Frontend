@@ -3,15 +3,16 @@
 import * as React from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { 
-  ShieldCheck, 
-  GraduationCap, 
-  Globe, 
-  Award, 
-  Medal, 
-  CheckCircle2 
+import {
+  ShieldCheck,
+  GraduationCap,
+  Globe,
+  Award,
+  Medal,
+  CheckCircle2
 } from "lucide-react";
 import { certifications } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const iconMap: Record<string, React.ReactNode> = {
   ShieldCheck: <ShieldCheck className="h-8 w-8" />,
@@ -36,25 +37,11 @@ export function CertificationSection() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-3">
-              Industry Recognition
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl font-bold mb-6">
-              Our Certifications & <span className="text-gradient-gold">Accreditations</span>
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              We take pride in our international standards and local recognition. 
-              Our graduates carry certifications that are respected globally in the coffee industry.
-            </p>
-          </motion.div>
-        </div>
+        <SectionHeader
+          subtitle="Industry Recognition"
+          title="Our Certifications & Accreditations"
+          description="We take pride in our international standards and local recognition. Our graduates carry certifications that are respected globally in the coffee industry."
+        />
 
         {/* Certifications Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -80,7 +67,7 @@ export function CertificationSection() {
                   )}
                   {/* Premium Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                  
+
                   {/* Icon Container - Floating over image */}
                   <div className="absolute bottom-4 left-6">
                     <div className="w-14 h-14 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center text-white shadow-xl group-hover:bg-white group-hover:text-primary transition-colors duration-300">
@@ -93,12 +80,12 @@ export function CertificationSection() {
                 <div className="p-8 pt-6 relative flex-grow">
                   {/* Subtle highlight on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   <div className="relative">
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-xl font-bold mb-2 text-gradient-gold transition-colors duration-300 pb-1">
                       {cert.title}
                     </h3>
-                    <p className="text-primary/80 text-sm font-medium mb-4">
+                    <p className="text-sm font-medium mb-4">
                       {cert.issuer}
                     </p>
                     <p className="text-muted-foreground leading-relaxed italic">

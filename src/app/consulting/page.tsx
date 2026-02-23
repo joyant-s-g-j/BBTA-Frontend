@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { consultingServices } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Cafe Consulting",
@@ -55,20 +56,17 @@ export default function ConsultingPage() {
       {/* Services Grid */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Our Services
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Comprehensive Consulting Solutions
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Our Services"
+            title="Comprehensive Consulting Solutions"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid md:grid-cols-2 gap-6">
             {consultingServices.map((service, index) => {
               const IconComponent =
                 (LucideIcons as any)[
-                  service.icon
+                service.icon
                 ] || LucideIcons.Coffee;
 
               return (
@@ -110,14 +108,11 @@ export default function ConsultingPage() {
       {/* Case Studies */}
       <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Success Stories
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Client Case Studies
-            </h2>
-          </div>
+          <SectionHeader
+            subtitle="Success Stories"
+            title="Client Case Studies"
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid md:grid-cols-3 gap-6">
             {caseStudies.map((study) => (
@@ -152,12 +147,13 @@ export default function ConsultingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                Get Started
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-                Request a Consultation
-              </h2>
+              <SectionHeader
+                subtitle="Get Started"
+                title="Request a Consultation"
+                align="left"
+                titleSize="text-3xl md:text-4xl"
+                className="mb-6"
+              />
               <p className="text-muted-foreground mb-6">
                 Tell us about your cafe and goals. Our team will review your
                 requirements and get back to you within 24 hours with a
@@ -183,10 +179,10 @@ export default function ConsultingPage() {
             />
           </div>
         </div>
-      </section>
+      </section >
 
       {/* CTA */}
-      <CTABanner
+      < CTABanner
         title="Ready to Elevate Your Cafe?"
         description="Let our experts help you create an exceptional coffee experience."
         ctaText="Contact Us"

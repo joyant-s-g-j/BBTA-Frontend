@@ -61,6 +61,17 @@ export interface Feature {
   description: string;
 }
 
+export interface UpcomingBatch {
+  id: number;
+  courseTitle: string;
+  startDate: string;
+  duration: string;
+  timeSlot: string;
+  branch: string;
+  status: "Enrolling" | "Fast Filling" | "Closed";
+  price: string;
+}
+
 export interface Service {
   title: string;
   description: string;
@@ -310,6 +321,50 @@ export const stats = {
   yearsExperience: 8,
   successRate: 98
 };
+
+// ============ UPCOMING BATCHES DATA ============
+export const upcomingBatches: UpcomingBatch[] = [
+  {
+    id: 1,
+    courseTitle: "Barista Foundation",
+    startDate: "March 15, 2026",
+    duration: "3 Days",
+    timeSlot: "10:00 AM - 1:00 PM",
+    branch: "Baridhara Branch",
+    status: "Enrolling",
+    price: "5,990 BDT",
+  },
+  {
+    id: 2,
+    courseTitle: "Barista Intermediate",
+    startDate: "March 20, 2026",
+    duration: "7 Days",
+    timeSlot: "3:00 PM - 6:00 PM",
+    branch: "Dhanmondi Branch",
+    status: "Fast Filling",
+    price: "11,990 BDT",
+  },
+  {
+    id: 3,
+    courseTitle: "Latte Art Workshop",
+    startDate: "April 02, 2026",
+    duration: "2 Days",
+    timeSlot: "10:00 AM - 1:00 PM",
+    branch: "Baridhara Branch",
+    status: "Enrolling",
+    price: "7,990 BDT",
+  },
+  {
+    id: 4,
+    courseTitle: "Barista Professional",
+    startDate: "April 10, 2026",
+    duration: "12 Days",
+    timeSlot: "2:00 PM - 5:00 PM",
+    branch: "Dhanmondi Branch",
+    status: "Enrolling",
+    price: "20,990 BDT",
+  }
+];
 
 // ============ TESTIMONIALS DATA ============
 export const testimonials: Testimonial[] = [

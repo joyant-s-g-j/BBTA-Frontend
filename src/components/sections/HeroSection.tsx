@@ -21,6 +21,8 @@ interface HeroSectionProps {
   overlay?: "dark" | "gradient" | "none";
 }
 
+import { SectionHeader } from "@/components/ui/SectionHeader";
+
 /**
  * HeroSection Component
  * Full viewport hero with parallax background, animated text, and floating coffee beans
@@ -106,62 +108,17 @@ export function HeroSection({
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-4xl mx-auto"
-        >
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-primary font-semibold text-sm sm:text-base tracking-wider uppercase mb-4"
-          >
-            {subtitle}
-          </motion.p>
-
-          {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
-          >
-            {title.split(" ").map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-                className="inline-block mr-3"
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.h1>
-
-          {/* Description */}
-          {description && (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="text-lg sm:text-xl text-foreground font-bold mb-8 max-w-2xl mx-auto"
-              style={{
-                textShadow: `
-                  1px 1px 0 #000000,
-                  -1px 1px 0 #000000,
-                  1px -1px 0 #000000,
-                  -1px -1px 0 #000000
-                `
-              }}
-            >
-              {description}
-            </motion.p>
-          )}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        <div className="max-w-4xl mx-auto">
+          <SectionHeader
+            as="h1"
+            subtitle={subtitle}
+            title={title}
+            description={description}
+            titleSize="text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+            descriptionClassName="text-white text-lg sm:text-xl font-bold mb-8 max-w-2xl mx-auto [text-shadow:1px_1px_0_#000,-1px_1px_0_#000,1px_-1px_0_#000,-1px_-1px_0_#000]"
+            className="mb-8"
+          />
 
           {/* CTAs */}
           <motion.div
@@ -190,7 +147,7 @@ export function HeroSection({
               </Link>
             )}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}

@@ -3,13 +3,13 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { 
-  Coffee, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Facebook, 
-  Instagram, 
+import {
+  Coffee,
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Instagram,
   Twitter,
   Youtube,
   Send
@@ -34,7 +34,7 @@ export function Footer() {
       toast.error("Please enter your email address");
       return;
     }
-    
+
     setIsSubmitting(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -63,10 +63,10 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
-              Bangladesh Barista Training Academy - Your gateway to a professional 
+              Bangladesh Barista Training Academy - Your gateway to a professional
               coffee career. ISO certified training with international standards.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
@@ -90,6 +90,15 @@ export function Footer() {
           <div>
             <h4 className="font-serif text-lg font-semibold mb-4 text-white">Quick Links</h4>
             <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/upcoming-batch"
+                  className="text-white font-medium hover:text-primary transition-colors text-sm underline-animated flex items-center gap-2"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  Upcoming Batches
+                </Link>
+              </li>
               {navLinks.slice(0, 6).map((link) => (
                 <li key={link.href}>
                   <Link
@@ -160,9 +169,9 @@ export function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
               />
-              <Button 
-                type="submit" 
-                size="icon" 
+              <Button
+                type="submit"
+                size="icon"
                 disabled={isSubmitting}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0"
               >

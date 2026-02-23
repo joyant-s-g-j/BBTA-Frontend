@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 
 import { maintenanceServices } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Servicing & Maintenance",
@@ -83,25 +84,18 @@ export default function ServiceMaintenancePage() {
       {/* Services Grid */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-              Our Services
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">
-              Comprehensive Equipment Care
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
-              Our certified technicians specialize in maintaining and repairing
-              all major coffee equipment brands to keep your cafe running
-              smoothly.
-            </p>
-          </div>
+          <SectionHeader
+            subtitle="Our Services"
+            title="Comprehensive Equipment Care"
+            description="Our certified technicians specialize in maintaining and repairing all major coffee equipment brands to keep your cafe running smoothly."
+            titleSize="text-3xl md:text-4xl"
+          />
 
           <div className="grid md:grid-cols-2 gap-6">
             {maintenanceServices.map((service) => {
               const IconComponent =
                 (LucideIcons as any)[
-                  service.icon
+                service.icon
                 ] || LucideIcons.Wrench;
 
               return (
@@ -146,14 +140,13 @@ export default function ServiceMaintenancePage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
             {/* Pricing Table */}
             <div className="lg:col-span-3">
-              <div className="text-center lg:text-left mb-8 lg:mb-10">
-                <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                  Pricing
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold">
-                  Service Rates
-                </h2>
-              </div>
+              <SectionHeader
+                subtitle="Pricing"
+                title="Service Rates"
+                align="left"
+                titleSize="text-3xl md:text-4xl"
+                className="mb-8 lg:mb-10"
+              />
 
               {/* Mobile: Card layout */}
               <div className="space-y-3 md:hidden">
@@ -209,14 +202,13 @@ export default function ServiceMaintenancePage() {
 
             {/* Service Request Form */}
             <div className="lg:col-span-2" id="service-form">
-              <div className="text-center lg:text-left mb-8 lg:mb-10">
-                <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                  Get Started
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold">
-                  Request Service
-                </h2>
-              </div>
+              <SectionHeader
+                subtitle="Get Started"
+                title="Request Service"
+                align="left"
+                titleSize="text-3xl md:text-4xl"
+                className="mb-8 lg:mb-10"
+              />
               <EnrollmentForm
                 title="Service Request"
                 description="Describe your equipment and issue. We'll respond within 24 hours."

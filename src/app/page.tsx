@@ -8,6 +8,7 @@ import { CertificationSection } from "@/components/sections/CertificationSection
 import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
 import { BranchesMap } from "@/components/sections/BranchesMap";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { UpcomingBatchesSection } from "@/components/sections/UpcomingBatchesSection";
 
 /**
  * Home Page
@@ -40,6 +41,9 @@ export default function HomePage() {
         title="Popular Courses"
         subtitle="Start Your Journey"
       />
+
+      {/* Upcoming Batches Section */}
+      <UpcomingBatchesSection limit={4} />
 
       {/* Features Grid — Why Choose BBTA */}
       <FeaturesGrid />

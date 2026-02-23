@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs } from "@/lib/data";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Courses",
@@ -55,17 +56,13 @@ export default function CoursesPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: FAQs */}
             <div>
-              <div className="mb-8">
-                <p className="text-primary font-medium text-sm tracking-wider uppercase mb-2">
-                  Common Questions
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold">
-                  Frequently Asked Questions
-                </h2>
-                <p className="text-muted-foreground mt-4">
-                  Everything you need to know about our courses and certification.
-                </p>
-              </div>
+              <SectionHeader
+                subtitle="Common Questions"
+                title="Frequently Asked Questions"
+                description="Everything you need to know about our courses and certification."
+                align="left"
+                titleSize="text-3xl md:text-4xl"
+              />
 
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (

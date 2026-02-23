@@ -3,9 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Coffee, 
-  Menu, 
+import {
+  Coffee,
+  Menu,
   GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -58,12 +58,12 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group relative z-10">
             <div className="rounded-xl p-1 transition-colors">
-              <Image 
-                src="/bbtalogo.webp" 
-                alt="BBTA Logo" 
-                width={64} 
-                height={64} 
-                className="h-12 w-auto lg:h-16 lg:w-24 object-contain" 
+              <Image
+                src="/bbtalogo.webp"
+                alt="BBTA Logo"
+                width={64}
+                height={64}
+                className="h-12 w-auto lg:h-16 lg:w-24 object-contain"
                 priority
               />
             </div>
@@ -79,8 +79,8 @@ export function Navbar() {
                     asChild
                     className={cn(
                       "px-4 py-2 text-sm font-medium rounded-md transition-colors underline-animated",
-                      pathname === "/" 
-                        ? "bg-primary text-white" 
+                      pathname === "/"
+                        ? "bg-primary text-white"
                         : "text-foreground hover:bg-primary hover:text-white"
                     )}
                   >
@@ -172,7 +172,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             {/* Book Now Button (Desktop) */}
             <Link href="/certificate-verification" className="hidden lg:block">
-              <Button 
+              <Button
                 className="bg-primary text-primary-foreground hover:bg-primary/90 glow-gold-hover font-semibold"
               >
                 Certificate Verification
