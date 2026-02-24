@@ -127,9 +127,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
             </h1>
 
             {/* Description */}
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">
-              {course.fullDescription}
-            </p>
+            <div
+              className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl prose prose-invert prose-p:leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: course.fullDescription }}
+            />
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
