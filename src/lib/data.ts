@@ -105,7 +105,7 @@ export const galleryItems: GalleryItem[] = [];
 export const features: Feature[] = [];
 export const upcomingBatches: UpcomingBatch[] = [];
 export const certifications: Certification[] = [];
-export const stats = { students: 0, graduates: 0, courses: 0, branches: 0, yearsExperience: 0, successRate: 0 };
+export const stats = { students: 2500, graduates: 1800, courses: 12, branches: 3, yearsExperience: 5, successRate: 98 };
 export const faqs: FAQ[] = [];
 
 // Navigation links remain static

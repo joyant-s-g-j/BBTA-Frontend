@@ -107,13 +107,13 @@ function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps
  */
 export function StatsSection({ stats: propStats }: { stats?: any }) {
   // Handle both array (from backend) and object (fallback) formats
-  const statItems = Array.isArray(propStats)
+  const statItems = (Array.isArray(propStats) && propStats.length > 0)
     ? propStats.map(s => ({ icon: s.icon, value: s.value, label: s.label, suffix: "+" }))
     : [
-      { icon: Users, value: propStats?.students || 0, suffix: "+", label: "Current Students" },
-      { icon: GraduationCap, value: propStats?.graduates || 0, suffix: "+", label: "Graduates" },
-      { icon: BookOpen, value: propStats?.courses || 0, suffix: "+", label: "Courses" },
-      { icon: MapPin, value: propStats?.branches || 0, label: "Branches" },
+      { icon: Users, value: (propStats as any)?.students || (stats as any).students || 0, suffix: "+", label: "Current Students" },
+      { icon: GraduationCap, value: (propStats as any)?.graduates || (stats as any).graduates || 0, suffix: "+", label: "Graduates" },
+      { icon: BookOpen, value: (propStats as any)?.courses || (stats as any).courses || 0, suffix: "+", label: "Courses" },
+      { icon: MapPin, value: (propStats as any)?.branches || (stats as any).branches || 0, label: "Branches" },
     ];
 
   return (
