@@ -86,34 +86,38 @@ export function CareerGrowthSection({ initialCareerBenefits }: { initialCareerBe
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {displayBenefits.map((benefit, index) => {
-            const Icon = typeof benefit.icon === "string" ? (LucideIcons as any)[benefit.icon] || TrendingUp : benefit.icon;
-            return (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 md:p-8 hover:border-primary/40 transition-all duration-300"
-              >
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/15 mb-5 group-hover:bg-primary/25 transition-colors">
-                  <Icon className="h-7 w-7 text-primary" />
-                </div>
+          {displayBenefits.map((benefit, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 md:p-8 hover:border-primary/40 transition-all duration-300"
+            >
+              {/* Icon */}
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/15 mb-5 group-hover:bg-primary/25 transition-colors overflow-hidden border border-primary/10">
+                {typeof benefit.icon === "string" && (benefit.icon.startsWith("http") || benefit.icon.startsWith("/")) ? (
+                  <img src={benefit.icon} alt={benefit.title} className="h-full w-full object-cover" />
+                ) : (
+                  (() => {
+                    const Icon = typeof benefit.icon === "string" ? (LucideIcons as any)[benefit.icon] || LucideIcons.HelpCircle : (benefit.icon || LucideIcons.TrendingUp);
+                    return <Icon className="h-7 w-7 text-primary" />;
+                  })()
+                )}
+              </div>
 
-                {/* Title */}
-                <h3 className="font-sans text-lg font-bold mb-2 text-gradient-gold transition-colors pb-1">
-                  {benefit.title}
-                </h3>
+              {/* Title */}
+              <h3 className="font-sans text-lg font-bold mb-2 text-gradient-gold transition-colors pb-1">
+                {benefit.title}
+              </h3>
 
-                {/* Description */}
-                <p className="text-white/60 text-sm leading-relaxed">
-                  {benefit.description}
-                </p>
-              </motion.div>
-            );
-          })}
+              {/* Description */}
+              <p className="text-white/60 text-sm leading-relaxed">
+                {benefit.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
         {/* Bottom CTA */}
@@ -134,6 +138,6 @@ export function CareerGrowthSection({ initialCareerBenefits }: { initialCareerBe
           </Link>
         </motion.div>
       </div>
-    </section>
+    </section >
   );
 }

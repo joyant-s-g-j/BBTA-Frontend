@@ -9,8 +9,10 @@ import {
   Globe,
   Award,
   Medal,
-  CheckCircle2
+  CheckCircle2,
+  HelpCircle
 } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { certifications } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
@@ -71,8 +73,15 @@ export function CertificationSection({ initialCertifications }: { initialCertifi
 
                   {/* Icon Container - Floating over image */}
                   <div className="absolute bottom-4 left-6">
-                    <div className="w-14 h-14 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center text-white shadow-xl group-hover:bg-white group-hover:text-primary transition-colors duration-300">
-                      {iconMap[cert.icon] || <CheckCircle2 className="h-7 w-7" />}
+                    <div className="w-14 h-14 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center text-white shadow-xl group-hover:bg-white group-hover:text-primary transition-colors duration-300 overflow-hidden">
+                      {cert.icon && (cert.icon.startsWith("http") || cert.icon.startsWith("/")) ? (
+                        <img src={cert.icon} alt={cert.title} className="h-full w-full object-cover" />
+                      ) : (
+                        (() => {
+                          const Icon = (LucideIcons as any)[cert.icon] || HelpCircle;
+                          return <Icon className="h-7 w-7" />;
+                        })()
+                      )}
                     </div>
                   </div>
                 </div>

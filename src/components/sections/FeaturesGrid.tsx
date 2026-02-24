@@ -18,8 +18,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * Individual Feature Item
  */
 function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
-  // Dynamically get icon from lucide-react
-  const IconComponent = (LucideIcons as any)[icon] || LucideIcons.Star;
+  const isUrl = typeof icon === "string" && (icon.startsWith("http") || icon.startsWith("/"));
+  const IconComponent = typeof icon === "string"
+    ? (LucideIcons as any)[icon] || LucideIcons.HelpCircle
+    : LucideIcons.Star;
 
   return (
     <motion.div
@@ -33,9 +35,13 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
       <motion.div
         whileHover={{ scale: 1.1, rotate: 5 }}
         transition={{ type: "spring", stiffness: 300 }}
-        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors"
+        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors overflow-hidden border border-primary/5"
       >
-        <IconComponent className="h-8 w-8 text-primary" />
+        {isUrl ? (
+          <img src={icon} alt={title} className="h-full w-full object-cover" />
+        ) : (
+          <IconComponent className="h-8 w-8 text-primary" />
+        )}
       </motion.div>
 
       {/* Title */}

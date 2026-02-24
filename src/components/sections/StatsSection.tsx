@@ -2,12 +2,13 @@
 
 import * as React from "react";
 import { motion, useInView } from "motion/react";
-import { GraduationCap, Users, BookOpen, MapPin } from "lucide-react";
+import { GraduationCap, Users, BookOpen, MapPin, Star } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { stats } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface StatItemProps {
-  icon: React.ElementType;
+  icon: any;
   value: number;
   suffix?: string;
   label: string;
@@ -67,7 +68,12 @@ function AnimatedCounter({
 /**
  * Individual Stat Item
  */
-function StatItem({ icon: Icon, value, suffix = "+", label, delay = 0 }: StatItemProps) {
+function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps) {
+  const isUrl = typeof icon === "string" && (icon.startsWith("http") || icon.startsWith("/"));
+  const IconComponent = typeof icon === "string"
+    ? (LucideIcons as any)[icon] || LucideIcons.HelpCircle
+    : (icon || Star);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -79,9 +85,13 @@ function StatItem({ icon: Icon, value, suffix = "+", label, delay = 0 }: StatIte
       <motion.div
         whileHover={{ scale: 1.1, rotate: 5 }}
         transition={{ type: "spring", stiffness: 300 }}
-        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors"
+        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors overflow-hidden border border-primary/5"
       >
-        <Icon className="h-8 w-8 text-primary" />
+        {isUrl ? (
+          <img src={icon} alt={label} className="h-full w-full object-cover" />
+        ) : (
+          <IconComponent className="h-8 w-8 text-primary" />
+        )}
       </motion.div>
       <div className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-2">
         <AnimatedCounter value={value} suffix={suffix} />
@@ -96,14 +106,15 @@ function StatItem({ icon: Icon, value, suffix = "+", label, delay = 0 }: StatIte
  * Animated counters showing key statistics
  */
 export function StatsSection({ stats: propStats }: { stats?: any }) {
-  const displayStats = propStats || stats;
-
-  const statItems = [
-    { icon: Users, value: displayStats.students || 0, suffix: "+", label: "Current Students" },
-    { icon: GraduationCap, value: displayStats.graduates || 0, suffix: "+", label: "Graduates" },
-    { icon: BookOpen, value: displayStats.courses || 0, suffix: "+", label: "Courses" },
-    { icon: MapPin, value: displayStats.branches || 0, label: "Branches" },
-  ];
+  // Handle both array (from backend) and object (fallback) formats
+  const statItems = Array.isArray(propStats)
+    ? propStats.map(s => ({ icon: s.icon, value: s.value, label: s.label, suffix: "+" }))
+    : [
+      { icon: Users, value: propStats?.students || 0, suffix: "+", label: "Current Students" },
+      { icon: GraduationCap, value: propStats?.graduates || 0, suffix: "+", label: "Graduates" },
+      { icon: BookOpen, value: propStats?.courses || 0, suffix: "+", label: "Courses" },
+      { icon: MapPin, value: propStats?.branches || 0, label: "Branches" },
+    ];
 
   return (
     <section className="section-padding relative overflow-hidden">
