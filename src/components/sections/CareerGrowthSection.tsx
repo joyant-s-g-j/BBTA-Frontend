@@ -4,6 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import * as LucideIcons from "lucide-react";
 import {
   TrendingUp,
   Globe,
@@ -58,7 +59,9 @@ const careerBenefits = [
  * CareerGrowthSection
  * Showcases how barista training accelerates career growth
  */
-export function CareerGrowthSection() {
+export function CareerGrowthSection({ initialCareerBenefits }: { initialCareerBenefits?: any[] }) {
+  const displayBenefits = initialCareerBenefits && initialCareerBenefits.length > 0 ? initialCareerBenefits : careerBenefits;
+
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       {/* Background Image */}
@@ -83,8 +86,8 @@ export function CareerGrowthSection() {
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {careerBenefits.map((benefit, index) => {
-            const Icon = benefit.icon;
+          {displayBenefits.map((benefit, index) => {
+            const Icon = typeof benefit.icon === "string" ? (LucideIcons as any)[benefit.icon] || TrendingUp : benefit.icon;
             return (
               <motion.div
                 key={benefit.title}

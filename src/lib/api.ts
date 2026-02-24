@@ -20,6 +20,7 @@ export async function getCourseBySlug(slug: string) {
 export async function getStats() { return await fetchAPI('/stats') || []; }
 export async function getFeatures() { return await fetchAPI('/features') || []; }
 export async function getFaqs() { return await fetchAPI('/faqs') || []; }
+export async function getCareerBenefits() { return await fetchAPI('/career') || []; }
 export async function getBatches() { return await fetchAPI('/batches') || []; }
 export async function getGallery() { return await fetchAPI('/gallery') || []; }
 export async function getCertifications() { return await fetchAPI('/certifications') || []; }

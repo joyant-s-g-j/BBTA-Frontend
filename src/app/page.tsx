@@ -27,7 +27,8 @@ export default async function HomePage() {
     certifications,
     faqs,
     cta,
-    branches
+    branches,
+    careerBenefits
   ] = await Promise.all([
     api.getHero(),
     api.getStats(),
@@ -38,7 +39,8 @@ export default async function HomePage() {
     api.getCertifications(),
     api.getFaqs(),
     api.getCtaBanner(),
-    api.getBranches()
+    api.getBranches(),
+    api.getCareerBenefits()
   ]);
 
   return (
@@ -70,7 +72,7 @@ export default async function HomePage() {
 
       <FeaturesGrid initialFeatures={features} />
 
-      <CareerGrowthSection />
+      <CareerGrowthSection initialCareerBenefits={careerBenefits} />
 
       <TestimonialsCarousel initialTestimonials={testimonials} />
 
