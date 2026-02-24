@@ -87,11 +87,15 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
+import * as api from "@/lib/api";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await api.getSettings();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -100,22 +104,22 @@ export default function RootLayout({
         {/* Main Layout */}
         <div className="relative min-h-screen flex flex-col">
           {/* Navbar */}
-          <Navbar />
-          
+          <Navbar settings={settings} />
+
           {/* Main Content */}
           <main className="flex-1">{children}</main>
-          
+
           {/* Footer */}
-          <Footer />
-          
+          <Footer settings={settings} />
+
           {/* Back to Top Button */}
           <BackToTop />
         </div>
-        
+
         {/* Toast Notifications */}
-        <Toaster 
-          position="bottom-right" 
-          richColors 
+        <Toaster
+          position="bottom-right"
+          richColors
           closeButton
           theme="light"
         />

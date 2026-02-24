@@ -26,7 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { courses } from "@/lib/data";
+import * as api from "@/lib/api";
 
 // Form validation schema
 const enrollmentSchema = z.object({
@@ -51,10 +51,6 @@ interface EnrollmentFormProps {
   description?: string;
 }
 
-/**
- * EnrollmentForm Component
- * React Hook Form + Zod validated enrollment form
- */
 export function EnrollmentForm({
   selectedCourse,
   variant = "full",
@@ -62,6 +58,11 @@ export function EnrollmentForm({
   description = "Fill out the form below and we'll get back to you within 24 hours.",
 }: EnrollmentFormProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [availableCourses, setAvailableCourses] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    api.getCourses().then(setAvailableCourses).catch(console.error);
+  }, []);
 
   const form = useForm<EnrollmentFormData>({
     resolver: zodResolver(enrollmentSchema),
@@ -78,17 +79,21 @@ export function EnrollmentForm({
 
   const onSubmit = async (data: EnrollmentFormData) => {
     setIsSubmitting(true);
-    
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      console.log("Form submitted:", data);
-      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          subject: `Enrollment Request: ${data.course}`
+        }),
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
       toast.success("Enrollment request submitted!", {
         description: "We'll contact you within 24 hours to confirm your enrollment.",
       });
-      
       form.reset();
     } catch (error) {
       toast.error("Something went wrong", {
@@ -105,9 +110,8 @@ export function EnrollmentForm({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={`bg-card rounded-2xl border border-border p-6 md:p-8 ${
-        variant === "compact" ? "" : "shadow-xl"
-      }`}
+      className={`bg-card rounded-2xl border border-border p-6 md:p-8 ${variant === "compact" ? "" : "shadow-xl"
+        }`}
     >
       {/* Header */}
       <div className="mb-6">
@@ -139,7 +143,7 @@ export function EnrollmentForm({
               </FormItem>
             )}
           />
-          
+
 
           {/* Email and Phone Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -227,11 +231,14 @@ export function EnrollmentForm({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {courses.map((course) => (
+                    {availableCourses.map((course: any) => (
                       <SelectItem key={course.slug} value={course.slug}>
-                        {course.title} - {course.price}
+                        {course.title} {course.price ? ` - ৳${course.price.toLocaleString()}` : ''}
                       </SelectItem>
                     ))}
+                    {availableCourses.length === 0 && (
+                      <SelectItem value="general">General Inquiry</SelectItem>
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />

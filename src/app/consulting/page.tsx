@@ -20,28 +20,20 @@ export const metadata: Metadata = {
 /**
  * Cafe Consulting Page
  */
-export default function ConsultingPage() {
+import * as api from "@/lib/api";
+
+export default async function ConsultingPage() {
+  const allServices = await api.getServices();
+  const consultingServices = allServices.filter((s: any) => s.category === 'Consulting');
+
   const caseStudies = [
-    {
-      name: "Urban Coffee House",
-      result: "40% increase in beverage sales",
-      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800",
-    },
-    {
-      name: "The Daily Grind",
-      result: "Reduced waste by 35%",
-      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
-    },
-    {
-      name: "Artisan Brews",
-      result: "Staff efficiency up 50%",
-      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800",
-    },
+    { name: "Urban Coffee House", result: "40% increase in beverage sales", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" },
+    { name: "The Daily Grind", result: "Reduced waste by 35%", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800" },
+    { name: "Artisan Brews", result: "Staff efficiency up 50%", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800" },
   ];
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection
         title="Expert Cafe Consulting"
         subtitle="Transform Your Coffee Business"
@@ -53,57 +45,50 @@ export default function ConsultingPage() {
         showScrollIndicator={false}
       />
 
-      {/* Services Grid */}
-      <section className="section-padding">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Our Services"
-            title="Comprehensive Consulting Solutions"
-            titleSize="text-3xl md:text-4xl"
-          />
+      {consultingServices.length > 0 && (
+        <section className="section-padding">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              subtitle="Our Services"
+              title="Comprehensive Consulting Solutions"
+              titleSize="text-3xl md:text-4xl"
+            />
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {consultingServices.map((service, index) => {
-              const IconComponent =
-                (LucideIcons as any)[
-                service.icon
-                ] || LucideIcons.Coffee;
+            <div className="grid md:grid-cols-2 gap-6">
+              {consultingServices.map((service: any) => {
+                const isUrl = typeof service.icon === "string" && (service.icon.startsWith("http") || service.icon.startsWith("/"));
+                const IconComponent = (LucideIcons as any)[service.icon] || LucideIcons.Coffee;
 
-              return (
-                <div
-                  key={service.title}
-                  className="bg-card rounded-2xl border border-border p-8 card-hover"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-primary/10">
-                      <IconComponent className="h-8 w-8 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-serif text-xl font-bold mb-2">
-                        {service.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm mb-4">
-                        {service.description}
-                      </p>
-                      <ul className="space-y-2">
-                        {service.features.map((feature) => (
-                          <li
-                            key={feature}
-                            className="flex items-center gap-2 text-sm text-muted-foreground"
-                          >
-                            <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
+                return (
+                  <div key={service.title} className="bg-card rounded-2xl border border-border p-8 card-hover">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-primary/10 w-14 h-14 flex items-center justify-center overflow-hidden">
+                        {isUrl ? (
+                          <img src={service.icon} alt={service.title} className="h-full w-full object-cover" />
+                        ) : (
+                          <IconComponent className="h-8 w-8 text-primary" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-serif text-xl font-bold mb-2">{service.title}</h3>
+                        <p className="text-muted-foreground text-sm mb-4">{service.description}</p>
+                        <ul className="space-y-2">
+                          {service.features?.map((feature: string) => (
+                            <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Case Studies */}
       <section className="section-padding bg-card">

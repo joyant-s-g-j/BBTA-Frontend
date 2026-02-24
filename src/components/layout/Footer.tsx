@@ -24,9 +24,25 @@ import Image from "next/image";
  * Footer Component
  * Multi-column footer with newsletter signup, social links, and quick navigation
  */
-export function Footer() {
+export function Footer({ settings }: { settings?: any }) {
   const [email, setEmail] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  // Use dynamic settings with safe fallbacks
+  const footerIntro = settings?.footer?.intro || "Bangladesh Barista Training Academy - Your gateway to a professional coffee career. ISO certified training with international standards.";
+  const logoUrl = settings?.logo || "/bbtalogo.webp";
+  const copyright = settings?.footer?.copyright || `© ${new Date().getFullYear()} Bangladesh Barista Training Academy. All rights reserved.`;
+
+  const address = settings?.contactInfo?.address || branches[0]?.address || "Baridhara & Dhanmondi, Dhaka";
+  const phone = settings?.contactInfo?.phone || branches[0]?.phone || "+880 1234 56789";
+  const emailAddr = settings?.contactInfo?.email || "info@bbta.com.bd";
+
+  const socialLinks = [
+    { icon: Facebook, href: settings?.socialLinks?.facebook || "https://facebook.com/bbta", label: "Facebook" },
+    { icon: Instagram, href: settings?.socialLinks?.instagram || "https://instagram.com/bbta", label: "Instagram" },
+    { icon: Twitter, href: settings?.socialLinks?.twitter || "https://twitter.com/bbta", label: "Twitter" },
+    { icon: Youtube, href: settings?.socialLinks?.youtube || "https://youtube.com/bbta", label: "YouTube" },
+  ];
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,13 +59,6 @@ export function Footer() {
     setIsSubmitting(false);
   };
 
-  const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com/bbta", label: "Facebook" },
-    { icon: Instagram, href: "https://instagram.com/bbta", label: "Instagram" },
-    { icon: Twitter, href: "https://twitter.com/bbta", label: "Twitter" },
-    { icon: Youtube, href: "https://youtube.com/bbta", label: "YouTube" },
-  ];
-
   return (
     <footer className="bg-[#0F3D2E] text-white border-t border-white/10">
       {/* Main Footer Content */}
@@ -59,12 +68,11 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="bg-white rounded-xl p-1">
-                <Image src="/bbtalogo.webp" alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
+                <Image src={logoUrl} alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
-              Bangladesh Barista Training Academy - Your gateway to a professional
-              coffee career. ISO certified training with international standards.
+              {footerIntro}
             </p>
 
             {/* Social Links */}
@@ -136,25 +144,25 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span className="text-white/70 text-sm">
-                  {branches[0]?.address || "Baridhara & Dhanmondi, Dhaka"}
+                  {address}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
                 <a
-                  href={`tel:${branches[0]?.phone || "+880123456789"}`}
+                  href={`tel:${phone}`}
                   className="text-white/70 hover:text-primary transition-colors text-sm"
                 >
-                  {branches[0]?.phone || "+880 1234 56789"}
+                  {phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
                 <a
-                  href="mailto:info@bbta.com.bd"
+                  href={`mailto:${emailAddr}`}
                   className="text-white/70 hover:text-primary transition-colors text-sm"
                 >
-                  info@bbta.com.bd
+                  {emailAddr}
                 </a>
               </li>
             </ul>
@@ -187,7 +195,7 @@ export function Footer() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-white/50 text-sm text-center sm:text-left">
-              © 2026 Bangladesh Barista Training Academy. All rights reserved.
+              {copyright}
             </p>
             <div className="flex items-center gap-6">
               <Link

@@ -35,3 +35,4 @@ export async function getBranches() { return await fetchAPI('/branches') || []; 
 export async function getSettings() { return await fetchAPI('/settings/site') || {}; }
 export async function getHero() { return await fetchAPI('/settings/hero') || {}; }
 export async function getCtaBanner() { return await fetchAPI('/settings/cta') || {}; }
+export async function getServices() { return await fetchAPI('/services') || []; }

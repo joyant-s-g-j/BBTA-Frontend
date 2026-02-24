@@ -16,51 +16,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-const careerBenefits = [
-  {
-    icon: TrendingUp,
-    title: "High-Demand Skill",
-    description:
-      "The specialty coffee industry is booming worldwide. Trained baristas are in constant demand across cafes, hotels, and restaurants.",
-  },
-  {
-    icon: Globe,
-    title: "Global Opportunities",
-    description:
-      "A barista certification is recognized internationally, opening doors to work in cafes across Europe, the Middle East, and beyond.",
-  },
-  {
-    icon: BadgeDollarSign,
-    title: "Strong Earning Potential",
-    description:
-      "Professional baristas earn significantly more than the average. Head baristas and cafe managers can earn up to 3× the starting salary.",
-  },
-  {
-    icon: Briefcase,
-    title: "Entrepreneurship Path",
-    description:
-      "Many of our graduates go on to open their own cafes. The training gives you both the technical skills and business knowledge to succeed.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Continuous Growth",
-    description:
-      "From barista to trainer, roaster, or cafe consultant — the coffee industry offers diverse career paths for continuous professional growth.",
-  },
-  {
-    icon: Rocket,
-    title: "Quick Career Start",
-    description:
-      "Unlike many professions requiring years of study, you can start a rewarding barista career in as little as 3 days of professional training.",
-  },
-];
 
 /**
  * CareerGrowthSection
  * Showcases how barista training accelerates career growth
  */
 export function CareerGrowthSection({ initialCareerBenefits }: { initialCareerBenefits?: any[] }) {
-  const displayBenefits = initialCareerBenefits && initialCareerBenefits.length > 0 ? initialCareerBenefits : careerBenefits;
+  if (!initialCareerBenefits || initialCareerBenefits.length === 0) return null;
+  const displayBenefits = initialCareerBenefits;
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28">

@@ -45,17 +45,19 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSection
-        title={hero?.title || "Master the Art of Coffee"}
-        subtitle={hero?.subtitle || "Bangladesh's Premier Barista Academy"}
-        description={hero?.description || "Transform your passion for coffee into a professional career with ISO-certified training."}
-        ctaText={hero?.ctaText || "Explore Courses"}
-        ctaHref={hero?.ctaUrl || "/bbta-courses"}
-        secondaryCtaText={hero?.secondaryCtaText || "Contact Us"}
-        secondaryCtaHref={hero?.secondaryCtaUrl || "/contact"}
-        backgroundImage={hero?.backgroundImage || "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"}
-        size="full"
-      />
+      {hero && (
+        <HeroSection
+          title={hero.title}
+          subtitle={hero.subtitle}
+          description={hero.description}
+          ctaText={hero.ctaText}
+          ctaHref={hero.ctaUrl}
+          secondaryCtaText={hero.secondaryCtaText}
+          secondaryCtaHref={hero.secondaryCtaUrl}
+          backgroundImage={hero.backgroundImage}
+          size="full"
+        />
+      )}
 
       <StatsSection stats={stats} />
 
@@ -82,12 +84,14 @@ export default async function HomePage() {
 
       <BranchesMap initialBranches={branches} />
 
-      <CTABanner
-        title={cta?.title || "Ready to Start Your Coffee Journey?"}
-        description={cta?.description || "Join over 2,000 graduates who have transformed their passion."}
-        ctaText={cta?.buttonText || "Enroll Now"}
-        ctaHref={cta?.buttonUrl || "/bbta-courses"}
-      />
+      {cta && (
+        <CTABanner
+          title={cta.title}
+          description={cta.description}
+          ctaText={cta.buttonText}
+          ctaHref={cta.buttonUrl}
+        />
+      )}
     </>
   );
 }

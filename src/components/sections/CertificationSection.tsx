@@ -29,7 +29,8 @@ const iconMap: Record<string, React.ReactNode> = {
  * Displays various certifications and accreditations between Testimonials and FAQ
  */
 export function CertificationSection({ initialCertifications }: { initialCertifications?: any[] }) {
-  const displayCertifications = initialCertifications || certifications;
+  if (!initialCertifications || initialCertifications.length === 0) return null;
+  const displayCertifications = initialCertifications;
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       {/* Decorative background elements */}

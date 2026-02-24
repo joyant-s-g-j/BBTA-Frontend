@@ -26,7 +26,8 @@ import Image from "next/image";
  * Navbar Component
  * Sticky glassmorphism navigation with mega menu for courses
  */
-export function Navbar() {
+export function Navbar({ settings }: { settings?: any }) {
+  const logoUrl = settings?.logo || "/bbtalogo.webp";
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -59,7 +60,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2 group relative z-10">
             <div className="rounded-xl p-1 transition-colors">
               <Image
-                src="/bbtalogo.webp"
+                src={logoUrl}
                 alt="BBTA Logo"
                 width={64}
                 height={64}

@@ -62,7 +62,8 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
  * Responsive grid of feature cards with icons
  */
 export function FeaturesGrid({ initialFeatures }: { initialFeatures?: any[] }) {
-  const displayFeatures = initialFeatures || features;
+  if (!initialFeatures || initialFeatures.length === 0) return null;
+  const displayFeatures = initialFeatures;
   return (
     <section className="section-padding relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">

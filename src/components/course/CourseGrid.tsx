@@ -41,10 +41,22 @@ export function CourseGrid({
   subtitle = "Explore Our Programs",
   initialCourses,
 }: CourseGridProps) {
-  const displayCourses = initialCourses || courses;
+  const [displayCourses, setDisplayCourses] = React.useState<Course[]>(initialCourses || []);
+  const [loading, setLoading] = React.useState(!initialCourses);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [levelFilter, setLevelFilter] = React.useState("all");
   const [activeTab, setActiveTab] = React.useState("all");
+
+  React.useEffect(() => {
+    if (!initialCourses) {
+      import("@/lib/api").then(api => {
+        api.getCourses().then(data => {
+          setDisplayCourses(data);
+          setLoading(false);
+        });
+      });
+    }
+  }, [initialCourses]);
 
   // Filter courses based on search, level, and tab
   const filteredCourses = React.useMemo(() => {

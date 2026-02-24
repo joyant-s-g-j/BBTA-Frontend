@@ -8,7 +8,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { galleryItems } from "@/lib/data";
+import * as api from "@/lib/api";
 
 type Category = "All" | "Training" | "Events" | "Cafe" | "Students";
 
@@ -17,15 +17,27 @@ type Category = "All" | "Training" | "Events" | "Cafe" | "Students";
  * Masonry grid with category filters and lightbox modal
  */
 export default function GalleryPage() {
+  const [items, setItems] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
   const [selectedCategory, setSelectedCategory] = React.useState<Category>("All");
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
 
   const categories: Category[] = ["All", "Training", "Events", "Cafe", "Students"];
 
+  React.useEffect(() => {
+    api.getGallery().then(data => {
+      setItems(data);
+      setLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
+  }, []);
+
   const filteredItems = React.useMemo(() => {
-    if (selectedCategory === "All") return galleryItems;
-    return galleryItems.filter((item) => item.category === selectedCategory);
-  }, [selectedCategory]);
+    if (selectedCategory === "All") return items;
+    return items.filter((item) => item.category === selectedCategory);
+  }, [selectedCategory, items]);
 
   return (
     <>
@@ -63,49 +75,53 @@ export default function GalleryPage() {
           </div>
 
           {/* Masonry Grid */}
-          <motion.div
-            layout
-            className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4"
-          >
-            <AnimatePresence>
-              {filteredItems.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="mb-4 break-inside-avoid"
-                >
-                  <div
-                    className="relative group cursor-pointer rounded-xl overflow-hidden"
-                    onClick={() => setSelectedImage(item.image)}
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="h-8 w-8 border-4 border-primary border-t-transparent animate-spin rounded-full"></div>
+            </div>
+          ) : (
+            <motion.div
+              layout
+              className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4"
+            >
+              <AnimatePresence>
+                {filteredItems.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    className="mb-4 break-inside-avoid"
                   >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={400}
-                      height={300 + (index % 3) * 100}
-                      className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 className="text-white font-semibold text-sm">
-                          {item.title}
-                        </h3>
-                        <span className="text-primary text-xs">
-                          {item.category}
-                        </span>
+                    <div
+                      className="relative group cursor-pointer rounded-xl overflow-hidden"
+                      onClick={() => setSelectedImage(item.image)}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                          <h3 className="text-white font-semibold text-sm">
+                            {item.title}
+                          </h3>
+                          <span className="text-primary text-xs capitalize">
+                            {item.category}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+          筋        </div>
       </section>
 
       {/* Lightbox Modal */}

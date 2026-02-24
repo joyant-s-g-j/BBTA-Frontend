@@ -21,7 +21,7 @@ import {
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { CourseCard } from "@/components/course/CourseCard";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
-import { courses, type Course } from "@/lib/data";
+import * as api from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface CoursePageProps {
@@ -30,7 +30,8 @@ interface CoursePageProps {
 
 // Generate static params for all courses
 export async function generateStaticParams() {
-  return courses.map((course) => ({
+  const courses = await api.getCourses();
+  return courses.map((course: any) => ({
     slug: course.slug,
   }));
 }
@@ -38,7 +39,7 @@ export async function generateStaticParams() {
 // Generate metadata for each course
 export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const course = courses.find((c) => c.slug === slug);
+  const course = await api.getCourseBySlug(slug);
 
   if (!course) {
     return {
@@ -48,10 +49,10 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
 
   return {
     title: course.title,
-    description: course.fullDescription,
+    description: course.shortDescription,
     openGraph: {
       title: `${course.title} | BBTA Courses`,
-      description: course.description,
+      description: course.shortDescription,
       images: [{ url: course.image, alt: course.title }],
     },
   };
@@ -71,15 +72,18 @@ const levelColors: Record<string, string> = {
  */
 export default async function CoursePage({ params }: CoursePageProps) {
   const { slug } = await params;
-  const course = courses.find((c) => c.slug === slug);
+  const [course, allCourses] = await Promise.all([
+    api.getCourseBySlug(slug),
+    api.getCourses()
+  ]);
 
   if (!course) {
     notFound();
   }
 
   // Get related courses (same level or adjacent)
-  const relatedCourses = courses
-    .filter((c) => c.slug !== course.slug)
+  const relatedCourses = allCourses
+    .filter((c: any) => c.slug !== course.slug)
     .slice(0, 3);
 
   return (
@@ -164,7 +168,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   What You&apos;ll Learn
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {course.features.map((feature) => (
+                  {course.features.map((feature: string) => (
                     <div
                       key={feature}
                       className="flex items-start gap-3 p-3 rounded-lg bg-card/50"
@@ -182,7 +186,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   Course Curriculum
                 </h2>
                 <Accordion type="single" collapsible className="w-full">
-                  {course.curriculum.map((item, index) => (
+                  {course.curriculum.map((item: any, index: number) => (
                     <AccordionItem key={index} value={`day-${index}`}>
                       <AccordionTrigger className="text-left font-medium hover:text-primary">
                         <span className="flex items-center gap-3">
@@ -194,7 +198,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                       </AccordionTrigger>
                       <AccordionContent className="pl-11">
                         <ul className="space-y-2">
-                          {item.topics.map((topic, topicIndex) => (
+                          {item.topics.map((topic: string, topicIndex: number) => (
                             <li
                               key={topicIndex}
                               className="flex items-start gap-2 text-muted-foreground"
@@ -223,7 +227,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     "ISO-certified completion certificate",
                     "Job placement assistance",
                     "Access to alumni network",
-                  ].map((item) => (
+                  ].map((item: string) => (
                     <div key={item} className="flex items-start gap-3">
                       <Award className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                       <span className="text-sm text-muted-foreground">{item}</span>
@@ -261,7 +265,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {relatedCourses.map((relatedCourse, index) => (
+            {relatedCourses.map((relatedCourse: any, index: number) => (
               <CourseCard
                 key={relatedCourse.slug}
                 course={relatedCourse}
