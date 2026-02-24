@@ -95,12 +95,14 @@ function StatItem({ icon: Icon, value, suffix = "+", label, delay = 0 }: StatIte
  * StatsSection Component
  * Animated counters showing key statistics
  */
-export function StatsSection() {
+export function StatsSection({ stats: propStats }: { stats?: any }) {
+  const displayStats = propStats || stats;
+
   const statItems = [
-    { icon: Users, value: stats.students, suffix: "+", label: "Current Students" },
-    { icon: GraduationCap, value: stats.graduates, suffix: "+", label: "Graduates" },
-    { icon: BookOpen, value: stats.courses, suffix: "+", label: "Courses" },
-    { icon: MapPin, value: stats.branches, label: "Branches" },
+    { icon: Users, value: displayStats.students || 0, suffix: "+", label: "Current Students" },
+    { icon: GraduationCap, value: displayStats.graduates || 0, suffix: "+", label: "Graduates" },
+    { icon: BookOpen, value: displayStats.courses || 0, suffix: "+", label: "Courses" },
+    { icon: MapPin, value: displayStats.branches || 0, label: "Branches" },
   ];
 
   return (

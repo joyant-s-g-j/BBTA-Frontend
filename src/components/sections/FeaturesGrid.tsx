@@ -55,11 +55,11 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
  * FeaturesGrid Component
  * Responsive grid of feature cards with icons
  */
-export function FeaturesGrid() {
+export function FeaturesGrid({ initialFeatures }: { initialFeatures?: any[] }) {
+  const displayFeatures = initialFeatures || features;
   return (
     <section className="section-padding relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Section Header */}
         {/* Section Header */}
         <SectionHeader
           subtitle="Why Choose Us"
@@ -70,7 +70,7 @@ export function FeaturesGrid() {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
+          {displayFeatures.map((feature, index) => (
             <FeatureItem
               key={feature.title}
               icon={feature.icon}

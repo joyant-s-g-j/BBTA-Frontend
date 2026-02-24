@@ -3,15 +3,16 @@
 import * as React from "react";
 import { motion } from "motion/react";
 import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
-import { upcomingBatches } from "@/lib/data";
+import { upcomingBatches, type UpcomingBatch } from "@/lib/data";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-export function UpcomingBatchesSection({ limit }: { limit?: number }) {
-    const displayedBatches = limit ? upcomingBatches.slice(0, limit) : upcomingBatches;
+export function UpcomingBatchesSection({ limit, initialBatches }: { limit?: number, initialBatches?: UpcomingBatch[] }) {
+    const dataSource = initialBatches || upcomingBatches;
+    const displayedBatches = limit ? dataSource.slice(0, limit) : dataSource;
 
     return (
         <section className="section-padding bg-muted/30 relative overflow-hidden">

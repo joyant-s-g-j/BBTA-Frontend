@@ -26,7 +26,8 @@ const iconMap: Record<string, React.ReactNode> = {
  * CertificationSection
  * Displays various certifications and accreditations between Testimonials and FAQ
  */
-export function CertificationSection() {
+export function CertificationSection({ initialCertifications }: { initialCertifications?: any[] }) {
+  const displayCertifications = initialCertifications || certifications;
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       {/* Decorative background elements */}
@@ -45,7 +46,7 @@ export function CertificationSection() {
 
         {/* Certifications Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certifications.map((cert, index) => (
+          {displayCertifications.map((cert, index) => (
             <motion.div
               key={cert.id}
               initial={{ opacity: 0, y: 30 }}

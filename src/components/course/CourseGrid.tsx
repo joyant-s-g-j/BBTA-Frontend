@@ -25,6 +25,7 @@ interface CourseGridProps {
   showHeader?: boolean;
   title?: string;
   subtitle?: string;
+  initialCourses?: Course[];
 }
 
 /**
@@ -38,14 +39,16 @@ export function CourseGrid({
   showHeader = true,
   title = "Our Courses",
   subtitle = "Explore Our Programs",
+  initialCourses,
 }: CourseGridProps) {
+  const displayCourses = initialCourses || courses;
   const [searchQuery, setSearchQuery] = React.useState("");
   const [levelFilter, setLevelFilter] = React.useState("all");
   const [activeTab, setActiveTab] = React.useState("all");
 
   // Filter courses based on search, level, and tab
   const filteredCourses = React.useMemo(() => {
-    let result = courses;
+    let result = displayCourses;
 
     // Apply tab filter
     if (activeTab !== "all") {

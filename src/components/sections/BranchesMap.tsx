@@ -12,7 +12,7 @@ interface BranchesMapProps {
  * BranchesMap Component
  * Google Maps embed with branch info cards
  */
-export function BranchesMap({ compact = false }: BranchesMapProps) {
+export function BranchesMap({ compact = false, initialBranches }: BranchesMapProps & { initialBranches?: any[] }) {
 
   return (
     <section className={`${compact ? "py-8" : "section-padding"} relative`}>
@@ -27,7 +27,7 @@ export function BranchesMap({ compact = false }: BranchesMapProps) {
           />
         )}
 
-        <Address />
+        <Address initialBranches={initialBranches} />
       </div>
     </section>
   );

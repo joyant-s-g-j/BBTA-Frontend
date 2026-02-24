@@ -12,30 +12,33 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * TestimonialsCarousel Component
  * Infinite scroll carousel with quote cards, avatars, and ratings
  */
-export function TestimonialsCarousel() {
+export function TestimonialsCarousel({ initialTestimonials }: { initialTestimonials?: any[] }) {
+  const displayTestimonials = initialTestimonials || testimonials;
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
 
   // Auto-play carousel
   React.useEffect(() => {
+    if (displayTestimonials.length <= 1) return;
     const interval = setInterval(() => {
       setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => (prev + 1) % displayTestimonials.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [displayTestimonials.length]);
 
   const goToPrevious = () => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex((prev) => (prev - 1 + displayTestimonials.length) % displayTestimonials.length);
   };
 
   const goToNext = () => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setCurrentIndex((prev) => (prev + 1) % displayTestimonials.length);
   };
 
-  const currentTestimonial = testimonials[currentIndex];
+  if (displayTestimonials.length === 0) return null;
+  const currentTestimonial = displayTestimonials[currentIndex];
 
   const variants = {
     enter: (direction: number) => ({
@@ -147,7 +150,7 @@ export function TestimonialsCarousel() {
 
             {/* Dots */}
             <div className="flex items-center gap-2">
-              {testimonials.map((_, index) => (
+              {displayTestimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => {

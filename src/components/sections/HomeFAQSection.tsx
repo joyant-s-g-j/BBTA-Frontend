@@ -15,7 +15,8 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * HomeFAQSection
  * Frequently Asked Questions section for the home page
  */
-export function HomeFAQSection() {
+export function HomeFAQSection({ initialFaqs }: { initialFaqs?: any[] }) {
+  const displayFaqs = initialFaqs || faqs;
   return (
     <section className="section-padding bg-card relative overflow-hidden">
       {/* Decorative blurs */}
@@ -43,7 +44,7 @@ export function HomeFAQSection() {
             className="lg:col-span-3"
           >
             <Accordion type="single" collapsible className="w-full space-y-2">
-              {faqs.map((faq, index) => (
+              {displayFaqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
                   value={`home-faq-${index}`}

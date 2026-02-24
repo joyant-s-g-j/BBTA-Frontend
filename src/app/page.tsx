@@ -9,32 +9,56 @@ import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
 import { BranchesMap } from "@/components/sections/BranchesMap";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { UpcomingBatchesSection } from "@/components/sections/UpcomingBatchesSection";
+import * as api from "@/lib/api";
 
 /**
  * Home Page
- * Main landing page with hero, stats, courses, features, career growth, testimonials, certification, FAQ, and CTA
+ * Main landing page with SSR data fetching for maximum performance.
  */
-export default function HomePage() {
+export default async function HomePage() {
+  // Parallel fetching for SSR speed
+  const [
+    hero,
+    stats,
+    courses,
+    batches,
+    features,
+    testimonials,
+    certifications,
+    faqs,
+    cta,
+    branches
+  ] = await Promise.all([
+    api.getHero(),
+    api.getStats(),
+    api.getCourses(),
+    api.getBatches(),
+    api.getFeatures(),
+    api.getTestimonials(),
+    api.getCertifications(),
+    api.getFaqs(),
+    api.getCtaBanner(),
+    api.getBranches()
+  ]);
+
   return (
     <>
-      {/* Hero Section */}
       <HeroSection
-        title="Master the Art of Coffee"
-        subtitle="Bangladesh's Premier Barista Academy"
-        description="Transform your passion for coffee into a professional career with ISO-certified training from industry experts."
-        ctaText="Explore Courses"
-        ctaHref="/bbta-courses"
-        secondaryCtaText="Contact Us"
-        secondaryCtaHref="/contact"
-        backgroundImage="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
+        title={hero?.title || "Master the Art of Coffee"}
+        subtitle={hero?.subtitle || "Bangladesh's Premier Barista Academy"}
+        description={hero?.description || "Transform your passion for coffee into a professional career with ISO-certified training."}
+        ctaText={hero?.ctaText || "Explore Courses"}
+        ctaHref={hero?.ctaUrl || "/bbta-courses"}
+        secondaryCtaText={hero?.secondaryCtaText || "Contact Us"}
+        secondaryCtaHref={hero?.secondaryCtaUrl || "/contact"}
+        backgroundImage={hero?.backgroundImage || "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"}
         size="full"
       />
 
-      {/* Stats Section */}
-      <StatsSection />
+      <StatsSection stats={stats} />
 
-      {/* Featured Courses */}
       <CourseGrid
+        initialCourses={courses}
         maxCourses={8}
         mobileMaxCourses={4}
         showFilters={false}
@@ -42,33 +66,25 @@ export default function HomePage() {
         subtitle="Start Your Journey"
       />
 
-      {/* Upcoming Batches Section */}
-      <UpcomingBatchesSection limit={4} />
+      <UpcomingBatchesSection initialBatches={batches} limit={4} />
 
-      {/* Features Grid — Why Choose BBTA */}
-      <FeaturesGrid />
+      <FeaturesGrid initialFeatures={features} />
 
-      {/* How Barista Training Grows Your Career */}
       <CareerGrowthSection />
 
-      {/* Testimonials */}
-      <TestimonialsCarousel />
+      <TestimonialsCarousel initialTestimonials={testimonials} />
 
-      {/* Certification Section */}
-      <CertificationSection />
+      <CertificationSection initialCertifications={certifications} />
 
-      {/* FAQ Section */}
-      <HomeFAQSection />
+      <HomeFAQSection initialFaqs={faqs} />
 
-      {/* Branches Map */}
-      <BranchesMap />
+      <BranchesMap initialBranches={branches} />
 
-      {/* CTA Banner */}
       <CTABanner
-        title="Ready to Start Your Coffee Journey?"
-        description="Join over 2,000 graduates who have transformed their passion for coffee into successful careers."
-        ctaText="Enroll Now"
-        ctaHref="/bbta-courses"
+        title={cta?.title || "Ready to Start Your Coffee Journey?"}
+        description={cta?.description || "Join over 2,000 graduates who have transformed their passion."}
+        ctaText={cta?.buttonText || "Enroll Now"}
+        ctaHref={cta?.buttonUrl || "/bbta-courses"}
       />
     </>
   );
