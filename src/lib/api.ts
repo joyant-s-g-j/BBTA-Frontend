@@ -1,5 +1,5 @@
 // Fetch data from backend API
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrender.com/api';
 
 async function fetchAPI(endpoint: string) {
     try {
