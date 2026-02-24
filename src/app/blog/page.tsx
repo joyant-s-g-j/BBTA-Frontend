@@ -48,49 +48,55 @@ export default function BlogPage() {
             {/* Main Content */}
             <div className="lg:col-span-3">
               {/* Featured Post */}
-              <div className="mb-12">
-                <Link
-                  href={`#`}
-                  className="group block bg-card rounded-2xl border border-border overflow-hidden card-hover"
-                >
-                  <div className="grid md:grid-cols-2">
-                    <div className="relative h-64 md:h-full">
-                      <Image
-                        src={featuredPost.image}
-                        alt={featuredPost.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
-                    <div className="p-6 md:p-8 flex flex-col justify-center">
-                      <Badge className="w-fit mb-4 bg-primary/10 text-primary border-primary/20">
-                        {featuredPost.category}
-                      </Badge>
-                      <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4 group-hover:text-primary transition-colors">
-                        {featuredPost.title}
-                      </h2>
-                      <p className="text-muted-foreground mb-4">
-                        {featuredPost.excerpt}
-                      </p>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1.5">
-                          <User className="h-4 w-4" />
-                          {featuredPost.author}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Calendar className="h-4 w-4" />
-                          {new Date(featuredPost.date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
-                        </span>
+              {featuredPost ? (
+                <div className="mb-12">
+                  <Link
+                    href={`/blog/${featuredPost.slug}`}
+                    className="group block bg-card rounded-2xl border border-border overflow-hidden card-hover"
+                  >
+                    <div className="grid md:grid-cols-2">
+                      <div className="relative h-64 md:h-full">
+                        <Image
+                          src={featuredPost.image}
+                          alt={featuredPost.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                      <div className="p-6 md:p-8 flex flex-col justify-center">
+                        <Badge className="w-fit mb-4 bg-primary/10 text-primary border-primary/20">
+                          {featuredPost.category}
+                        </Badge>
+                        <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4 group-hover:text-primary transition-colors">
+                          {featuredPost.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-4">
+                          {featuredPost.excerpt}
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-1.5">
+                            <User className="h-4 w-4" />
+                            {featuredPost.author}
+                          </span>
+                          <span className="flex items-center gap-1.5">
+                            <Calendar className="h-4 w-4" />
+                            {new Date(featuredPost.date).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
+                  </Link>
+                </div>
+              ) : (
+                <div className="text-center py-20 bg-card rounded-2xl border border-dashed border-border mb-12">
+                  <p className="text-muted-foreground">No blog posts found at the moment.</p>
+                </div>
+              )}
 
               {/* Regular Posts Grid */}
               <div className="grid md:grid-cols-2 gap-6">

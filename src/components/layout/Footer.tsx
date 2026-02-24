@@ -136,16 +136,16 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span className="text-white/70 text-sm">
-                  {branches[0].address}
+                  {branches[0]?.address || "Baridhara & Dhanmondi, Dhaka"}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
                 <a
-                  href={`tel:${branches[0].phone}`}
+                  href={`tel:${branches[0]?.phone || "+880123456789"}`}
                   className="text-white/70 hover:text-primary transition-colors text-sm"
                 >
-                  {branches[0].phone}
+                  {branches[0]?.phone || "+880 1234 56789"}
                 </a>
               </li>
               <li className="flex items-center gap-3">
