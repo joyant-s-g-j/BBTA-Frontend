@@ -32,7 +32,9 @@ export async function getBlogPost(slug: string) {
 }
 export async function getTeamMembers() { return await fetchAPI('/team') || []; }
 export async function getBranches() { return await fetchAPI('/branches') || []; }
-export async function getSettings() { return await fetchAPI('/settings/site') || {}; }
+export async function getSettings(key = 'site') { return await fetchAPI(`/settings/${key}`) || {}; }
 export async function getHero() { return await fetchAPI('/settings/hero') || {}; }
 export async function getCtaBanner() { return await fetchAPI('/settings/cta') || {}; }
 export async function getServices() { return await fetchAPI('/services') || []; }
+export async function verifyCertificate(id: string) { return await fetchAPI(`/verify-certificate?certificateId=${id}`) || []; }
+export async function getHeroByPage(page: string) { return await getSettings(`hero_${page}`); }

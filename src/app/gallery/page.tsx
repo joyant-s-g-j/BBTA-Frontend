@@ -21,6 +21,7 @@ export default function GalleryPage() {
   const [loading, setLoading] = React.useState(true);
   const [selectedCategory, setSelectedCategory] = React.useState<Category>("All");
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
+  const [hero, setHero] = React.useState<any>(null);
 
   const categories: Category[] = ["All", "Training", "Events", "Cafe", "Students"];
 
@@ -32,6 +33,8 @@ export default function GalleryPage() {
       console.error(err);
       setLoading(false);
     });
+
+    api.getHeroByPage('gallery').then(setHero).catch(console.error);
   }, []);
 
   const filteredItems = React.useMemo(() => {
@@ -43,12 +46,14 @@ export default function GalleryPage() {
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Our Gallery"
-        subtitle="Moments & Memories"
-        description="Explore snapshots from our training sessions, events, and the journeys of our students."
+        {...(hero || {
+          title: "Our Gallery",
+          subtitle: "Moments & Memories",
+          description: "Explore snapshots from our training sessions, events, and the journeys of our students.",
+          backgroundImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920"
+        })}
         ctaText="View Gallery"
         ctaHref="#gallery"
-        backgroundImage="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920"
         size="medium"
         showScrollIndicator={false}
       />

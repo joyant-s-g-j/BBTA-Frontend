@@ -12,8 +12,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { maintenanceServices } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import * as api from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Servicing & Maintenance",
@@ -25,11 +25,23 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Servicing & Maintenance Page
- */
-export default function ServiceMaintenancePage() {
-  const pricingData = [
+export default async function ServiceMaintenancePage() {
+  const [allServices, pricingSettings, heroSettings] = await Promise.all([
+    api.getServices(),
+    api.getSettings('maintenance_pricing'),
+    api.getHeroByPage('maintenance')
+  ]);
+
+  const maintenanceServices = allServices?.filter((s: any) => s.category === 'Maintenance') || [];
+
+  const hero = {
+    title: heroSettings?.title || "Equipment Servicing",
+    subtitle: heroSettings?.subtitle || "Keep Your Machines Running Perfect",
+    description: heroSettings?.description || "Expert maintenance and repair services for all major espresso machine and grinder brands.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1920"
+  };
+
+  const pricingData = pricingSettings?.items || [
     {
       service: "Basic Inspection",
       description: "Visual inspection and basic testing",
@@ -71,15 +83,12 @@ export default function ServiceMaintenancePage() {
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Equipment Servicing"
-        subtitle="Keep Your Machines Running Perfect"
-        description="Expert maintenance and repair services for all major espresso machine and grinder brands."
+        {...hero}
         ctaText="Request Service"
         ctaHref="#service-form"
-        backgroundImage="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1920"
         size="medium"
         showScrollIndicator={false}
-      />
+      />筋
 
       {/* Services Grid */}
       <section className="section-padding">
@@ -92,7 +101,7 @@ export default function ServiceMaintenancePage() {
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            {maintenanceServices.map((service) => {
+            {maintenanceServices.map((service: any) => {
               const IconComponent =
                 (LucideIcons as any)[
                 service.icon
@@ -115,7 +124,7 @@ export default function ServiceMaintenancePage() {
                         {service.description}
                       </p>
                       <ul className="space-y-2">
-                        {service.features.map((feature) => (
+                        {service.features.map((feature: any) => (
                           <li
                             key={feature}
                             className="flex items-center gap-2 text-sm text-muted-foreground"
@@ -150,7 +159,7 @@ export default function ServiceMaintenancePage() {
 
               {/* Mobile: Card layout */}
               <div className="space-y-3 md:hidden">
-                {pricingData.map((item) => (
+                {pricingData.map((item: any) => (
                   <div
                     key={item.service}
                     className="bg-card rounded-xl border border-border p-4"
@@ -179,7 +188,7 @@ export default function ServiceMaintenancePage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {pricingData.map((item) => (
+                    {pricingData.map((item: any) => (
                       <TableRow key={item.service} className="border-border">
                         <TableCell className="font-medium">{item.service}</TableCell>
                         <TableCell className="text-muted-foreground">

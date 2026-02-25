@@ -94,7 +94,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await api.getSettings();
+  const [settings, courses] = await Promise.all([
+    api.getSettings(),
+    api.getCourses()
+  ]);
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -104,7 +107,7 @@ export default async function RootLayout({
         {/* Main Layout */}
         <div className="relative min-h-screen flex flex-col">
           {/* Navbar */}
-          <Navbar settings={settings} />
+          <Navbar settings={settings} courses={courses} />
 
           {/* Main Content */}
           <main className="flex-1">{children}</main>

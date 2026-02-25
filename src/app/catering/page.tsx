@@ -5,8 +5,8 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { Badge } from "@/components/ui/badge";
-import { cateringServices } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import * as api from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Event Catering",
@@ -18,11 +18,23 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Event Catering Page
- */
-export default function CateringPage() {
-  const pricingTiers = [
+export default async function CateringPage() {
+  const [allServices, pricingSettings, heroSettings] = await Promise.all([
+    api.getServices(),
+    api.getSettings('catering_pricing'),
+    api.getHeroByPage('catering')
+  ]);
+
+  const cateringServices = allServices?.filter((s: any) => s.category === 'Catering') || [];
+
+  const hero = {
+    title: heroSettings?.title || "Premium Event Catering",
+    subtitle: heroSettings?.subtitle || "Mobile Coffee Bar Services",
+    description: heroSettings?.description || "Bring the cafe experience to your event with our professional baristas and premium coffee bar setup.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920"
+  };
+
+  const pricingTiers = pricingSettings?.items || [
     {
       name: "Essential",
       description: "Perfect for small gatherings",
@@ -69,15 +81,12 @@ export default function CateringPage() {
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Premium Event Catering"
-        subtitle="Mobile Coffee Bar Services"
-        description="Bring the cafe experience to your event with our professional baristas and premium coffee bar setup."
+        {...hero}
         ctaText="Book Your Event"
         ctaHref="#booking"
-        backgroundImage="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920"
         size="medium"
         showScrollIndicator={false}
-      />
+      />筋
 
       {/* Services Grid */}
       <section className="section-padding">
@@ -89,7 +98,7 @@ export default function CateringPage() {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cateringServices.map((service, index) => {
+            {cateringServices.map((service: any) => {
               const IconComponent =
                 (LucideIcons as any)[
                 service.icon
@@ -110,7 +119,7 @@ export default function CateringPage() {
                     {service.description}
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center">
-                    {service.features.slice(0, 2).map((feature) => (
+                    {service.features.slice(0, 2).map((feature: any) => (
                       <Badge
                         key={feature}
                         variant="secondary"
@@ -170,12 +179,12 @@ export default function CateringPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {pricingTiers.map((tier) => (
+            {pricingTiers.map((tier: any) => (
               <div
                 key={tier.name}
                 className={`relative bg-card rounded-2xl border p-8 ${tier.popular
-                    ? "border-primary ring-2 ring-primary/20"
-                    : "border-border"
+                  ? "border-primary ring-2 ring-primary/20"
+                  : "border-border"
                   }`}
               >
                 {tier.popular && (
@@ -193,7 +202,7 @@ export default function CateringPage() {
                   </p>
                 </div>
                 <ul className="space-y-3 mb-6">
-                  {tier.features.map((feature) => (
+                  {tier.features.map((feature: any) => (
                     <li key={feature} className="flex items-center gap-2 text-sm">
                       <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                       {feature}

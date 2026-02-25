@@ -6,7 +6,8 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { blogPosts } from "@/lib/data";
+import { navLinks } from "@/lib/data";
+import * as api from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -22,8 +23,20 @@ export const metadata: Metadata = {
  * Blog Page
  * Post grid with category sidebar and featured post
  */
-export default function BlogPage() {
-  const categories = [...new Set(blogPosts.map((post) => post.category))];
+export default async function BlogPage() {
+  const [blogPosts, heroSettings] = await Promise.all([
+    api.getBlogPosts(),
+    api.getHeroByPage('blog')
+  ]);
+
+  const hero = {
+    title: heroSettings?.title || "Insights & Tips",
+    subtitle: heroSettings?.subtitle || "The BBTA Blog",
+    description: heroSettings?.description || "Expert advice, industry insights, and coffee knowledge from our team of professionals.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
+  };
+
+  const categories = Array.from(new Set(blogPosts.map((post: any) => post.category))) as string[];
   const featuredPost = blogPosts[0];
   const regularPosts = blogPosts.slice(1);
 
@@ -31,12 +44,9 @@ export default function BlogPage() {
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Insights & Tips"
-        subtitle="The BBTA Blog"
-        description="Expert advice, industry insights, and coffee knowledge from our team of professionals."
+        {...hero}
         ctaText="Read Articles"
         ctaHref="#posts"
-        backgroundImage="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
         size="medium"
         showScrollIndicator={false}
       />
@@ -100,7 +110,7 @@ export default function BlogPage() {
 
               {/* Regular Posts Grid */}
               <div className="grid md:grid-cols-2 gap-6">
-                {regularPosts.map((post) => (
+                {regularPosts.map((post: any) => (
                   <Link
                     key={post.slug}
                     href={`#`}

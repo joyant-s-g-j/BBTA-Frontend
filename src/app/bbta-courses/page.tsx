@@ -13,17 +13,24 @@ import * as api from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export default async function CoursesPage() {
-  const faqs = await api.getFaqs();
+  const [faqs, heroSettings] = await Promise.all([
+    api.getFaqs(),
+    api.getHeroByPage('courses')
+  ]);
+
+  const hero = {
+    title: heroSettings?.title || "Explore Our Courses",
+    subtitle: heroSettings?.subtitle || "Professional Training Programs",
+    description: heroSettings?.description || "From beginner foundations to advanced professional certifications, find the perfect course to launch your coffee career.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920"
+  };
 
   return (
     <>
       <HeroSection
-        title="Explore Our Courses"
-        subtitle="Professional Training Programs"
-        description="From beginner foundations to advanced professional certifications, find the perfect course to launch your coffee career."
+        {...hero}
         ctaText="View All Courses"
         ctaHref="#courses"
-        backgroundImage="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920"
         size="medium"
         showScrollIndicator={false}
       />

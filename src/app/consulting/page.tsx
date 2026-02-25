@@ -4,8 +4,8 @@ import * as LucideIcons from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
-import { consultingServices } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import * as api from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Cafe Consulting",
@@ -17,16 +17,23 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Cafe Consulting Page
- */
-import * as api from "@/lib/api";
-
 export default async function ConsultingPage() {
-  const allServices = await api.getServices();
-  const consultingServices = allServices.filter((s: any) => s.category === 'Consulting');
+  const [allServices, caseStudiesSettings, heroSettings] = await Promise.all([
+    api.getServices(),
+    api.getSettings('consulting_cases'),
+    api.getHeroByPage('consulting')
+  ]);
 
-  const caseStudies = [
+  const consultingServices = allServices?.filter((s: any) => s.category === 'Consulting') || [];
+
+  const hero = {
+    title: heroSettings?.title || "Expert Cafe Consulting",
+    subtitle: heroSettings?.subtitle || "Transform Your Coffee Business",
+    description: heroSettings?.description || "From menu optimization to staff training, we help cafes reach their full potential.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920"
+  };
+
+  const caseStudies = caseStudiesSettings?.items || [
     { name: "Urban Coffee House", result: "40% increase in beverage sales", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" },
     { name: "The Daily Grind", result: "Reduced waste by 35%", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800" },
     { name: "Artisan Brews", result: "Staff efficiency up 50%", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800" },
@@ -35,12 +42,9 @@ export default async function ConsultingPage() {
   return (
     <>
       <HeroSection
-        title="Expert Cafe Consulting"
-        subtitle="Transform Your Coffee Business"
-        description="From menu optimization to staff training, we help cafes reach their full potential."
+        {...hero}
         ctaText="Get a Consultation"
         ctaHref="#inquiry"
-        backgroundImage="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920"
         size="medium"
         showScrollIndicator={false}
       />
@@ -100,7 +104,7 @@ export default async function ConsultingPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6">
-            {caseStudies.map((study) => (
+            {caseStudies.map((study: any) => (
               <div
                 key={study.name}
                 className="group relative h-64 rounded-2xl overflow-hidden"

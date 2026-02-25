@@ -28,6 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
+import * as api from "@/lib/api";
 
 // Validation schema
 const verificationSchema = z.object({
@@ -50,12 +51,14 @@ interface CertificateResult {
   };
 }
 
-/**
- * Certificate Verification Page
- */
 export default function CertificateVerificationPage() {
   const [isSearching, setIsSearching] = React.useState(false);
   const [result, setResult] = React.useState<CertificateResult | null>(null);
+  const [hero, setHero] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    api.getHeroByPage('certificate').then(setHero).catch(console.error);
+  }, []);
 
   const form = useForm<VerificationFormData>({
     resolver: zodResolver(verificationSchema),
@@ -68,41 +71,44 @@ export default function CertificateVerificationPage() {
     setIsSearching(true);
     setResult(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const results = await api.verifyCertificate(data.certificateId);
+      const found = results[0]; // CRM returns array for search
 
-    // Mock verification result (for demo purposes)
-    const mockValidIds = ["BBTA-2025-001", "BBTA-2025-002", "BBTA-2024-100"];
-    const isValid = mockValidIds.includes(data.certificateId.toUpperCase());
-
-    if (isValid) {
-      setResult({
-        valid: true,
-        data: {
-          name: "John Doe",
-          course: "Barista Professional",
-          completionDate: "January 15, 2025",
-          certificateId: data.certificateId.toUpperCase(),
-          grade: "Distinction",
-        },
-      });
-    } else {
+      if (found) {
+        setResult({
+          valid: true,
+          data: {
+            name: found.studentName,
+            course: found.courseName,
+            completionDate: found.completionDate,
+            certificateId: found.certificateId,
+            grade: found.grade,
+          },
+        });
+      } else {
+        setResult({ valid: false });
+      }
+    } catch (error) {
+      console.error(error);
       setResult({ valid: false });
+    } finally {
+      setIsSearching(false);
     }
-
-    setIsSearching(false);
   };
 
   return (
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Verify Certificate"
-        subtitle="Authenticate Your Credentials"
-        description="Enter your certificate ID to verify its authenticity and view your achievement details."
+        {...(hero || {
+          title: "Verify Certificate",
+          subtitle: "Authenticate Your Credentials",
+          description: "Enter your certificate ID to verify its authenticity and view your achievement details.",
+          backgroundImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920"
+        })}
         ctaText="Start Verification"
         ctaHref="#verify"
-        backgroundImage="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920"
         size="medium"
         showScrollIndicator={false}
       />

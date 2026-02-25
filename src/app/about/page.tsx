@@ -20,15 +20,25 @@ export const metadata: Metadata = {
 import * as api from "@/lib/api";
 
 export default async function AboutPage() {
-  const [settings, teamMembers, stats] = await Promise.all([
-    api.getSettings(),
+  const [aboutSettings, timelineSettings, teamMembers, stats, heroSettings] = await Promise.all([
+    api.getSettings('about'),
+    api.getSettings('timeline'),
     api.getTeamMembers(),
-    api.getStats()
+    api.getStats(),
+    api.getHeroByPage('about')
   ]);
 
-  const missionText = settings?.aboutPage?.mission || "Bangladesh Barista Training Academy's mission is to empower the next generation of coffee professionals with world-class skills, knowledge, and certifications.";
+  const missionText = aboutSettings?.mission || "Bangladesh Barista Training Academy's mission is to empower the next generation of coffee professionals with world-class skills, knowledge, and certifications.";
+  const aboutImage = aboutSettings?.aboutImage || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800";
 
-  const timeline = [
+  const hero = {
+    title: heroSettings?.title || "Our Story",
+    subtitle: heroSettings?.subtitle || "Brewing Excellence",
+    description: heroSettings?.description || "From a small training room to Bangladesh's leading barista academy, discover the journey of BBTA.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920"
+  };
+
+  const timeline = timelineSettings?.items || [
     { year: "2018", title: "BBTA Founded", description: "Started with a vision to bring world-class barista training to Bangladesh." },
     { year: "2019", title: "ISO Certification", description: "Became the first ISO-certified barista training academy in Bangladesh." },
     { year: "2020", title: "1000th Graduate", description: "Celebrated our 1000th graduate milestone despite global challenges." },
@@ -38,12 +48,9 @@ export default async function AboutPage() {
   return (
     <>
       <HeroSection
-        title="Our Story"
-        subtitle="Brewing Excellence"
-        description="From a small training room to Bangladesh's leading barista academy, discover the journey of BBTA."
+        {...hero}
         ctaText="View Courses"
         ctaHref="/bbta-courses"
-        backgroundImage="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920"
         size="medium"
         showScrollIndicator={false}
       />
@@ -59,13 +66,14 @@ export default async function AboutPage() {
                 titleSize="text-3xl md:text-4xl"
                 className="mb-6"
               />
-              <div className="space-y-4 text-muted-foreground whitespace-pre-line">
-                <p>{missionText}</p>
-              </div>
+              <div
+                className="space-y-4 text-muted-foreground whitespace-pre-line prose prose-invert max-w-none"
+                dangerouslySetInnerHTML={{ __html: missionText }}
+              />
             </div>
             <div className="relative h-100 lg:h-125 rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800"
+                src={aboutImage}
                 alt="BBTA Training Session"
                 fill
                 className="object-cover"
@@ -76,6 +84,35 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Timeline Section */}
+      {timeline && timeline.length > 0 && (
+        <section className="section-padding bg-card/50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              subtitle="Our Journey"
+              title="BBTA History & Milestones"
+              titleSize="text-3xl md:text-4xl"
+            />
+            <div className="max-w-4xl mx-auto mt-12">
+              <div className="relative border-l-2 border-primary/30 ml-3 md:ml-0 md:left-1/2">
+                {timeline.map((item: any, index: number) => (
+                  <div key={index} className={`relative mb-12 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right md:ml-0" : "md:pl-12 md:ml-auto"}`}>
+                    <div className="absolute top-0 w-6 h-6 bg-primary rounded-full border-4 border-background -left-3.5 md:left-auto md:right-[-13px] group-hover:scale-125 transition-transform" />
+                    {index % 2 !== 0 && <div className="hidden md:block absolute top-0 w-6 h-6 bg-primary rounded-full border-4 border-background left-[-13px]" />}
+
+                    <div className="bg-card p-6 rounded-2xl border border-border shadow-lg hover:border-primary/50 transition-colors">
+                      <span className="text-primary font-bold text-xl mb-2 block">{item.year}</span>
+                      <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {stats && stats.length > 0 && <StatsSection stats={stats} />}
 

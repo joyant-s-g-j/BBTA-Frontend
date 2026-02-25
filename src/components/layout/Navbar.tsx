@@ -19,14 +19,15 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { courses, navLinks } from "@/lib/data";
+import { navLinks } from "@/lib/data";
 import Image from "next/image";
 
 /**
  * Navbar Component
  * Sticky glassmorphism navigation with mega menu for courses
  */
-export function Navbar({ settings }: { settings?: any }) {
+export function Navbar({ settings, courses: initialCourses = [] }: { settings?: any, courses?: any[] }) {
+  const courses = initialCourses;
   const logoUrl = settings?.logo || "/bbtalogo.webp";
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
