@@ -49,6 +49,7 @@ interface EnrollmentFormProps {
   variant?: "full" | "compact";
   title?: string;
   description?: string;
+  source?: string;
 }
 
 export function EnrollmentForm({
@@ -56,6 +57,7 @@ export function EnrollmentForm({
   variant = "full",
   title = "Enroll Now",
   description = "Fill out the form below and we'll get back to you within 24 hours.",
+  source = "contact",
 }: EnrollmentFormProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [availableCourses, setAvailableCourses] = React.useState<any[]>([]);
@@ -85,7 +87,8 @@ export function EnrollmentForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          subject: `Enrollment Request: ${data.course}`
+          subject: `Enrollment Request: ${data.course}`,
+          source,
         }),
       });
 

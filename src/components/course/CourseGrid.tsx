@@ -25,6 +25,7 @@ interface CourseGridProps {
   showHeader?: boolean;
   title?: string;
   subtitle?: string;
+  description?: string;
   initialCourses?: Course[];
 }
 
@@ -39,6 +40,7 @@ export function CourseGrid({
   showHeader = true,
   title = "Our Courses",
   subtitle = "Explore Our Programs",
+  description,
   initialCourses,
 }: CourseGridProps) {
   const [displayCourses, setDisplayCourses] = React.useState<Course[]>(initialCourses || []);
@@ -104,7 +106,7 @@ export function CourseGrid({
           <SectionHeader
             subtitle={subtitle}
             title={title}
-            description="From beginner foundations to advanced professional training, find the perfect course for your coffee career."
+            description={description || "From beginner foundations to advanced professional training, find the perfect course for your coffee career."}
             titleSize="text-3xl md:text-4xl"
           />
         )}

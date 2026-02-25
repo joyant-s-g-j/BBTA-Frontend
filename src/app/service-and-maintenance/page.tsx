@@ -26,10 +26,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ServiceMaintenancePage() {
-  const [allServices, pricingSettings, heroSettings] = await Promise.all([
+  const [allServices, pricingSettings, heroSettings, sh] = await Promise.all([
     api.getServices(),
     api.getSettings('maintenance_pricing'),
-    api.getHeroByPage('maintenance')
+    api.getHeroByPage('maintenance'),
+    api.getAllSectionHeaders()
   ]);
 
   const maintenanceServices = allServices?.filter((s: any) => s.category === 'Maintenance') || [];
@@ -94,9 +95,9 @@ export default async function ServiceMaintenancePage() {
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Our Services"
-            title="Comprehensive Equipment Care"
-            description="Our certified technicians specialize in maintaining and repairing all major coffee equipment brands to keep your cafe running smoothly."
+            subtitle={sh['sh_maint_services']?.subtitle}
+            title={sh['sh_maint_services']?.title}
+            description={sh['sh_maint_services']?.description}
             titleSize="text-3xl md:text-4xl"
           />
 
@@ -150,8 +151,9 @@ export default async function ServiceMaintenancePage() {
             {/* Pricing Table */}
             <div className="lg:col-span-3">
               <SectionHeader
-                subtitle="Pricing"
-                title="Service Rates"
+                subtitle={sh['sh_maint_rates']?.subtitle}
+                title={sh['sh_maint_rates']?.title}
+                description={sh['sh_maint_rates']?.description}
                 align="left"
                 titleSize="text-3xl md:text-4xl"
                 className="mb-8 lg:mb-10"
@@ -212,8 +214,9 @@ export default async function ServiceMaintenancePage() {
             {/* Service Request Form */}
             <div className="lg:col-span-2" id="service-form">
               <SectionHeader
-                subtitle="Get Started"
-                title="Request Service"
+                subtitle={sh['sh_maint_form']?.subtitle}
+                title={sh['sh_maint_form']?.title}
+                description={sh['sh_maint_form']?.description}
                 align="left"
                 titleSize="text-3xl md:text-4xl"
                 className="mb-8 lg:mb-10"
@@ -221,6 +224,7 @@ export default async function ServiceMaintenancePage() {
               <EnrollmentForm
                 title="Service Request"
                 description="Describe your equipment and issue. We'll respond within 24 hours."
+                source="maintenance"
               />
             </div>
           </div>

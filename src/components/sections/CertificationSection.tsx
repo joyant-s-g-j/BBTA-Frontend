@@ -28,9 +28,10 @@ const iconMap: Record<string, React.ReactNode> = {
  * CertificationSection
  * Displays various certifications and accreditations between Testimonials and FAQ
  */
-export function CertificationSection({ initialCertifications }: { initialCertifications?: any[] }) {
+export function CertificationSection({ initialCertifications, sectionHeader }: { initialCertifications?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialCertifications || initialCertifications.length === 0) return null;
   const displayCertifications = initialCertifications;
+  const sh = sectionHeader || { subtitle: 'Industry Recognition', title: 'Our Certifications & Accreditations', description: 'We take pride in our international standards and local recognition.' };
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       {/* Decorative background elements */}
@@ -42,9 +43,9 @@ export function CertificationSection({ initialCertifications }: { initialCertifi
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <SectionHeader
-          subtitle="Industry Recognition"
-          title="Our Certifications & Accreditations"
-          description="We take pride in our international standards and local recognition. Our graduates carry certifications that are respected globally in the coffee industry."
+          subtitle={sh.subtitle}
+          title={sh.title}
+          description={sh.description}
         />
 
         {/* Certifications Grid */}

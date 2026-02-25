@@ -12,8 +12,9 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * TestimonialsCarousel Component
  * Infinite scroll carousel with quote cards, avatars, and ratings
  */
-export function TestimonialsCarousel({ initialTestimonials }: { initialTestimonials?: any[] }) {
+export function TestimonialsCarousel({ initialTestimonials, sectionHeader }: { initialTestimonials?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   const displayTestimonials = initialTestimonials || testimonials;
+  const sh = sectionHeader || { subtitle: 'Success Stories', title: 'What Our Graduates Say' };
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
 
@@ -68,8 +69,8 @@ export function TestimonialsCarousel({ initialTestimonials }: { initialTestimoni
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <SectionHeader
-          subtitle="Success Stories"
-          title="What Our Graduates Say"
+          subtitle={sh.subtitle}
+          title={sh.title}
           titleSize="text-3xl md:text-4xl"
         />
 

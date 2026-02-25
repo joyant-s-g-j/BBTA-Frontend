@@ -28,7 +28,8 @@ export default async function HomePage() {
     faqs,
     cta,
     branches,
-    careerBenefits
+    careerBenefits,
+    sh,
   ] = await Promise.all([
     api.getHero(),
     api.getStats(),
@@ -40,7 +41,8 @@ export default async function HomePage() {
     api.getFaqs(),
     api.getCtaBanner(),
     api.getBranches(),
-    api.getCareerBenefits()
+    api.getCareerBenefits(),
+    api.getAllSectionHeaders(),
   ]);
 
   return (
@@ -66,23 +68,46 @@ export default async function HomePage() {
         maxCourses={8}
         mobileMaxCourses={4}
         showFilters={false}
-        title="Popular Courses"
-        subtitle="Start Your Journey"
+        title={sh['sh_home_courses']?.title}
+        subtitle={sh['sh_home_courses']?.subtitle}
+        description={sh['sh_home_courses']?.description}
       />
 
-      <UpcomingBatchesSection initialBatches={batches} limit={4} />
+      <UpcomingBatchesSection
+        initialBatches={batches}
+        limit={4}
+        sectionHeader={sh['sh_home_batches']}
+      />
 
-      <FeaturesGrid initialFeatures={features} />
+      <FeaturesGrid
+        initialFeatures={features}
+        sectionHeader={sh['sh_home_features']}
+      />
 
-      <CareerGrowthSection initialCareerBenefits={careerBenefits} />
+      <CareerGrowthSection
+        initialCareerBenefits={careerBenefits}
+        sectionHeader={sh['sh_home_career']}
+      />
 
-      <TestimonialsCarousel initialTestimonials={testimonials} />
+      <TestimonialsCarousel
+        initialTestimonials={testimonials}
+        sectionHeader={sh['sh_home_testimonials']}
+      />
 
-      <CertificationSection initialCertifications={certifications} />
+      <CertificationSection
+        initialCertifications={certifications}
+        sectionHeader={sh['sh_home_certs']}
+      />
 
-      <HomeFAQSection initialFaqs={faqs} />
+      <HomeFAQSection
+        initialFaqs={faqs}
+        sectionHeader={sh['sh_home_faq']}
+      />
 
-      <BranchesMap initialBranches={branches} />
+      <BranchesMap
+        initialBranches={branches}
+        sectionHeader={sh['sh_home_branches']}
+      />
 
       {cta && (
         <CTABanner

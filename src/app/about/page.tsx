@@ -20,12 +20,13 @@ export const metadata: Metadata = {
 import * as api from "@/lib/api";
 
 export default async function AboutPage() {
-  const [aboutSettings, timelineSettings, teamMembers, stats, heroSettings] = await Promise.all([
+  const [aboutSettings, timelineSettings, teamMembers, stats, heroSettings, sh] = await Promise.all([
     api.getSettings('about'),
     api.getSettings('timeline'),
     api.getTeamMembers(),
     api.getStats(),
-    api.getHeroByPage('about')
+    api.getHeroByPage('about'),
+    api.getAllSectionHeaders()
   ]);
 
   const missionText = aboutSettings?.mission || "Bangladesh Barista Training Academy's mission is to empower the next generation of coffee professionals with world-class skills, knowledge, and certifications.";
@@ -60,8 +61,9 @@ export default async function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <SectionHeader
-                subtitle="Our Mission"
-                title="Empowering Coffee Professionals"
+                subtitle={sh['sh_about_mission']?.subtitle}
+                title={sh['sh_about_mission']?.title}
+                description={sh['sh_about_mission']?.description}
                 align="left"
                 titleSize="text-3xl md:text-4xl"
                 className="mb-6"
@@ -90,8 +92,9 @@ export default async function AboutPage() {
         <section className="section-padding bg-card/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
-              subtitle="Our Journey"
-              title="BBTA History & Milestones"
+              subtitle={sh['sh_about_timeline']?.subtitle}
+              title={sh['sh_about_timeline']?.title}
+              description={sh['sh_about_timeline']?.description}
               titleSize="text-3xl md:text-4xl"
             />
             <div className="relative max-w-4xl mx-auto mt-12 py-8">
@@ -134,8 +137,9 @@ export default async function AboutPage() {
         <section className="section-padding bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
-              subtitle="Meet the Experts"
-              title="Our Professional Trainers"
+              subtitle={sh['sh_about_team']?.subtitle}
+              title={sh['sh_about_team']?.title}
+              description={sh['sh_about_team']?.description}
               titleSize="text-3xl md:text-4xl"
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

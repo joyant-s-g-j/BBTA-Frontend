@@ -21,9 +21,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * CareerGrowthSection
  * Showcases how barista training accelerates career growth
  */
-export function CareerGrowthSection({ initialCareerBenefits }: { initialCareerBenefits?: any[] }) {
+export function CareerGrowthSection({ initialCareerBenefits, sectionHeader }: { initialCareerBenefits?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialCareerBenefits || initialCareerBenefits.length === 0) return null;
   const displayBenefits = initialCareerBenefits;
+  const sh = sectionHeader || { subtitle: 'Build Your Future', title: 'How Barista Training Helps Grow Your Career', description: 'The coffee industry is one of the fastest-growing sectors in Bangladesh and globally.' };
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
@@ -42,9 +43,9 @@ export function CareerGrowthSection({ initialCareerBenefits }: { initialCareerBe
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <SectionHeader
-          subtitle="Build Your Future"
-          title="How Barista Training Helps Grow Your Career"
-          description="The coffee industry is one of the fastest-growing sectors in Bangladesh and globally. Here's why professional barista training is the smartest career move you can make."
+          subtitle={sh.subtitle}
+          title={sh.title}
+          description={sh.description}
         />
 
         {/* Benefits Grid */}

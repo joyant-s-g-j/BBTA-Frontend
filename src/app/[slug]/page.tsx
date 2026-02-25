@@ -72,9 +72,10 @@ const levelColors: Record<string, string> = {
  */
 export default async function CoursePage({ params }: CoursePageProps) {
   const { slug } = await params;
-  const [course, allCourses] = await Promise.all([
+  const [course, allCourses, sh] = await Promise.all([
     api.getCourseBySlug(slug),
-    api.getCourses()
+    api.getCourses(),
+    api.getAllSectionHeaders()
   ]);
 
   if (!course) {
@@ -246,6 +247,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   variant="full"
                   title={`Enroll in ${course.title}`}
                   description="Secure your spot today. Classes fill up quickly!"
+                  source="courses"
                 />
               </div>
             </div>
@@ -254,14 +256,15 @@ export default async function CoursePage({ params }: CoursePageProps) {
       </section>
 
       {/* Testimonials */}
-      <TestimonialsCarousel />
+      <TestimonialsCarousel sectionHeader={sh['sh_home_testimonials']} />
 
       {/* Related Courses */}
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Continue Learning"
-            title="Related Courses"
+            subtitle={sh['sh_course_related']?.subtitle}
+            title={sh['sh_course_related']?.title}
+            description={sh['sh_course_related']?.description}
             titleSize="text-3xl md:text-4xl"
           />
 

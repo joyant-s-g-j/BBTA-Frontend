@@ -18,10 +18,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ConsultingPage() {
-  const [allServices, caseStudiesSettings, heroSettings] = await Promise.all([
+  const [allServices, caseStudiesSettings, heroSettings, sh] = await Promise.all([
     api.getServices(),
     api.getSettings('consulting_cases'),
-    api.getHeroByPage('consulting')
+    api.getHeroByPage('consulting'),
+    api.getAllSectionHeaders()
   ]);
 
   const consultingServices = allServices?.filter((s: any) => s.category === 'Consulting') || [];
@@ -53,8 +54,9 @@ export default async function ConsultingPage() {
         <section className="section-padding">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
-              subtitle="Our Services"
-              title="Comprehensive Consulting Solutions"
+              subtitle={sh['sh_consulting_svcs']?.subtitle}
+              title={sh['sh_consulting_svcs']?.title}
+              description={sh['sh_consulting_svcs']?.description}
               titleSize="text-3xl md:text-4xl"
             />
 
@@ -98,8 +100,9 @@ export default async function ConsultingPage() {
       <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Success Stories"
-            title="Client Case Studies"
+            subtitle={sh['sh_consulting_cases']?.subtitle}
+            title={sh['sh_consulting_cases']?.title}
+            description={sh['sh_consulting_cases']?.description}
             titleSize="text-3xl md:text-4xl"
           />
 
@@ -137,8 +140,9 @@ export default async function ConsultingPage() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
               <SectionHeader
-                subtitle="Get Started"
-                title="Request a Consultation"
+                subtitle={sh['sh_consulting_form']?.subtitle}
+                title={sh['sh_consulting_form']?.title}
+                description={sh['sh_consulting_form']?.description}
                 align="left"
                 titleSize="text-3xl md:text-4xl"
                 className="mb-6"
@@ -165,6 +169,7 @@ export default async function ConsultingPage() {
             <EnrollmentForm
               title="Request Consultation"
               description="Fill out the form and we'll contact you shortly."
+              source="consulting"
             />
           </div>
         </div>

@@ -18,21 +18,31 @@ export const metadata: Metadata = {
   },
 };
 
+import * as api from "@/lib/api";
+
 /**
  * Contact Page
  * Contact form, branch info, and enlarged map
  */
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [heroSettings, sh] = await Promise.all([
+    api.getHeroByPage('contact'),
+    api.getAllSectionHeaders()
+  ]);
+
+  const hero = {
+    title: heroSettings?.title || "Get in Touch",
+    subtitle: heroSettings?.subtitle || "We'd Love to Hear From You",
+    description: heroSettings?.description || "Have questions about our courses or services? Reach out and our team will respond within 24 hours.",
+    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920"
+  };
   return (
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Get in Touch"
-        subtitle="We'd Love to Hear From You"
-        description="Have questions about our courses or services? Reach out and our team will respond within 24 hours."
+        {...hero}
         ctaText="Send Message"
         ctaHref="#contact-form"
-        backgroundImage="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920"
         size="medium"
         showScrollIndicator={false}
       />
@@ -44,8 +54,9 @@ export default function ContactPage() {
             {/* Contact Info */}
             <div className="lg:col-span-2">
               <SectionHeader
-                subtitle="Reach Out"
-                title="Contact Information"
+                subtitle={sh['sh_contact_info']?.subtitle}
+                title={sh['sh_contact_info']?.title}
+                description={sh['sh_contact_info']?.description}
                 align="left"
                 titleSize="text-3xl"
               />
@@ -96,6 +107,7 @@ export default function ContactPage() {
                 title="Send Us a Message"
                 description="Fill out the form below and we'll get back to you within 24 hours."
                 variant="full"
+                source="contact"
               />
             </div>
           </div>

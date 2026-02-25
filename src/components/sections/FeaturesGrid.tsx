@@ -61,17 +61,18 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
  * FeaturesGrid Component
  * Responsive grid of feature cards with icons
  */
-export function FeaturesGrid({ initialFeatures }: { initialFeatures?: any[] }) {
+export function FeaturesGrid({ initialFeatures, sectionHeader }: { initialFeatures?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialFeatures || initialFeatures.length === 0) return null;
   const displayFeatures = initialFeatures;
+  const sh = sectionHeader || { subtitle: 'Why Choose Us', title: 'The BBTA Advantage', description: 'Experience world-class training with ISO-certified curriculum, expert instructors, and career-focused programs.' };
   return (
     <section className="section-padding relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <SectionHeader
-          subtitle="Why Choose Us"
-          title="The BBTA Advantage"
-          description="Experience world-class training with ISO-certified curriculum, expert instructors, and career-focused programs."
+          subtitle={sh.subtitle}
+          title={sh.title}
+          description={sh.description}
           titleSize="text-3xl md:text-4xl"
         />
 

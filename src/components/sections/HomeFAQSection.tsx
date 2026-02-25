@@ -15,8 +15,9 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * HomeFAQSection
  * Frequently Asked Questions section for the home page
  */
-export function HomeFAQSection({ initialFaqs }: { initialFaqs?: any[] }) {
+export function HomeFAQSection({ initialFaqs, sectionHeader }: { initialFaqs?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   const displayFaqs = initialFaqs || faqs;
+  const sh = sectionHeader || { subtitle: 'Common Questions', title: 'Frequently Asked Questions', description: 'Everything you need to know about our courses, certification, and career opportunities.' };
   return (
     <section className="section-padding bg-card relative overflow-hidden">
       {/* Decorative blurs */}
@@ -27,10 +28,10 @@ export function HomeFAQSection({ initialFaqs }: { initialFaqs?: any[] }) {
         <div className="grid lg:grid-cols-5 gap-12 items-start">
           {/* Left Column — Header */}
           <SectionHeader
-            subtitle="Common Questions"
-            title="Frequently Asked Questions"
+            subtitle={sh.subtitle}
+            title={sh.title}
             align="left"
-            description="Everything you need to know about our courses, certification, and career opportunities."
+            description={sh.description}
             titleSize="text-3xl md:text-4xl"
             className="lg:col-span-2 lg:sticky lg:top-28 mb-0"
           />

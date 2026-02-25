@@ -10,9 +10,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-export function UpcomingBatchesSection({ limit, initialBatches }: { limit?: number, initialBatches?: UpcomingBatch[] }) {
+export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }: { limit?: number, initialBatches?: UpcomingBatch[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
     const dataSource = initialBatches || upcomingBatches;
     const displayedBatches = limit ? dataSource.slice(0, limit) : dataSource;
+    const sh = sectionHeader || { subtitle: 'Secure Your Spot', title: 'Upcoming Batches', description: 'Check out our latest schedule and join our next training session. Limited seats available for each batch.' };
 
     return (
         <section className="section-padding bg-muted/30 relative overflow-hidden">
@@ -23,11 +24,11 @@ export function UpcomingBatchesSection({ limit, initialBatches }: { limit?: numb
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <SectionHeader
-                        subtitle="Secure Your Spot"
-                        title="Upcoming Batches"
-                        description="Check out our latest schedule and join our next training session. Limited seats available for each batch."
+                        subtitle={sh.subtitle}
+                        title={sh.title}
+                        description={sh.description}
                         align="left"
-                        className="mb-0" // Remove bottom margin to align with button
+                        className="mb-0"
                         titleSize="text-3xl md:text-4xl lg:text-5xl"
                     />
 

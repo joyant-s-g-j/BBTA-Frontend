@@ -13,9 +13,10 @@ import * as api from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export default async function CoursesPage() {
-  const [faqs, heroSettings] = await Promise.all([
+  const [faqs, heroSettings, sh] = await Promise.all([
     api.getFaqs(),
-    api.getHeroByPage('courses')
+    api.getHeroByPage('courses'),
+    api.getAllSectionHeaders()
   ]);
 
   const hero = {
@@ -48,9 +49,9 @@ export default async function CoursesPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-start">
               <div>
                 <SectionHeader
-                  subtitle="Common Questions"
-                  title="Frequently Asked Questions"
-                  description="Everything you need to know about our courses and certification."
+                  subtitle={sh['sh_courses_faq']?.subtitle}
+                  title={sh['sh_courses_faq']?.title}
+                  description={sh['sh_courses_faq']?.description}
                   align="left"
                   titleSize="text-3xl md:text-4xl"
                 />
@@ -73,6 +74,7 @@ export default async function CoursesPage() {
                 <EnrollmentForm
                   title="Course Inquiry"
                   description="Interested in a course? Fill out the form below and our team will get back to you with details."
+                  source="courses"
                 />
               </div>
             </div>

@@ -6,13 +6,15 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface BranchesMapProps {
   compact?: boolean;
+  sectionHeader?: { subtitle: string; title: string; description?: string };
 }
 
 /**
  * BranchesMap Component
  * Google Maps embed with branch info cards
  */
-export function BranchesMap({ compact = false, initialBranches }: BranchesMapProps & { initialBranches?: any[] }) {
+export function BranchesMap({ compact = false, initialBranches, sectionHeader }: BranchesMapProps & { initialBranches?: any[] }) {
+  const sh = sectionHeader || { subtitle: 'Visit Us', title: 'Our Training Centers', description: 'State-of-the-art facilities equipped with professional-grade coffee equipment in prime Dhaka locations.' };
 
   return (
     <section className={`${compact ? "py-8" : "section-padding"} relative`}>
@@ -20,9 +22,9 @@ export function BranchesMap({ compact = false, initialBranches }: BranchesMapPro
         {/* Section Header */}
         {!compact && (
           <SectionHeader
-            subtitle="Visit Us"
-            title="Our Training Centers"
-            description="State-of-the-art facilities equipped with professional-grade coffee equipment in prime Dhaka locations."
+            subtitle={sh.subtitle}
+            title={sh.title}
+            description={sh.description}
             titleSize="text-3xl md:text-4xl"
           />
         )}

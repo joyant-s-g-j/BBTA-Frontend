@@ -19,10 +19,12 @@ export const metadata: Metadata = {
 };
 
 export default async function CateringPage() {
-  const [allServices, pricingSettings, heroSettings] = await Promise.all([
+  const [allServices, pricingSettings, heroSettings, eventsSettings, sh] = await Promise.all([
     api.getServices(),
     api.getSettings('catering_pricing'),
-    api.getHeroByPage('catering')
+    api.getHeroByPage('catering'),
+    api.getSettings('catering_events'),
+    api.getAllSectionHeaders()
   ]);
 
   const cateringServices = allServices?.filter((s: any) => s.category === 'Catering') || [];
@@ -92,8 +94,9 @@ export default async function CateringPage() {
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Our Services"
-            title="Events We Serve"
+            subtitle={sh['sh_catering_services']?.subtitle}
+            title={sh['sh_catering_services']?.title}
+            description={sh['sh_catering_services']?.description}
             titleSize="text-3xl md:text-4xl"
           />
 
@@ -140,18 +143,17 @@ export default async function CateringPage() {
       <section className="section-padding bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Past Events"
-            title="Event Highlights"
+            subtitle={sh['sh_catering_events']?.subtitle}
+            title={sh['sh_catering_events']?.title}
+            description={sh['sh_catering_events']?.description}
             titleSize="text-3xl md:text-4xl"
           />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
-              "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400",
+            {(eventsSettings?.items || [
               "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
               "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400"
-            ].map((image, index) => (
+            ]).map((image: string, index: number) => (
               <div
                 key={index}
                 className="relative h-40 md:h-56 rounded-xl overflow-hidden group"
@@ -173,8 +175,9 @@ export default async function CateringPage() {
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Pricing"
-            title="Choose Your Package"
+            subtitle={sh['sh_catering_pricing']?.subtitle}
+            title={sh['sh_catering_pricing']?.title}
+            description={sh['sh_catering_pricing']?.description}
             titleSize="text-3xl md:text-4xl"
           />
 

@@ -55,9 +55,15 @@ export default function CertificateVerificationPage() {
   const [isSearching, setIsSearching] = React.useState(false);
   const [result, setResult] = React.useState<CertificateResult | null>(null);
   const [hero, setHero] = React.useState<any>(null);
+  const [sh, setSh] = React.useState<any>(null);
 
   React.useEffect(() => {
     api.getHeroByPage('certificate').then(setHero).catch(console.error);
+    api.getSectionHeader('sh_certificate_verify', {
+      subtitle: "Verification",
+      title: "Certificate Verification",
+      description: "Enter the certificate ID found on your document"
+    }).then(setSh).catch(console.error);
   }, []);
 
   const form = useForm<VerificationFormData>({
@@ -128,11 +134,11 @@ export default function CertificateVerificationPage() {
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
                 <SectionHeader
-                  subtitle="Verification"
-                  title="Certificate Verification"
+                  subtitle={sh?.subtitle || "Verification"}
+                  title={sh?.title || "Certificate Verification"}
                   align="left"
                   titleSize="text-2xl"
-                  description="Enter the certificate ID found on your document"
+                  description={sh?.description || "Enter the certificate ID found on your document"}
                   className="mb-0"
                 />
               </div>
