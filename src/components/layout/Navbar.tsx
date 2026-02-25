@@ -28,7 +28,6 @@ import Image from "next/image";
  */
 export function Navbar({ settings, courses: initialCourses = [] }: { settings?: any, courses?: any[] }) {
   const courses = initialCourses;
-  const logoUrl = settings?.logo || "/bbtalogo.webp";
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -61,7 +60,7 @@ export function Navbar({ settings, courses: initialCourses = [] }: { settings?: 
           <Link href="/" className="flex items-center gap-2 group relative z-10">
             <div className="rounded-xl p-1 transition-colors">
               <Image
-                src={logoUrl}
+                src="/bbtalogo.webp"
                 alt="BBTA Logo"
                 width={64}
                 height={64}

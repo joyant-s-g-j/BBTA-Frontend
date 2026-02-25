@@ -30,7 +30,6 @@ export function Footer({ settings }: { settings?: any }) {
 
   // Use dynamic settings with safe fallbacks
   const footerIntro = settings?.footer?.intro || "Bangladesh Barista Training Academy - Your gateway to a professional coffee career. ISO certified training with international standards.";
-  const logoUrl = settings?.logo || "/bbtalogo.webp";
   const copyright = settings?.footer?.copyright || `© ${new Date().getFullYear()} Bangladesh Barista Training Academy. All rights reserved.`;
 
   const address = settings?.contactInfo?.address || branches[0]?.address || "Baridhara & Dhanmondi, Dhaka";
@@ -68,7 +67,7 @@ export function Footer({ settings }: { settings?: any }) {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="bg-white rounded-xl p-1">
-                <Image src={logoUrl} alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
+                <Image src="/bbtalogo.webp" alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">

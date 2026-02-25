@@ -94,20 +94,34 @@ export default async function AboutPage() {
               title="BBTA History & Milestones"
               titleSize="text-3xl md:text-4xl"
             />
-            <div className="max-w-4xl mx-auto mt-12">
-              <div className="relative border-l-2 border-primary/30 ml-3 md:ml-0 md:left-1/2">
-                {timeline.map((item: any, index: number) => (
-                  <div key={index} className={`relative mb-12 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right md:ml-0" : "md:pl-12 md:ml-auto"}`}>
-                    <div className="absolute top-0 w-6 h-6 bg-primary rounded-full border-4 border-background -left-3.5 md:left-auto md:right-[-13px] group-hover:scale-125 transition-transform" />
-                    {index % 2 !== 0 && <div className="hidden md:block absolute top-0 w-6 h-6 bg-primary rounded-full border-4 border-background left-[-13px]" />}
+            <div className="relative max-w-4xl mx-auto mt-12 py-8">
+              {/* Central line */}
+              <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/20 transform md:-translate-x-1/2" />
 
-                    <div className="bg-card p-6 rounded-2xl border border-border shadow-lg hover:border-primary/50 transition-colors">
-                      <span className="text-primary font-bold text-xl mb-2 block">{item.year}</span>
-                      <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.description}</p>
+              <div className="space-y-12">
+                {timeline.map((item: any, index: number) => {
+                  const isEven = index % 2 === 0;
+                  return (
+                    <div key={index} className={`relative flex flex-col md:flex-row w-full items-center group ${isEven ? 'md:flex-row-reverse' : ''}`}>
+
+                      {/* Empty spacing for desktop layout */}
+                      <div className="hidden md:block w-1/2" />
+
+                      {/* Dot Indicator */}
+                      <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-primary ring-4 ring-background transform -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-300" />
+
+                      {/* Item Content */}
+                      <div className={`w-full pl-12 md:pl-0 md:w-1/2 ${isEven ? 'md:pr-12 md:text-right' : 'md:pl-12 text-left'}`}>
+                        <div className="bg-card p-6 rounded-2xl border border-border/60 hover:border-primary/50 shadow-sm transition-colors">
+                          <span className="text-primary font-bold text-xl mb-2 block">{item.year}</span>
+                          <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                          <p className="text-muted-foreground text-sm">{item.description}</p>
+                        </div>
+                      </div>
+
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
