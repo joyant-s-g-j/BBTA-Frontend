@@ -97,21 +97,21 @@ export async function generateCertificatePDF(data: CertificateData): Promise<Blo
     doc.setFont("NotoSansDisplay", "normal");
     doc.setFontSize(15);
     doc.setTextColor(69, 70, 73);
-    doc.text(data.certificateId, 165.1, 96.3);
+    doc.text(data.certificateId, 165.1, 94.3);
 
     // Student Name — centered horizontally in content area
     // Font: PlayfairDisplay-Bold, 22.8pt
     doc.setFont("PlayfairDisplay", "bold");
     doc.setFontSize(22.8);
     doc.setTextColor(69, 70, 73);
-    doc.text(data.studentName.toUpperCase(), 247.0, 139.1, { align: "center" });
+    doc.text(data.studentName.toUpperCase(), 247.0, 137.0, { align: "center" });
 
     // Course Name — centered on the dotted line after "Course On"
     // Font: PlayfairDisplay-Bold, 15pt
     doc.setFont("PlayfairDisplay", "bold");
     doc.setFontSize(15);
     doc.setTextColor(69, 70, 73);
-    doc.text(data.courseName.toUpperCase(), 244.5, 151.0, { align: "center" });
+    doc.text(data.courseName.toUpperCase(), 244.5, 149.0, { align: "center" });
 
     // Duration days — on same line, after "for"
     doc.setFont("PlayfairDisplay", "bold");
