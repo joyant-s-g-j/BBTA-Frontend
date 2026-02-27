@@ -12,11 +12,14 @@ import { AdvantagesGrid } from "@/components/sections/AdvantagesGrid";
  * Detailed view of all upcoming course batches
  */
 export default async function UpcomingBatchPage() {
-    const [heroSettings, sh, faqs] = await Promise.all([
+    const [heroSettings, sh, faqs, advantagesData] = await Promise.all([
         api.getHeroByPage('upcoming'),
         api.getAllSectionHeaders(),
-        api.getFaqs()
+        api.getFaqs(),
+        api.getSettings('upcoming_advantages')
     ]);
+
+    const advantages = advantagesData?.items || [];
 
     const hero = {
         title: heroSettings?.title || "Upcoming Training Batches",
@@ -49,7 +52,7 @@ export default async function UpcomingBatchPage() {
                         titleSize="text-3xl md:text-4xl"
                     />
 
-                    <AdvantagesGrid />
+                    <AdvantagesGrid initialAdvantages={advantages.length > 0 ? advantages : undefined} />
                 </div>
             </section>
 

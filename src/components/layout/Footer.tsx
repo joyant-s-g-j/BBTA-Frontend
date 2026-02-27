@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { courses, branches, navLinks } from "@/lib/data";
+import { navLinks } from "@/lib/data";
 import { toast } from "sonner";
 import Image from "next/image";
 
@@ -24,7 +24,7 @@ import Image from "next/image";
  * Footer Component
  * Multi-column footer with newsletter signup, social links, and quick navigation
  */
-export function Footer({ settings }: { settings?: any }) {
+export function Footer({ settings, courses }: { settings?: any; courses?: any[] }) {
   const [email, setEmail] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -32,9 +32,9 @@ export function Footer({ settings }: { settings?: any }) {
   const footerIntro = settings?.footer?.intro || "Bangladesh Barista Training Academy - Your gateway to a professional coffee career. ISO certified training with international standards.";
   const copyright = settings?.footer?.copyright || `© ${new Date().getFullYear()} Bangladesh Barista Training Academy. All rights reserved.`;
 
-  const address = settings?.contactInfo?.address || branches[0]?.address || "Baridhara & Dhanmondi, Dhaka";
-  const phone = settings?.contactInfo?.phone || branches[0]?.phone || "+880 1234 56789";
-  const emailAddr = settings?.contactInfo?.email || "info@bbta.com.bd";
+  const address = settings?.contactInfo?.address || settings?.address || "Baridhara & Dhanmondi, Dhaka";
+  const phone = settings?.contactInfo?.phone || settings?.phone || "+880 1234 56789";
+  const emailAddr = settings?.contactInfo?.email || settings?.email || "info@bbta.com.bd";
 
   const socialLinks = [
     { icon: Facebook, href: settings?.socialLinks?.facebook || "https://facebook.com/bbta", label: "Facebook" },
@@ -51,11 +51,33 @@ export function Footer({ settings }: { settings?: any }) {
     }
 
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast.success("Thank you for subscribing to our newsletter!");
-    setEmail("");
-    setIsSubmitting(false);
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrender.com/api';
+      // Fetch existing subscribers
+      const existingRes = await fetch(`${API_URL}/settings/blog_subscribers`);
+      const existingData = await existingRes.json();
+      const subscribers = existingData?.emails || [];
+
+      if (subscribers.includes(email)) {
+        toast.info("You're already subscribed!");
+        setEmail("");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Add new subscriber
+      await fetch(`${API_URL}/settings/blog_subscribers`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emails: [...subscribers, email] }),
+      });
+      toast.success("Thank you for subscribing to our newsletter!");
+      setEmail("");
+    } catch {
+      toast.error("Failed to subscribe. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -123,7 +145,7 @@ export function Footer({ settings }: { settings?: any }) {
           <div>
             <h4 className="font-serif text-lg font-semibold mb-4 text-white">Popular Courses</h4>
             <ul className="space-y-3">
-              {courses.slice(0, 6).map((course) => (
+              {(courses || []).slice(0, 6).map((course: any) => (
                 <li key={course.slug}>
                   <Link
                     href={`/${course.slug}`}

@@ -10,8 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import * as api from "@/lib/api";
 
-type Category = "All" | "Training" | "Events" | "Cafe" | "Students";
-
 /**
  * Gallery Page
  * Masonry grid with category filters and lightbox modal
@@ -19,11 +17,10 @@ type Category = "All" | "Training" | "Events" | "Cafe" | "Students";
 export default function GalleryPage() {
   const [items, setItems] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [selectedCategory, setSelectedCategory] = React.useState<Category>("All");
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
   const [hero, setHero] = React.useState<any>(null);
-
-  const categories: Category[] = ["All", "Training", "Events", "Cafe", "Students"];
+  const [categories, setCategories] = React.useState<string[]>(["All", "Training", "Events", "Cafe", "Students"]);
 
   React.useEffect(() => {
     api.getGallery().then(data => {
@@ -35,6 +32,13 @@ export default function GalleryPage() {
     });
 
     api.getHeroByPage('gallery').then(setHero).catch(console.error);
+
+    // Fetch custom categories from admin
+    api.getSettings('gallery_categories').then((data: any) => {
+      if (data?.categories && Array.isArray(data.categories) && data.categories.length > 0) {
+        setCategories(["All", ...data.categories]);
+      }
+    }).catch(() => { /* keep defaults */ });
   }, []);
 
   const filteredItems = React.useMemo(() => {

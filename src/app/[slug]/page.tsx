@@ -116,10 +116,26 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <Clock className="mr-1 h-3 w-3" />
                 {course.duration}
               </Badge>
-              <Badge variant="outline" className="border-foreground/30 text-foreground">
-                <DollarSign className="mr-1 h-3 w-3" />
-                {course.price}
-              </Badge>
+              {course.discountPercent && course.discountPercent > 0 ? (
+                <>
+                  <Badge variant="outline" className="border-foreground/30 text-foreground line-through opacity-60">
+                    <DollarSign className="mr-1 h-3 w-3" />
+                    {course.price}
+                  </Badge>
+                  <Badge className="bg-[#ee2a4a] text-white border-none">
+                    <DollarSign className="mr-1 h-3 w-3" />
+                    ৳{Math.round(Number(String(course.price).replace(/[^0-9]/g, '')) * (1 - course.discountPercent / 100)).toLocaleString()}
+                  </Badge>
+                  <Badge className="bg-[#ee2a4a]/10 text-[#ee2a4a] border-[#ee2a4a]/30">
+                    {course.discountPercent}% OFF
+                  </Badge>
+                </>
+              ) : (
+                <Badge variant="outline" className="border-foreground/30 text-foreground">
+                  <DollarSign className="mr-1 h-3 w-3" />
+                  {course.price}
+                </Badge>
+              )}
             </div>
 
             {/* Title */}

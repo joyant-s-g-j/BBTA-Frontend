@@ -113,7 +113,7 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
 
           {/* Footer */}
-          <Footer settings={settings} />
+          <Footer settings={settings} courses={courses} />
 
           {/* Back to Top Button */}
           <BackToTop />

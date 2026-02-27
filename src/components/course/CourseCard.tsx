@@ -57,7 +57,19 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
         <div className="flex items-center gap-2 text-white/90 text-xs mb-6">
           <span>Duration <span className="font-bold">{course.duration}</span></span>
           <span className="text-white/40 mx-1">|</span>
-          <span>Course Fee <span className="font-bold">{course.price}</span></span>
+          <span>Course Fee{" "}
+            {course.discountPercent && course.discountPercent > 0 ? (
+              <>
+                <span className="line-through opacity-60">{course.price}</span>{" "}
+                <span className="font-bold text-[#ee2a4a]">
+                  ৳{Math.round(Number(String(course.price).replace(/[^0-9]/g, '')) * (1 - course.discountPercent / 100)).toLocaleString()}
+                </span>{" "}
+                <span className="bg-[#ee2a4a]/20 text-[#ee2a4a] px-1.5 py-0.5 rounded-full text-[10px] font-bold">{course.discountPercent}% OFF</span>
+              </>
+            ) : (
+              <span className="font-bold">{course.price}</span>
+            )}
+          </span>
         </div>
 
         {/* Description */}

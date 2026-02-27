@@ -11,7 +11,8 @@ interface BranchesMapProps {
 
 const Address = ({ showMap = true, initialBranches }: BranchesMapProps & { initialBranches?: any[] }) => {
     const displayBranches = initialBranches || branches;
-    const [activeMapUrl, setActiveMapUrl] = React.useState(displayBranches[0]?.mapUrl || "");
+    const getMapUrl = (branch: any) => branch.mapUrl || branch.mapEmbedUrl || "";
+    const [activeMapUrl, setActiveMapUrl] = React.useState(getMapUrl(displayBranches[0]) || "");
 
     return (
         <div className={`grid ${showMap ? "lg:grid-cols-5" : ""} gap-8`}>
@@ -26,11 +27,11 @@ const Address = ({ showMap = true, initialBranches }: BranchesMapProps & { initi
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                         <Card
-                            className={`cursor-pointer transition-all duration-300 hover:border-primary/50 ${activeMapUrl === branch.mapUrl
+                            className={`cursor-pointer transition-all duration-300 hover:border-primary/50 ${activeMapUrl === getMapUrl(branch)
                                     ? "border-primary bg-primary/5"
                                     : ""
                                 }`}
-                            onClick={() => setActiveMapUrl(branch.mapUrl)}
+                            onClick={() => setActiveMapUrl(getMapUrl(branch))}
                         >
                             <CardContent className="p-6">
                                 <h3 className="font-serif text-lg font-bold mb-4 flex items-center gap-2">

@@ -4,7 +4,6 @@ import { motion } from "motion/react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CTABanner } from "@/components/sections/CTABanner";
-import { teamMembers } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {

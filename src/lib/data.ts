@@ -6,6 +6,7 @@ export interface Course {
   title: string;
   duration: string;
   price: string;
+  discountPercent?: number;
   level: "Beginner" | "Intermediate" | "Advanced" | "Expert" | "All";
   description: string;
   fullDescription: string;

@@ -13,7 +13,9 @@ import {
   Award,
   Calendar,
   User,
-  GraduationCap
+  GraduationCap,
+  Download,
+  Clock
 } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -29,6 +31,7 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import * as api from "@/lib/api";
+import { downloadCertificatePDF } from "@/lib/generate-certificate-pdf";
 
 // Validation schema
 const verificationSchema = z.object({
@@ -45,9 +48,9 @@ interface CertificateResult {
   data?: {
     name: string;
     course: string;
-    completionDate: string;
+    startDate: string;
+    endDate: string;
     certificateId: string;
-    grade: string;
   };
 }
 
@@ -87,9 +90,9 @@ export default function CertificateVerificationPage() {
           data: {
             name: found.studentName,
             course: found.courseName,
-            completionDate: found.completionDate,
+            startDate: found.startDate,
+            endDate: found.endDate,
             certificateId: found.certificateId,
-            grade: found.grade,
           },
         });
       } else {
@@ -232,30 +235,51 @@ export default function CertificateVerificationPage() {
                           <Calendar className="h-5 w-5 text-primary mt-0.5" />
                           <div>
                             <p className="text-sm text-muted-foreground">
-                              Completion Date
+                              Start Date
                             </p>
                             <p className="font-semibold">
-                              {result.data.completionDate}
+                              {result.data.startDate ? new Date(result.data.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : "—"}
                             </p>
                           </div>
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <Award className="h-5 w-5 text-primary mt-0.5" />
+                          <Clock className="h-5 w-5 text-primary mt-0.5" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Grade</p>
-                            <p className="font-semibold">{result.data.grade}</p>
+                            <p className="text-sm text-muted-foreground">
+                              End Date
+                            </p>
+                            <p className="font-semibold">
+                              {result.data.endDate ? new Date(result.data.endDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : "—"}
+                            </p>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-6 pt-6 border-t border-green-500/20">
+                      <div className="mt-6 pt-6 border-t border-green-500/20 flex items-center justify-between">
                         <p className="text-sm text-muted-foreground">
                           Certificate ID:{" "}
                           <span className="font-mono font-semibold text-foreground">
                             {result.data.certificateId}
                           </span>
                         </p>
+                        <Button
+                          onClick={() => {
+                            if (result.data) {
+                              downloadCertificatePDF({
+                                certificateId: result.data.certificateId,
+                                studentName: result.data.name,
+                                courseName: result.data.course,
+                                startDate: result.data.startDate,
+                                endDate: result.data.endDate,
+                              });
+                            }
+                          }}
+                          className="gap-2 bg-green-600 hover:bg-green-700 text-white"
+                        >
+                          <Download className="h-4 w-4" />
+                          Download Certificate
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -286,14 +310,8 @@ export default function CertificateVerificationPage() {
             {/* Help Text */}
             <div className="mt-8 text-center text-muted-foreground text-sm">
               <p>
-                The certificate ID is located at the bottom of your certificate
+                The certificate ID is located on your certificate
                 document.
-              </p>
-              <p className="mt-2">
-                For demo purposes, try:{" "}
-                <code className="bg-card px-2 py-1 rounded text-xs">
-                  BBTA-2025-001
-                </code>
               </p>
             </div>
           </div>
