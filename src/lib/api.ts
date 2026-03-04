@@ -3,7 +3,9 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrende
 
 async function fetchAPI(endpoint: string) {
     try {
-        const res = await fetch(`${API_URL}${endpoint}`, { next: { revalidate: 60 } }); // Cache for 60s
+        const res = await fetch(`${API_URL}${endpoint}`, {
+            next: { revalidate: 30 },
+        });
         if (!res.ok) throw new Error(`API Error: ${res.status}`);
         return await res.json();
     } catch (error) {
@@ -15,7 +17,7 @@ async function fetchAPI(endpoint: string) {
 export async function getCourses() { return await fetchAPI('/courses') || []; }
 export async function getCourseBySlug(slug: string) {
     const courses = await getCourses();
-    return courses.find((c: any) => c.slug === slug);
+    return courses.find((c: { slug: string }) => c.slug === slug);
 }
 export async function getStats() { return await fetchAPI('/stats') || []; }
 export async function getFeatures() { return await fetchAPI('/features') || []; }
@@ -28,7 +30,7 @@ export async function getTestimonials() { return await fetchAPI('/testimonials')
 export async function getBlogPosts() { return await fetchAPI('/blog') || []; }
 export async function getBlogPost(slug: string) {
     const posts = await getBlogPosts();
-    return posts.find((p: any) => p.slug === slug);
+    return posts.find((p: { slug: string }) => p.slug === slug);
 }
 export async function getTeamMembers() { return await fetchAPI('/team') || []; }
 export async function getBranches() { return await fetchAPI('/branches') || []; }
@@ -38,7 +40,7 @@ export async function getCtaBanner() { return await fetchAPI('/settings/cta') ||
 export async function getServices() { return await fetchAPI('/services') || []; }
 export async function verifyCertificate(id: string) {
     const all = await fetchAPI('/verify-certificate') || [];
-    return all.filter((c: any) => c.certificateId === id);
+    return all.filter((c: { certificateId: string }) => c.certificateId === id);
 }
 export async function getHeroByPage(page: string) { return await getSettings(`hero_${page}`); }
 
