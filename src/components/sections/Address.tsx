@@ -1,18 +1,19 @@
 "use client"
 import { motion } from 'motion/react'
 import React from 'react'
-import { branches } from "@/lib/data";
+import { branches, type Branch } from "@/lib/data";
 import { Card, CardContent } from '../ui/card';
 import { Clock, MapPin, Phone } from 'lucide-react';
 
 interface BranchesMapProps {
     showMap?: boolean;
+    initialBranches?: Branch[];
 }
 
-const Address = ({ showMap = true, initialBranches }: BranchesMapProps & { initialBranches?: any[] }) => {
-    const displayBranches = initialBranches || branches;
-    const getMapUrl = (branch: any) => branch.mapUrl || branch.mapEmbedUrl || "";
-    const [activeMapUrl, setActiveMapUrl] = React.useState(getMapUrl(displayBranches[0]) || "");
+const Address = ({ showMap = true, initialBranches }: BranchesMapProps) => {
+    const displayBranches = initialBranches?.length ? initialBranches : branches;
+    const getMapUrl = (branch: Branch) => branch?.mapUrl || branch?.mapEmbedUrl || "";
+    const [activeMapUrl, setActiveMapUrl] = React.useState(displayBranches.length > 0 ? getMapUrl(displayBranches[0]) : "");
 
     return (
         <div className={`grid ${showMap ? "lg:grid-cols-5" : ""} gap-8`}>
