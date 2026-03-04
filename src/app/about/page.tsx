@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { motion } from "motion/react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CTABanner } from "@/components/sections/CTABanner";
@@ -28,22 +27,17 @@ export default async function AboutPage() {
     api.getAllSectionHeaders()
   ]);
 
-  const missionText = aboutSettings?.mission || "Bangladesh Barista Training Academy's mission is to empower the next generation of coffee professionals with world-class skills, knowledge, and certifications.";
-  const aboutImage = aboutSettings?.aboutImage || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800";
+  const missionText = aboutSettings?.mission || "";
+  const aboutImage = aboutSettings?.aboutImage || "";
 
   const hero = {
-    title: heroSettings?.title || "Our Story",
-    subtitle: heroSettings?.subtitle || "Brewing Excellence",
-    description: heroSettings?.description || "From a small training room to Bangladesh's leading barista academy, discover the journey of BBTA.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
 
-  const timeline = timelineSettings?.items || [
-    { year: "2018", title: "BBTA Founded", description: "Started with a vision to bring world-class barista training to Bangladesh." },
-    { year: "2019", title: "ISO Certification", description: "Became the first ISO-certified barista training academy in Bangladesh." },
-    { year: "2020", title: "1000th Graduate", description: "Celebrated our 1000th graduate milestone despite global challenges." },
-    { year: "2024", title: "International Recognition", description: "Partnered with international coffee organizations for global certifications." },
-  ];
+  const timeline = timelineSettings?.items || [];
 
   return (
     <>
@@ -80,7 +74,7 @@ export default async function AboutPage() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
             </div>
           </div>
         </div>
@@ -101,7 +95,7 @@ export default async function AboutPage() {
               <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/20 transform md:-translate-x-1/2" />
 
               <div className="space-y-12">
-                {timeline.map((item: any, index: number) => {
+                {timeline.map((item: Record<string, string>, index: number) => {
                   const isEven = index % 2 === 0;
                   return (
                     <div key={index} className={`relative flex flex-col md:flex-row w-full items-center group ${isEven ? 'md:flex-row-reverse' : ''}`}>
@@ -142,11 +136,11 @@ export default async function AboutPage() {
               titleSize="text-3xl md:text-4xl"
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {teamMembers.map((member: any) => (
+              {teamMembers.map((member: Record<string, string>) => (
                 <div key={member.name} className="group bg-card rounded-2xl border border-border overflow-hidden card-hover">
                   <div className="relative h-64 overflow-hidden">
                     <Image src={member.image} alt={member.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-card via-transparent to-transparent" />
                   </div>
                   <div className="p-6 -mt-8 relative">
                     <h3 className="font-serif text-lg font-bold group-hover:text-primary transition-colors">{member.name}</h3>

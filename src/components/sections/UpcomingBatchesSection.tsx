@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "motion/react";
 import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
-import { upcomingBatches, type UpcomingBatch } from "@/lib/data";
+import { type UpcomingBatch } from "@/lib/data";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,9 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }: { limit?: number, initialBatches?: UpcomingBatch[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
-    const dataSource = initialBatches || upcomingBatches;
+    const dataSource = initialBatches || [];
     const displayedBatches = limit ? dataSource.slice(0, limit) : dataSource;
-    const sh = sectionHeader || { subtitle: 'Secure Your Spot', title: 'Upcoming Batches', description: 'Check out our latest schedule and join our next training session. Limited seats available for each batch.' };
+    const sh = sectionHeader || { subtitle: '', title: '', description: '' };
 
     return (
         <section className="section-padding bg-muted/30 relative overflow-hidden">

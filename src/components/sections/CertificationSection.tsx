@@ -4,34 +4,20 @@ import * as React from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import {
-  ShieldCheck,
-  GraduationCap,
-  Globe,
-  Award,
-  Medal,
   CheckCircle2,
   HelpCircle
 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
-import { certifications } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-
-const iconMap: Record<string, React.ReactNode> = {
-  ShieldCheck: <ShieldCheck className="h-8 w-8" />,
-  GraduationCap: <GraduationCap className="h-8 w-8" />,
-  Globe: <Globe className="h-8 w-8" />,
-  Award: <Award className="h-8 w-8" />,
-  Medal: <Medal className="h-8 w-8" />,
-};
 
 /**
  * CertificationSection
  * Displays various certifications and accreditations between Testimonials and FAQ
  */
-export function CertificationSection({ initialCertifications, sectionHeader }: { initialCertifications?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+export function CertificationSection({ initialCertifications, sectionHeader }: { initialCertifications?: Record<string, string>[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialCertifications || initialCertifications.length === 0) return null;
   const displayCertifications = initialCertifications;
-  const sh = sectionHeader || { subtitle: 'Industry Recognition', title: 'Our Certifications & Accreditations', description: 'We take pride in our international standards and local recognition.' };
+  const sh = sectionHeader || { subtitle: '', title: '', description: '' };
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       {/* Decorative background elements */}
@@ -71,16 +57,16 @@ export function CertificationSection({ initialCertifications, sectionHeader }: {
                     />
                   )}
                   {/* Premium Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-card via-card/40 to-transparent" />
 
                   {/* Icon Container - Floating over image */}
                   <div className="absolute bottom-4 left-6">
                     <div className="w-14 h-14 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center text-white shadow-xl group-hover:bg-white group-hover:text-primary transition-colors duration-300 overflow-hidden">
                       {cert.icon && (cert.icon.startsWith("http") || cert.icon.startsWith("/")) ? (
-                        <img src={cert.icon} alt={cert.title} className="h-full w-full object-cover" />
+                        <Image src={cert.icon} alt={cert.title} width={56} height={56} className="h-full w-full object-cover" />
                       ) : (
                         (() => {
-                          const Icon = (LucideIcons as any)[cert.icon] || HelpCircle;
+                          const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[cert.icon] || HelpCircle;
                           return <Icon className="h-7 w-7" />;
                         })()
                       )}
@@ -89,9 +75,9 @@ export function CertificationSection({ initialCertifications, sectionHeader }: {
                 </div>
 
                 {/* Content Area */}
-                <div className="p-8 pt-6 relative flex-grow">
+                <div className="p-8 pt-6 relative grow">
                   {/* Subtle highlight on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   <div className="relative">
                     <h3 className="text-xl font-bold mb-2 text-gradient-gold transition-colors duration-300 pb-1">

@@ -3,7 +3,6 @@
 import * as React from "react";
 import { motion } from "motion/react";
 import * as LucideIcons from "lucide-react";
-import { features } from "@/lib/data";
 
 interface FeatureItemProps {
   icon: string;
@@ -64,7 +63,7 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
 export function FeaturesGrid({ initialFeatures, sectionHeader }: { initialFeatures?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialFeatures || initialFeatures.length === 0) return null;
   const displayFeatures = initialFeatures;
-  const sh = sectionHeader || { subtitle: 'Why Choose Us', title: 'The BBTA Advantage', description: 'Experience world-class training with ISO-certified curriculum, expert instructors, and career-focused programs.' };
+  const sh = sectionHeader || { subtitle: '', title: '', description: '' };
   return (
     <section className="section-padding relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">

@@ -15,12 +15,12 @@ import * as api from "@/lib/api";
  * Masonry grid with category filters and lightbox modal
  */
 export default function GalleryPage() {
-  const [items, setItems] = React.useState<any[]>([]);
+  const [items, setItems] = React.useState<Record<string, string>[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
-  const [hero, setHero] = React.useState<any>(null);
-  const [categories, setCategories] = React.useState<string[]>(["All", "Training", "Events", "Cafe", "Students"]);
+  const [hero, setHero] = React.useState<Record<string, string>>({ title: "", subtitle: "" });
+  const [categories, setCategories] = React.useState<string[]>(["All"]);
 
   React.useEffect(() => {
     api.getGallery().then(data => {
@@ -31,10 +31,12 @@ export default function GalleryPage() {
       setLoading(false);
     });
 
-    api.getHeroByPage('gallery').then(setHero).catch(console.error);
+    api.getHeroByPage('gallery').then((data: Record<string, string>) => {
+      if (data?.title) setHero(data);
+    }).catch(console.error);
 
     // Fetch custom categories from admin
-    api.getSettings('gallery_categories').then((data: any) => {
+    api.getSettings('gallery_categories').then((data: Record<string, string[] | unknown>) => {
       if (data?.categories && Array.isArray(data.categories) && data.categories.length > 0) {
         setCategories(["All", ...data.categories]);
       }
@@ -50,12 +52,10 @@ export default function GalleryPage() {
     <>
       {/* Hero Section */}
       <HeroSection
-        {...(hero || {
-          title: "Our Gallery",
-          subtitle: "Moments & Memories",
-          description: "Explore snapshots from our training sessions, events, and the journeys of our students.",
-          backgroundImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920"
-        })}
+        title={hero.title || ""}
+        subtitle={hero.subtitle || ""}
+        description={hero.description}
+        backgroundImage={hero.backgroundImage}
         ctaText="View Gallery"
         ctaHref="#gallery"
         size="medium"
@@ -108,13 +108,15 @@ export default function GalleryPage() {
                       className="relative group cursor-pointer rounded-xl overflow-hidden"
                       onClick={() => setSelectedImage(item.image)}
                     >
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.title}
+                        width={400}
+                        height={300}
                         className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="absolute bottom-0 left-0 right-0 p-4">
                           <h3 className="text-white font-semibold text-sm">
                             {item.title}

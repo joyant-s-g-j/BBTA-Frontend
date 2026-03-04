@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { Badge } from "@/components/ui/badge";
@@ -31,10 +31,10 @@ export default async function ContactPage() {
   ]);
 
   const hero = {
-    title: heroSettings?.title || "Get in Touch",
-    subtitle: heroSettings?.subtitle || "We'd Love to Hear From You",
-    description: heroSettings?.description || "Have questions about our courses or services? Reach out and our team will respond within 24 hours.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
   return (
     <>
@@ -65,7 +65,7 @@ export default async function ContactPage() {
               <div className="mb-8">
                 <Badge className="bg-primary text-primary-foreground px-4 py-2 text-lg">
                   <Phone className="h-5 w-5 mr-2" />
-                  Hotline: {siteSettings?.phone || "+880 1745-045500"}
+                  Hotline: {siteSettings?.phone || ""}
                 </Badge>
               </div>
 
@@ -77,21 +77,8 @@ export default async function ContactPage() {
                       <strong>Address:</strong> {siteSettings.address}
                     </p>
                   )}
-                  {!siteSettings?.address && (
-                    <>
-                      <p className="mb-4">
-                        Experience world-class coffee training at Bangladesh Barista Training Academy&apos;s two convenient Dhaka locations. Visit our flagship hub in the <strong>Baridhara Diplomatic Zone</strong> at House 45, Road 11, Dhaka 1212, or join us at our <strong>Dhanmondi</strong> campus located at House 12, Road 8, Dhaka 1205.
-                      </p>
-                      <p className="mb-4">
-                        Both centers are fully equipped with professional espresso machines, grinders, brewing tools, and comfortable learning spaces designed for hands-on practice. Our curriculum covers a wide range of courses including <strong>Barista Foundation, Advanced Coffee Techniques, Latte Art, Hand Brewing, Roasting, and Mixology</strong>, ensuring that students at every skill level find programs tailored to their needs.
-                      </p>
-                      <p className="mb-4">
-                        Both centers are open <strong>Saturday to Friday, 9:00 AM - 9:00 PM</strong>, making it convenient for working professionals and enthusiasts to join. We also offer flexible course schedules, weekend workshops, and private sessions upon request.
-                      </p>
-                    </>
-                  )}
                   <p>
-                    For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings?.phone || "+8801745045500"}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.phone || "+880 1745-045500"}</a>
+                    {siteSettings?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings.phone}</a></>}
                     {siteSettings?.whatsapp && (
                       <> or WhatsApp at <a href={`https://wa.me/${siteSettings.whatsapp.replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings.whatsapp}</a></>
                     )}. You can also visit our website for online course registration, upcoming events, and special promotions.
@@ -103,10 +90,10 @@ export default async function ContactPage() {
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <Mail className="h-5 w-5 text-primary shrink-0" />
                   <a
-                    href={`mailto:${siteSettings?.email || "info@bbta.com.bd"}`}
+                    href={`mailto:${siteSettings?.email || ""}`}
                     className="hover:text-primary transition-colors"
                   >
-                    {siteSettings?.email || "info@bbta.com.bd"}
+                    {siteSettings?.email || ""}
                   </a>
                 </div>
               </div>

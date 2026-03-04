@@ -22,10 +22,10 @@ export default async function UpcomingBatchPage() {
     const advantages = advantagesData?.items || [];
 
     const hero = {
-        title: heroSettings?.title || "Upcoming Training Batches",
-        subtitle: heroSettings?.subtitle || "Schedule Your Future",
-        description: heroSettings?.description || "Book your seat in one of our upcoming professional training batches. We offer flexible timings across multiple branches in Dhaka.",
-        backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
+        title: heroSettings?.title || "",
+        subtitle: heroSettings?.subtitle || "",
+        description: heroSettings?.description || "",
+        backgroundImage: heroSettings?.backgroundImage || ""
     };
 
     return (

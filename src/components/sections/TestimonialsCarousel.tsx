@@ -5,16 +5,15 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { testimonials } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 /**
  * TestimonialsCarousel Component
  * Infinite scroll carousel with quote cards, avatars, and ratings
  */
-export function TestimonialsCarousel({ initialTestimonials, sectionHeader }: { initialTestimonials?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
-  const displayTestimonials = initialTestimonials || testimonials;
-  const sh = sectionHeader || { subtitle: 'Success Stories', title: 'What Our Graduates Say' };
+export function TestimonialsCarousel({ initialTestimonials, sectionHeader }: { initialTestimonials?: Record<string, string>[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+  const displayTestimonials = initialTestimonials || [];
+  const sh = sectionHeader || { subtitle: '', title: '', description: '' };
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
 
@@ -110,7 +109,7 @@ export function TestimonialsCarousel({ initialTestimonials, sectionHeader }: { i
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-5 w-5 ${i < currentTestimonial.rating
+                        className={`h-5 w-5 ${i < Number(currentTestimonial.rating)
                           ? "text-primary fill-primary"
                           : "text-muted"
                           }`}

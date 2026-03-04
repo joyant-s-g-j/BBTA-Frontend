@@ -3,7 +3,6 @@ import Image from "next/image";
 import * as LucideIcons from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
-import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { Badge } from "@/components/ui/badge";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import * as api from "@/lib/api";
@@ -27,57 +26,16 @@ export default async function CateringPage() {
     api.getAllSectionHeaders()
   ]);
 
-  const cateringServices = allServices?.filter((s: any) => s.category === 'Catering') || [];
+  const cateringServices = allServices?.filter((s: Record<string, string>) => s.category === 'Catering') || [];
 
   const hero = {
-    title: heroSettings?.title || "Premium Event Catering",
-    subtitle: heroSettings?.subtitle || "Mobile Coffee Bar Services",
-    description: heroSettings?.description || "Bring the cafe experience to your event with our professional baristas and premium coffee bar setup.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
 
-  const pricingTiers = pricingSettings?.items || [
-    {
-      name: "Essential",
-      description: "Perfect for small gatherings",
-      price: "From 15,000 BDT",
-      features: [
-        "Up to 50 guests",
-        "1 Professional barista",
-        "3-hour service",
-        "Classic espresso drinks",
-        "Basic setup",
-      ],
-    },
-    {
-      name: "Premium",
-      description: "Ideal for medium events",
-      price: "From 35,000 BDT",
-      popular: true,
-      features: [
-        "Up to 150 guests",
-        "2 Professional baristas",
-        "5-hour service",
-        "Full beverage menu",
-        "Premium cart setup",
-        "Custom drink naming",
-      ],
-    },
-    {
-      name: "Luxury",
-      description: "For grand celebrations",
-      price: "Custom Quote",
-      features: [
-        "Unlimited guests",
-        "Full barista team",
-        "Full-day service",
-        "Complete beverage program",
-        "Bespoke bar design",
-        "Event coordination",
-        "Custom branding",
-      ],
-    },
-  ];
+  const pricingTiers = pricingSettings?.items || [];
 
   return (
     <>
@@ -101,15 +59,15 @@ export default async function CateringPage() {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cateringServices.map((service: any) => {
+            {cateringServices.map((service: Record<string, string | string[]>) => {
               const IconComponent =
-                (LucideIcons as any)[
-                service.icon
+                (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[
+                service.icon as string
                 ] || LucideIcons.Coffee;
 
               return (
                 <div
-                  key={service.title}
+                  key={service.title as string}
                   className="bg-card rounded-2xl border border-border p-6 text-center card-hover"
                 >
                   <div className="inline-flex p-4 rounded-2xl bg-primary/10 mb-4">
@@ -122,7 +80,7 @@ export default async function CateringPage() {
                     {service.description}
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center">
-                    {service.features.slice(0, 2).map((feature: any) => (
+                    {(service.features as string[]).slice(0, 2).map((feature: string) => (
                       <Badge
                         key={feature}
                         variant="secondary"
@@ -150,10 +108,7 @@ export default async function CateringPage() {
           />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {(eventsSettings?.items || [
-              "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
-              "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400"
-            ]).map((image: string, index: number) => (
+            {(eventsSettings?.items || []).map((image: string, index: number) => (
               <div
                 key={index}
                 className="relative h-40 md:h-56 rounded-xl overflow-hidden group"
@@ -182,9 +137,9 @@ export default async function CateringPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {pricingTiers.map((tier: any) => (
+            {pricingTiers.map((tier: Record<string, string | boolean | string[]>) => (
               <div
-                key={tier.name}
+                key={tier.name as string}
                 className={`relative bg-card rounded-2xl border p-8 ${tier.popular
                   ? "border-primary ring-2 ring-primary/20"
                   : "border-border"
@@ -205,7 +160,7 @@ export default async function CateringPage() {
                   </p>
                 </div>
                 <ul className="space-y-3 mb-6">
-                  {tier.features.map((feature: any) => (
+                  {(tier.features as string[]).map((feature: string) => (
                     <li key={feature} className="flex items-center gap-2 text-sm">
                       <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                       {feature}

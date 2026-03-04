@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
@@ -20,10 +19,10 @@ export default async function CoursesPage() {
   ]);
 
   const hero = {
-    title: heroSettings?.title || "Explore Our Courses",
-    subtitle: heroSettings?.subtitle || "Professional Training Programs",
-    description: heroSettings?.description || "From beginner foundations to advanced professional certifications, find the perfect course to launch your coffee career.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
 
   return (
@@ -57,7 +56,7 @@ export default async function CoursesPage() {
                 />
 
                 <Accordion type="single" collapsible className="w-full">
-                  {faqs.map((faq: any, index: number) => (
+                  {faqs.map((faq: Record<string, string>, index: number) => (
                     <AccordionItem key={index} value={`faq-${index}`}>
                       <AccordionTrigger className="text-left font-medium hover:text-primary">
                         {faq.question}

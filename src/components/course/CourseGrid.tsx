@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { CourseCard } from "@/components/course/CourseCard";
-import { courses, type Course } from "@/lib/data";
+import { type Course } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface CourseGridProps {
@@ -44,7 +44,6 @@ export function CourseGrid({
   initialCourses,
 }: CourseGridProps) {
   const [displayCourses, setDisplayCourses] = React.useState<Course[]>(initialCourses || []);
-  const [loading, setLoading] = React.useState(!initialCourses);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [levelFilter, setLevelFilter] = React.useState("all");
   const [activeTab, setActiveTab] = React.useState("all");
@@ -54,7 +53,6 @@ export function CourseGrid({
       import("@/lib/api").then(api => {
         api.getCourses().then(data => {
           setDisplayCourses(data);
-          setLoading(false);
         });
       });
     }
@@ -94,7 +92,7 @@ export function CourseGrid({
     }
 
     return result;
-  }, [searchQuery, levelFilter, activeTab, maxCourses]);
+  }, [displayCourses, searchQuery, levelFilter, activeTab, maxCourses]);
 
   const levels = ["Beginner", "Intermediate", "Advanced", "Expert"];
 
@@ -227,7 +225,7 @@ export function CourseGrid({
         )}
 
         {/* View All Button */}
-        {maxCourses && courses.length > maxCourses && (
+        {maxCourses && filteredCourses.length > maxCourses && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

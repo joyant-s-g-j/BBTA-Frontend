@@ -8,16 +8,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 /**
  * HomeFAQSection
  * Frequently Asked Questions section for the home page
  */
-export function HomeFAQSection({ initialFaqs, sectionHeader }: { initialFaqs?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
-  const displayFaqs = initialFaqs || faqs;
-  const sh = sectionHeader || { subtitle: 'Common Questions', title: 'Frequently Asked Questions', description: 'Everything you need to know about our courses, certification, and career opportunities.' };
+export function HomeFAQSection({ initialFaqs, sectionHeader }: { initialFaqs?: Record<string, string>[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+  const displayFaqs = initialFaqs || [];
+  const sh = sectionHeader || { subtitle: '', title: '', description: '' };
   return (
     <section className="section-padding bg-card relative overflow-hidden">
       {/* Decorative blurs */}

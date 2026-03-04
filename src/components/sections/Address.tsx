@@ -1,7 +1,7 @@
 "use client"
 import { motion } from 'motion/react'
 import React from 'react'
-import { branches, type Branch } from "@/lib/data";
+import { type Branch } from "@/lib/data";
 import { Card, CardContent } from '../ui/card';
 import { Clock, MapPin, Phone } from 'lucide-react';
 
@@ -11,7 +11,7 @@ interface BranchesMapProps {
 }
 
 const Address = ({ showMap = true, initialBranches }: BranchesMapProps) => {
-    const displayBranches = initialBranches?.length ? initialBranches : branches;
+    const displayBranches = initialBranches?.length ? initialBranches : [];
     const getMapUrl = (branch: Branch) => branch?.mapUrl || branch?.mapEmbedUrl || "";
     const [activeMapUrl, setActiveMapUrl] = React.useState(displayBranches.length > 0 ? getMapUrl(displayBranches[0]) : "");
 

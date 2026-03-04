@@ -4,7 +4,6 @@ import * as React from "react";
 import { motion, useInView } from "motion/react";
 import { GraduationCap, Users, BookOpen, MapPin, Star } from "lucide-react";
 import * as LucideIcons from "lucide-react";
-import { stats } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface StatItemProps {
@@ -105,13 +104,15 @@ function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps
  * StatsSection Component
  * Animated counters showing key statistics
  */
-export function StatsSection({ stats: propStats }: { stats?: any }) {
+export function StatsSection({ stats: propStats, sectionHeader }: { stats?: any, sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   // Handle both array (from backend) and object (fallback) formats
   const statItems = (Array.isArray(propStats) && propStats.length > 0)
     ? propStats.map(s => ({ icon: s.icon, value: s.value, label: s.label, suffix: "+" }))
     : [];
 
   if (statItems.length === 0) return null;
+
+  const sh = sectionHeader || { subtitle: '', title: '' };
 
   return (
     <section className="section-padding relative overflow-hidden">
@@ -124,8 +125,8 @@ export function StatsSection({ stats: propStats }: { stats?: any }) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <SectionHeader
-          subtitle="Our Impact"
-          title="Transforming Coffee Careers"
+          subtitle={sh.subtitle}
+          title={sh.title}
           titleSize="text-3xl md:text-4xl"
         />
 

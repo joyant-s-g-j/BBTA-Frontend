@@ -9,20 +9,7 @@ interface Advantage {
     icon?: string;
 }
 
-const defaultAdvantages: Advantage[] = [
-    {
-        title: "Small Batch Size",
-        description: "We limit our batches to 6-8 students maximum to ensure personalized attention and ample machine time for everyone."
-    },
-    {
-        title: "Expert Mentorship",
-        description: "Learn from industry veterans who have worked in world-class cafes and won national barista championships."
-    },
-    {
-        title: "Job Placement",
-        description: "98% of our professional course graduates find placement in reputed cafes and hotels across the country."
-    }
-];
+const defaultAdvantages: Advantage[] = [];
 
 export function AdvantagesGrid({ initialAdvantages }: { initialAdvantages?: Advantage[] }) {
     const [advantages, setAdvantages] = useState<Advantage[]>(initialAdvantages || defaultAdvantages);

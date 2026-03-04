@@ -6,7 +6,6 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { navLinks } from "@/lib/data";
 import * as api from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -30,13 +29,13 @@ export default async function BlogPage() {
   ]);
 
   const hero = {
-    title: heroSettings?.title || "Insights & Tips",
-    subtitle: heroSettings?.subtitle || "The BBTA Blog",
-    description: heroSettings?.description || "Expert advice, industry insights, and coffee knowledge from our team of professionals.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
 
-  const categories = Array.from(new Set(blogPosts.map((post: any) => post.category))) as string[];
+  const categories = Array.from(new Set(blogPosts.map((post: Record<string, string>) => post.category))) as string[];
   const featuredPost = blogPosts[0];
   const regularPosts = blogPosts.slice(1);
 
@@ -110,7 +109,7 @@ export default async function BlogPage() {
 
               {/* Regular Posts Grid */}
               <div className="grid md:grid-cols-2 gap-6">
-                {regularPosts.map((post: any) => (
+                {regularPosts.map((post: Record<string, string>) => (
                   <Link
                     key={post.slug}
                     href={`#`}

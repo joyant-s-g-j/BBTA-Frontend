@@ -33,52 +33,16 @@ export default async function ServiceMaintenancePage() {
     api.getAllSectionHeaders()
   ]);
 
-  const maintenanceServices = allServices?.filter((s: any) => s.category === 'Maintenance') || [];
+  const maintenanceServices = allServices?.filter((s: Record<string, string>) => s.category === 'Maintenance') || [];
 
   const hero = {
-    title: heroSettings?.title || "Equipment Servicing",
-    subtitle: heroSettings?.subtitle || "Keep Your Machines Running Perfect",
-    description: heroSettings?.description || "Expert maintenance and repair services for all major espresso machine and grinder brands.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
 
-  const pricingData = pricingSettings?.items || [
-    {
-      service: "Basic Inspection",
-      description: "Visual inspection and basic testing",
-      price: "1,500 BDT",
-    },
-    {
-      service: "Espresso Machine Cleaning",
-      description: "Deep cleaning and descaling",
-      price: "3,500 BDT",
-    },
-    {
-      service: "Grinder Calibration",
-      description: "Precision alignment and calibration",
-      price: "2,500 BDT",
-    },
-    {
-      service: "Minor Repairs",
-      description: "Gasket, seal, and minor part replacement",
-      price: "From 4,000 BDT",
-    },
-    {
-      service: "Major Repairs",
-      description: "Boiler, pump, and major component work",
-      price: "From 12,000 BDT",
-    },
-    {
-      service: "Monthly Maintenance Plan",
-      description: "Regular scheduled maintenance visits",
-      price: "8,000 BDT/month",
-    },
-    {
-      service: "Annual Service Contract",
-      description: "Comprehensive yearly coverage",
-      price: "80,000 BDT/year",
-    },
-  ];
+  const pricingData = pricingSettings?.items || [];
 
   return (
     <>
@@ -102,15 +66,15 @@ export default async function ServiceMaintenancePage() {
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            {maintenanceServices.map((service: any) => {
+            {maintenanceServices.map((service: Record<string, string | string[]>) => {
               const IconComponent =
-                (LucideIcons as any)[
-                service.icon
+                (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[
+                service.icon as string
                 ] || LucideIcons.Wrench;
 
               return (
                 <div
-                  key={service.title}
+                  key={service.title as string}
                   className="bg-card rounded-2xl border border-border p-8 card-hover"
                 >
                   <div className="flex items-start gap-4">
@@ -125,7 +89,7 @@ export default async function ServiceMaintenancePage() {
                         {service.description}
                       </p>
                       <ul className="space-y-2">
-                        {service.features.map((feature: any) => (
+                        {(service.features as string[]).map((feature: string) => (
                           <li
                             key={feature}
                             className="flex items-center gap-2 text-sm text-muted-foreground"
@@ -161,7 +125,7 @@ export default async function ServiceMaintenancePage() {
 
               {/* Mobile: Card layout */}
               <div className="space-y-3 md:hidden">
-                {pricingData.map((item: any) => (
+                {pricingData.map((item: Record<string, string>) => (
                   <div
                     key={item.service}
                     className="bg-card rounded-xl border border-border p-4"
@@ -190,7 +154,7 @@ export default async function ServiceMaintenancePage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {pricingData.map((item: any) => (
+                    {pricingData.map((item: Record<string, string>) => (
                       <TableRow key={item.service} className="border-border">
                         <TableCell className="font-medium">{item.service}</TableCell>
                         <TableCell className="text-muted-foreground">

@@ -25,20 +25,16 @@ export default async function ConsultingPage() {
     api.getAllSectionHeaders()
   ]);
 
-  const consultingServices = allServices?.filter((s: any) => s.category === 'Consulting') || [];
+  const consultingServices = allServices?.filter((s: Record<string, string>) => s.category === 'Consulting') || [];
 
   const hero = {
-    title: heroSettings?.title || "Expert Cafe Consulting",
-    subtitle: heroSettings?.subtitle || "Transform Your Coffee Business",
-    description: heroSettings?.description || "From menu optimization to staff training, we help cafes reach their full potential.",
-    backgroundImage: heroSettings?.backgroundImage || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920"
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || ""
   };
 
-  const caseStudies = caseStudiesSettings?.items || [
-    { name: "Urban Coffee House", result: "40% increase in beverage sales", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" },
-    { name: "The Daily Grind", result: "Reduced waste by 35%", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800" },
-    { name: "Artisan Brews", result: "Staff efficiency up 50%", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800" },
-  ];
+  const caseStudies = caseStudiesSettings?.items || [];
 
   return (
     <>
@@ -61,16 +57,16 @@ export default async function ConsultingPage() {
             />
 
             <div className="grid md:grid-cols-2 gap-6">
-              {consultingServices.map((service: any) => {
-                const isUrl = typeof service.icon === "string" && (service.icon.startsWith("http") || service.icon.startsWith("/"));
-                const IconComponent = (LucideIcons as any)[service.icon] || LucideIcons.Coffee;
+              {consultingServices.map((service: Record<string, string | string[]>) => {
+                const isUrl = typeof service.icon === "string" && ((service.icon as string).startsWith("http") || (service.icon as string).startsWith("/"));
+                const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[service.icon as string] || LucideIcons.Coffee;
 
                 return (
-                  <div key={service.title} className="bg-card rounded-2xl border border-border p-8 card-hover">
+                  <div key={service.title as string} className="bg-card rounded-2xl border border-border p-8 card-hover">
                     <div className="flex items-start gap-4">
                       <div className="p-3 rounded-xl bg-primary/10 w-14 h-14 flex items-center justify-center overflow-hidden">
                         {isUrl ? (
-                          <img src={service.icon} alt={service.title} className="h-full w-full object-cover" />
+                          <Image src={service.icon as string} alt={service.title as string} width={56} height={56} className="h-full w-full object-cover" />
                         ) : (
                           <IconComponent className="h-8 w-8 text-primary" />
                         )}
@@ -79,7 +75,7 @@ export default async function ConsultingPage() {
                         <h3 className="font-serif text-xl font-bold mb-2">{service.title}</h3>
                         <p className="text-muted-foreground text-sm mb-4">{service.description}</p>
                         <ul className="space-y-2">
-                          {service.features?.map((feature: string) => (
+                          {(service.features as string[])?.map((feature: string) => (
                             <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
                               <LucideIcons.CheckCircle2 className="h-4 w-4 text-primary" />
                               {feature}
@@ -107,7 +103,7 @@ export default async function ConsultingPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6">
-            {caseStudies.map((study: any) => (
+            {caseStudies.map((study: Record<string, string>) => (
               <div
                 key={study.name}
                 className="group relative h-64 rounded-2xl overflow-hidden"

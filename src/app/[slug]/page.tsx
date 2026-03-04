@@ -238,14 +238,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   This Course Includes
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    "Hands-on training with professional equipment",
-                    "Training materials and workbook",
-                    "Practice ingredients provided",
-                    "ISO-certified completion certificate",
-                    "Job placement assistance",
-                    "Access to alumni network",
-                  ].map((item: string) => (
+                  {(course.includes || []).map((item: string) => (
                     <div key={item} className="flex items-start gap-3">
                       <Award className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                       <span className="text-sm text-muted-foreground">{item}</span>
