@@ -5,16 +5,14 @@ import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { Badge } from "@/components/ui/badge";
 import Address from "@/components/sections/Address";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Get in touch with Bangladesh Barista Training Academy. Visit our Dhaka training centers or reach us by phone and email.",
-  openGraph: {
-    title: "Contact Us | BBTA",
-    description: "Get in touch with Bangladesh Barista Training Academy.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("contact", {
+    title: "Contact Us",
+    description: "Get in touch with Bangladesh Barista Training Academy. Visit our Dhaka training centers or reach us by phone and email.",
+  });
+}
 
 import * as api from "@/lib/api";
 

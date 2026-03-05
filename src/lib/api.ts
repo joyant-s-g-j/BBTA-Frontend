@@ -43,6 +43,7 @@ export async function verifyCertificate(id: string) {
     return all.filter((c: { certificateId: string }) => c.certificateId === id);
 }
 export async function getHeroByPage(page: string) { return await getSettings(`hero_${page}`); }
+export async function getSeoByPage(page: string) { return await getSettings(`seo_${page}`); }
 
 // ===================== Section Headers =====================
 // Each section header is stored in Config with key: sh_{page}_{section}

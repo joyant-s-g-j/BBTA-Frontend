@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import * as api from "@/lib/api";
 import CertificateVerificationClient from "@/components/sections/CertificateVerificationClient";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Certificate Verification",
-  description:
-    "Verify the authenticity of any BBTA certificate using the unique certificate ID.",
-  openGraph: {
-    title: "Certificate Verification | BBTA",
-    description:
-      "Instantly verify the authenticity of any BBTA certificate.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("certificate", {
+    title: "Certificate Verification",
+    description: "Verify the authenticity of any BBTA certificate using the unique certificate ID.",
+  });
+}
 
 export default async function CertificateVerificationPage() {
   const [heroSettings, sh] = await Promise.all([

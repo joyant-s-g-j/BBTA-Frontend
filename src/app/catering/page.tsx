@@ -6,16 +6,14 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { Badge } from "@/components/ui/badge";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import * as api from "@/lib/api";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Event Catering",
-  description:
-    "Premium mobile coffee bar and barista services for weddings, corporate events, and private parties in Bangladesh.",
-  openGraph: {
-    title: "Event Catering | BBTA",
-    description: "Premium coffee catering services for events.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("catering", {
+    title: "Event Catering",
+    description: "Premium mobile coffee bar and barista services for weddings, corporate events, and private parties in Bangladesh.",
+  });
+}
 
 export default async function CateringPage() {
   const [allServices, pricingSettings, heroSettings, eventsSettings, sh] = await Promise.all([

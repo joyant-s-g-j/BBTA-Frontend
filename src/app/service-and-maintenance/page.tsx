@@ -14,16 +14,14 @@ import {
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import * as api from "@/lib/api";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Servicing & Maintenance",
-  description:
-    "Professional espresso machine repair, grinder calibration, and preventive maintenance services for cafes and businesses.",
-  openGraph: {
-    title: "Servicing & Maintenance | BBTA",
-    description: "Professional coffee equipment maintenance services.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("services", {
+    title: "Servicing & Maintenance",
+    description: "Professional espresso machine repair, grinder calibration, and preventive maintenance services for cafes and businesses.",
+  });
+}
 
 export default async function ServiceMaintenancePage() {
   const [allServices, pricingSettings, heroSettings, sh] = await Promise.all([

@@ -4,16 +4,14 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description:
-    "Learn about Bangladesh Barista Training Academy - our mission, history, and the expert team behind Bangladesh's premier coffee training institution.",
-  openGraph: {
-    title: "About Us | BBTA - Bangladesh Barista Training Academy",
-    description: "Learn about Bangladesh's premier coffee training institution.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("about", {
+    title: "About Us",
+    description: "Learn about Bangladesh Barista Training Academy - our mission, history, and the expert team behind Bangladesh's premier coffee training institution.",
+  });
+}
 
 import * as api from "@/lib/api";
 

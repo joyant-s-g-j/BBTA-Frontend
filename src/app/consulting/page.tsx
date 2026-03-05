@@ -6,16 +6,14 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import * as api from "@/lib/api";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cafe Consulting",
-  description:
-    "Expert cafe consulting services from BBTA. Menu planning, staff training, cafe setup, and quality audits for coffee businesses.",
-  openGraph: {
-    title: "Cafe Consulting | BBTA",
-    description: "Expert cafe consulting services for coffee businesses.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("consulting", {
+    title: "Cafe Consulting",
+    description: "Expert cafe consulting services from BBTA. Menu planning, staff training, cafe setup, and quality audits for coffee businesses.",
+  });
+}
 
 export default async function ConsultingPage() {
   const [allServices, caseStudiesSettings, heroSettings, sh] = await Promise.all([

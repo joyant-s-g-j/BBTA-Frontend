@@ -7,16 +7,14 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import * as api from "@/lib/api";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Coffee insights, barista tips, and industry news from BBTA experts. Learn about latte art, espresso techniques, and cafe business.",
-  openGraph: {
-    title: "Blog | BBTA",
-    description: "Coffee insights and barista tips from BBTA experts.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("blog", {
+    title: "Blog",
+    description: "Coffee insights, barista tips, and industry news from BBTA experts. Learn about latte art, espresso techniques, and cafe business.",
+  });
+}
 
 /**
  * Blog Page

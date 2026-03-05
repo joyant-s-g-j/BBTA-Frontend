@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import * as React from "react";
 import { UpcomingBatchesSection } from "@/components/sections/UpcomingBatchesSection";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -6,6 +7,14 @@ import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import * as api from "@/lib/api";
 import { AdvantagesGrid } from "@/components/sections/AdvantagesGrid";
+import { generatePageMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("upcoming", {
+    title: "Upcoming Batches",
+    description: "Check upcoming barista training batch schedules at BBTA. Enroll now for the next available session - limited seats available.",
+  });
+}
 
 /**
  * Upcoming Batch Page

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
 import { EnrollmentForm } from "@/components/course/EnrollmentForm";
@@ -10,6 +11,14 @@ import {
 } from "@/components/ui/accordion";
 import * as api from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { generatePageMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata("courses", {
+    title: "All Courses",
+    description: "Explore BBTA's comprehensive barista training courses. From beginner to expert level - espresso, latte art, roasting, and cafe management programs.",
+  });
+}
 
 export default async function CoursesPage() {
   const [faqs, heroSettings, sh] = await Promise.all([
