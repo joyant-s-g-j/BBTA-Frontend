@@ -125,8 +125,6 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
     <>
       <HeroSection
         {...hero}
-        ctaText="Start Verification"
-        ctaHref="#verify"
         size="medium"
         showScrollIndicator={false}
       />

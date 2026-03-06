@@ -38,8 +38,6 @@ export default async function CoursesPage() {
     <>
       <HeroSection
         {...hero}
-        ctaText="View All Courses"
-        ctaHref="#courses"
         size="medium"
         showScrollIndicator={false}
       />

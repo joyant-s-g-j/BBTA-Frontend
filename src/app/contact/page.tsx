@@ -39,8 +39,6 @@ export default async function ContactPage() {
       {/* Hero Section */}
       <HeroSection
         {...hero}
-        ctaText="Send Message"
-        ctaHref="#contact-form"
         size="medium"
         showScrollIndicator={false}
       />

@@ -42,8 +42,6 @@ export default async function BlogPage() {
       {/* Hero Section */}
       <HeroSection
         {...hero}
-        ctaText="Read Articles"
-        ctaHref="#posts"
         size="medium"
         showScrollIndicator={false}
       />

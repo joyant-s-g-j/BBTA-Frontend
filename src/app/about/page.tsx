@@ -41,8 +41,6 @@ export default async function AboutPage() {
     <>
       <HeroSection
         {...hero}
-        ctaText="View Courses"
-        ctaHref="/bbta-courses"
         size="medium"
         showScrollIndicator={false}
       />

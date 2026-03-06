@@ -41,8 +41,6 @@ export default async function UpcomingBatchPage() {
         <>
             <HeroSection
                 {...hero}
-                ctaText="View Schedule"
-                ctaHref="#schedule"
                 size="small"
                 showScrollIndicator={false}
             />

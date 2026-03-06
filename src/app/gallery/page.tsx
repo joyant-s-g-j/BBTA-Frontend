@@ -56,8 +56,6 @@ export default function GalleryPage() {
         subtitle={hero.subtitle || ""}
         description={hero.description}
         backgroundImage={hero.backgroundImage}
-        ctaText="View Gallery"
-        ctaHref="#gallery"
         size="medium"
         showScrollIndicator={false}
       />

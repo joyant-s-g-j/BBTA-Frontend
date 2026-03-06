@@ -31,8 +31,8 @@ export function HeroSection({
   title,
   subtitle,
   description,
-  ctaText = "Get Started",
-  ctaHref = "/bbta-courses",
+  ctaText,
+  ctaHref,
   secondaryCtaText,
   secondaryCtaHref,
   backgroundImage,
@@ -110,7 +110,7 @@ export function HeroSection({
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <SectionHeader
             as="h1"
             subtitle={subtitle}
@@ -121,33 +121,35 @@ export function HeroSection({
             className="mb-8"
           />
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link href={ctaHref}>
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 glow-gold-hover px-8 py-6 text-lg font-semibold"
-              >
-                {ctaText}
-              </Button>
-            </Link>
-            {secondaryCtaText && secondaryCtaHref && (
-              <Link href={secondaryCtaHref}>
+          {/* CTAs - only show if provided from admin */}
+          {ctaText && ctaHref && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link href={ctaHref}>
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-foreground/30 text-foreground hover:bg-foreground/10 px-8 py-6 text-lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 glow-gold-hover px-8 py-6 text-lg font-semibold"
                 >
-                  {secondaryCtaText}
+                  {ctaText}
                 </Button>
               </Link>
-            )}
-          </motion.div>
+              {secondaryCtaText && secondaryCtaHref && (
+                <Link href={secondaryCtaHref}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-foreground/30 text-foreground hover:bg-foreground/10 px-8 py-6 text-lg"
+                  >
+                    {secondaryCtaText}
+                  </Button>
+                </Link>
+              )}
+            </motion.div>
+          )}
         </div>
       </div>
 

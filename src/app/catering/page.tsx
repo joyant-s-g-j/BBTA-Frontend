@@ -40,8 +40,6 @@ export default async function CateringPage() {
       {/* Hero Section */}
       <HeroSection
         {...hero}
-        ctaText="Book Your Event"
-        ctaHref="#booking"
         size="medium"
         showScrollIndicator={false}
       />筋

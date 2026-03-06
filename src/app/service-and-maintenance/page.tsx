@@ -47,8 +47,6 @@ export default async function ServiceMaintenancePage() {
       {/* Hero Section */}
       <HeroSection
         {...hero}
-        ctaText="Request Service"
-        ctaHref="#service-form"
         size="medium"
         showScrollIndicator={false}
       />筋

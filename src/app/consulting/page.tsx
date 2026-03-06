@@ -38,8 +38,6 @@ export default async function ConsultingPage() {
     <>
       <HeroSection
         {...hero}
-        ctaText="Get a Consultation"
-        ctaHref="#inquiry"
         size="medium"
         showScrollIndicator={false}
       />
