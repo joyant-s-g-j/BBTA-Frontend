@@ -35,11 +35,12 @@ export function HeroSection({
   ctaHref = "/bbta-courses",
   secondaryCtaText,
   secondaryCtaHref,
-  backgroundImage = "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920",
+  backgroundImage,
   showScrollIndicator = true,
   size = "full",
   overlay = "gradient",
 }: HeroSectionProps) {
+  const bgImage = backgroundImage || "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920";
   const sizeClasses = {
     full: "min-h-screen",
     large: "min-h-[85vh]",
@@ -64,7 +65,7 @@ export function HeroSection({
         className="absolute inset-0"
       >
         <Image
-          src={backgroundImage}
+          src={bgImage}
           alt="Hero background"
           fill
           priority
