@@ -62,11 +62,11 @@ export function CertificationSection({ initialCertifications, sectionHeader }: {
                   {/* Icon Container - Floating over image */}
                   <div className="absolute bottom-4 left-6">
                     <div className="w-14 h-14 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center text-white shadow-xl group-hover:bg-white group-hover:text-primary transition-colors duration-300 overflow-hidden">
-                      {cert.icon && (cert.icon.startsWith("http") || cert.icon.startsWith("/")) ? (
-                        <Image src={cert.icon} alt={cert.title} width={56} height={56} className="h-full w-full object-cover" />
+                      {cert.iconName && (cert.iconName.startsWith("http") || cert.iconName.startsWith("/")) ? (
+                        <Image src={cert.iconName} alt={cert.title} width={56} height={56} className="h-full w-full object-cover" />
                       ) : (
                         (() => {
-                          const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[cert.icon] || HelpCircle;
+                          const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[cert.iconName] || HelpCircle;
                           return <Icon className="h-7 w-7" />;
                         })()
                       )}

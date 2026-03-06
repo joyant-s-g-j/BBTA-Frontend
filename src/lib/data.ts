@@ -86,7 +86,7 @@ export interface Certification {
   title: string;
   issuer: string;
   description: string;
-  icon: string;
+  iconName: string;
   image?: string;
 }
 
