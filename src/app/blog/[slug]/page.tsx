@@ -7,6 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { CTABanner } from "@/components/sections/CTABanner";
 import * as api from "@/lib/api";
 
+const SITE_NAME = "BBTA - Bangladesh Barista Training Academy";
+const SITE_URL = "https://bbta-frontend.vercel.app";
+
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
 }
@@ -15,16 +18,56 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     const { slug } = await params;
     const post = await api.getBlogPost(slug);
     if (!post) return { title: "Post Not Found" };
+
+    const url = `${SITE_URL}/blog/${slug}`;
+    const ogImage = post.image || `${SITE_URL}/og-image.jpg`;
+
     return {
         title: `${post.title} | BBTA Blog`,
         description: post.excerpt,
+        keywords: [post.category, "BBTA", "barista", "coffee", "blog", post.author].filter(Boolean),
+        authors: [{ name: post.author }],
+        creator: post.author,
+        publisher: SITE_NAME,
+        alternates: {
+            canonical: url,
+        },
         openGraph: {
+            type: "article",
+            locale: "en_US",
+            url,
+            siteName: SITE_NAME,
             title: post.title,
             description: post.excerpt,
-            images: post.image ? [{ url: post.image }] : [],
-            type: "article",
             publishedTime: post.date,
+            modifiedTime: post.updated_at || post.date,
             authors: [post.author],
+            section: post.category,
+            images: [
+                {
+                    url: ogImage,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${post.title} | BBTA Blog`,
+            description: post.excerpt,
+            images: [ogImage],
+        },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                "max-video-preview": -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+            },
         },
     };
 }
@@ -50,6 +93,48 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     if (!post) notFound();
 
     const readTime = estimateReadTime(post.content || "");
+    const postUrl = `${SITE_URL}/blog/${slug}`;
+    const plainText = (post.content || "").replace(/<[^>]*>/g, "");
+    const wordCount = plainText.trim().split(/\s+/).length;
+
+    // JSON-LD: Article Schema
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        image: post.image || undefined,
+        datePublished: post.date,
+        dateModified: post.updated_at || post.date,
+        author: {
+            "@type": "Person",
+            name: post.author,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+        },
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": postUrl,
+        },
+        url: postUrl,
+        wordCount,
+        articleSection: post.category,
+        inLanguage: "en-US",
+    };
+
+    // JSON-LD: BreadcrumbList Schema
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+            { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+            { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+        ],
+    };
 
     // Related posts: same category, exclude current; fallback to latest
     let relatedPosts = allPosts
@@ -63,6 +148,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
     return (
         <>
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
+
             {/* ── Hero Image ──────────────────────────────────── */}
             {post.image && (
                 <div className="relative w-full h-[45vh] md:h-[55vh] lg:h-[65vh] overflow-hidden">
