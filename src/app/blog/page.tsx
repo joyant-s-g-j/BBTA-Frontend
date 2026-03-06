@@ -108,7 +108,7 @@ export default async function BlogPage() {
                 {regularPosts.map((post: Record<string, string>) => (
                   <Link
                     key={post.slug}
-                    href={`#`}
+                    href={`/blog/${post.slug}`}
                     className="group bg-card rounded-2xl border border-border overflow-hidden card-hover"
                   >
                     <div className="relative h-48">
