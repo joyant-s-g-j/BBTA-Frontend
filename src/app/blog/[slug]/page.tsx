@@ -85,8 +85,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <div className="max-w-4xl mx-auto">
 
                         {/* ── Breadcrumb + Back ────────────────────────── */}
-                        <div className={post.image ? "-mt-40 relative z-10" : "pt-32"}>
-                            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+                        <div className={post.image ? "-mt-40 relative z-10" : "pt-24"}>
+                            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-5">
                                 <Link href="/" className="hover:text-primary transition-colors">Home</Link>
                                 <ChevronRight className="h-3.5 w-3.5" />
                                 <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
@@ -95,24 +95,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             </nav>
 
                             {/* ── Category + Title ─────────────────────────── */}
-                            <Badge className="mb-5 bg-primary/10 text-primary border-primary/20 backdrop-blur-sm">
+                            <Badge className="mb-3 bg-primary/10 text-primary border-primary/20 backdrop-blur-sm">
                                 <Tag className="h-3 w-3 mr-1.5" />
                                 {post.category}
                             </Badge>
 
-                            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold mb-6 leading-[1.15] tracking-tight">
+                            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold mb-4 leading-[1.15] tracking-tight">
                                 {post.title}
                             </h1>
 
                             {/* Excerpt */}
                             {post.excerpt && (
-                                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-3xl">
+                                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 max-w-3xl">
                                     {post.excerpt}
                                 </p>
                             )}
 
                             {/* ── Author / Date / Read time bar ────────────── */}
-                            <div className="flex flex-wrap items-center gap-6 pb-8 mb-2 border-b border-border">
+                            <div className="flex flex-wrap items-center gap-6 pb-6 mb-2 border-b border-border">
                                 {/* Author avatar placeholder */}
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
@@ -164,7 +164,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                 prose-strong:text-foreground prose-strong:font-semibold
                                 prose-hr:border-border prose-hr:my-10
                                 prose-ul:my-6 prose-ol:my-6
-                                py-10
+                                py-6
                             "
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
