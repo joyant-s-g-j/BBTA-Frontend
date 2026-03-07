@@ -19,14 +19,15 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { navLinks } from "@/lib/data";
+import { navLinks, type Course } from "@/lib/data";
 import Image from "next/image";
 
 /**
  * Navbar Component
  * Sticky glassmorphism navigation with mega menu for courses
  */
-export function Navbar({ settings, courses: initialCourses = [] }: { settings?: any, courses?: any[] }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function Navbar({ settings, courses: initialCourses = [] }: { settings?: Record<string, string>, courses?: Course[] }) {
   const courses = initialCourses;
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -129,8 +130,8 @@ export function Navbar({ settings, courses: initialCourses = [] }: { settings?: 
                             href={`/${course.slug}`}
                             className="flex items-start gap-3 p-3 rounded-lg hover:bg-primary transition-colors group"
                           >
-                            <div className="p-2 rounded-md bg-primary/10">
-                              <Coffee className="h-4 w-4 text-primary" />
+                            <div className="p-2 rounded-md bg-primary/10 group-hover:bg-primary/20">
+                              <Coffee className="h-4 w-4 text-primary group-hover:text-white" />
                             </div>
                             <div>
                               <div className="font-medium text-sm text-foreground group-hover:text-white transition-colors">

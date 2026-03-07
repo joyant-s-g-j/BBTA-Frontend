@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, User, ArrowLeft, ArrowRight, Clock, Tag, Share2, ChevronRight } from "lucide-react";
+import { Calendar, ArrowLeft, ArrowRight, Clock, Tag, Share2, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CTABanner } from "@/components/sections/CTABanner";
 import * as api from "@/lib/api";

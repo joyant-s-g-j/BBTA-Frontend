@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import {
   Clock,
   DollarSign,
-  Award,
   CheckCircle2,
   ArrowRight,
   Calendar,
@@ -23,6 +22,7 @@ import { CourseCard } from "@/components/course/CourseCard";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import * as api from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { type Course } from "@/lib/data";
 
 interface CoursePageProps {
   params: Promise<{ slug: string }>;
@@ -31,7 +31,7 @@ interface CoursePageProps {
 // Generate static params for all courses
 export async function generateStaticParams() {
   const courses = await api.getCourses();
-  return courses.map((course: any) => ({
+  return courses.map((course: Course) => ({
     slug: course.slug,
   }));
 }
@@ -84,7 +84,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
   // Get related courses (same level or adjacent)
   const relatedCourses = allCourses
-    .filter((c: any) => c.slug !== course.slug)
+    .filter((c: Course) => c.slug !== course.slug)
     .slice(0, 3);
 
   return (
@@ -143,11 +143,6 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {course.title}
             </h1>
 
-            {/* Description */}
-            <div
-              className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl prose prose-invert prose-p:leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: course.fullDescription }}
-            />
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
@@ -180,6 +175,18 @@ export default async function CoursePage({ params }: CoursePageProps) {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Left Column - Course Details */}
             <div className="lg:col-span-2 space-y-8">
+              
+              {/* Course Includes */}
+              <div className="bg-card rounded-2xl border border-border p-6 md:p-8">
+                <h2 className="font-serif text-2xl font-bold mb-6">
+                  Course Description
+                </h2>
+                <div
+                  className="text-base md:text-base mb-8 max-w-2xl prose prose-invert prose-p:leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: course.fullDescription }}
+                />
+              </div>
+
               {/* Features Grid */}
               <div className="bg-card rounded-2xl border border-border p-6 md:p-8">
                 <h2 className="font-serif text-2xl font-bold mb-6">
@@ -204,7 +211,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   Course Curriculum
                 </h2>
                 <Accordion type="single" collapsible className="w-full">
-                  {course.curriculum.map((item: any, index: number) => (
+                  {course.curriculum.map((item: { day: string; topics: string[] }, index: number) => (
                     <AccordionItem key={index} value={`day-${index}`}>
                       <AccordionTrigger className="text-left font-medium hover:text-primary">
                         <span className="flex items-center gap-3">
@@ -232,20 +239,6 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </Accordion>
               </div>
 
-              {/* Course Includes */}
-              <div className="bg-card rounded-2xl border border-border p-6 md:p-8">
-                <h2 className="font-serif text-2xl font-bold mb-6">
-                  This Course Includes
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {(course.includes || []).map((item: string) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <Award className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Right Column - Enrollment Form */}
@@ -278,7 +271,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {relatedCourses.map((relatedCourse: any, index: number) => (
+            {relatedCourses.map((relatedCourse: Course, index: number) => (
               <CourseCard
                 key={relatedCourse.slug}
                 course={relatedCourse}
