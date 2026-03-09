@@ -8,6 +8,9 @@ export interface Course {
   price: string;
   discountPercent?: number;
   level: "Beginner" | "Intermediate" | "Advanced" | "Expert" | "All";
+  categoryId?: string;
+  categoryName?: string;
+  order?: number;
   description: string;
   fullDescription: string;
   features: string[];

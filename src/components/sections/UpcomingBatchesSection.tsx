@@ -64,7 +64,6 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
                                         >
                                             {batch.status}
                                         </Badge>
-                                        <span className="font-bold text-primary">{batch.price}</span>
                                     </div>
                                     <CardTitle className="text-xl font-bold leading-tight text-gradient-gold transition-colors">
                                         {batch.courseTitle}

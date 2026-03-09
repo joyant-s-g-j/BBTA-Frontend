@@ -12,13 +12,17 @@ interface CourseCardProps {
   course: Course;
   index?: number;
   className?: string;
+  categorySlug?: string;
 }
 
 /**
  * CourseCard Component
  * 3D tiltable card with hover effects, badges, and gradient overlays
  */
-export function CourseCard({ course, index = 0, className }: CourseCardProps) {
+export function CourseCard({ course, index = 0, className, categorySlug }: CourseCardProps) {
+  const courseHref = categorySlug
+    ? `/${categorySlug}/${course.slug}`
+    : `/${course.slug}`;
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -79,7 +83,7 @@ export function CourseCard({ course, index = 0, className }: CourseCardProps) {
 
         {/* Full Width Bottom Button */}
         <div className="mt-auto -mx-8">
-          <Link href={`/${course.slug}`}>
+          <Link href={courseHref}>
             <Button
               className="w-full flex items-center justify-center rounded-none h-8 bg-[#ee2a4a] hover:bg-[#0f3d2e] text-foreground font-bold text-lg transition-colors border-none"
             >

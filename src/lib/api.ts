@@ -15,6 +15,7 @@ async function fetchAPI(endpoint: string) {
 }
 
 export async function getCourses() { return await fetchAPI('/courses') || []; }
+export async function getCourseCategories() { return await fetchAPI('/course-categories') || []; }
 export async function getCourseBySlug(slug: string) {
     const courses = await getCourses();
     return courses.find((c: { slug: string }) => c.slug === slug);

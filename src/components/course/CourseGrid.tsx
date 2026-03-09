@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -27,6 +27,7 @@ interface CourseGridProps {
   subtitle?: string;
   description?: string;
   initialCourses?: Course[];
+  initialCategorySlug?: string;
 }
 
 /**
@@ -42,37 +43,54 @@ export function CourseGrid({
   subtitle = "Explore Our Programs",
   description,
   initialCourses,
+  initialCategorySlug,
 }: CourseGridProps) {
+  const router = useRouter();
   const [displayCourses, setDisplayCourses] = React.useState<Course[]>(initialCourses || []);
+  const [categories, setCategories] = React.useState<{ id: string; name: string; slug: string; order?: number }[]>([]);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [levelFilter, setLevelFilter] = React.useState("all");
-  const [activeTab, setActiveTab] = React.useState("all");
+  const [categoryFilter, setCategoryFilter] = React.useState("all");
 
   React.useEffect(() => {
-    if (!initialCourses) {
-      import("@/lib/api").then(api => {
+    import("@/lib/api").then(api => {
+      if (!initialCourses) {
         api.getCourses().then(data => {
           setDisplayCourses(data);
         });
+      }
+      api.getCourseCategories().then(data => {
+        const cats = (data || []).sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 999) - (b.order ?? 999));
+        setCategories(cats);
+        // Pre-select category from URL slug
+        if (initialCategorySlug) {
+          const matched = cats.find((c: { slug: string }) => c.slug === initialCategorySlug);
+          if (matched) setCategoryFilter(matched.id);
+        }
       });
-    }
-  }, [initialCourses]);
+    });
+  }, [initialCourses, initialCategorySlug]);
 
-  // Filter courses based on search, level, and tab
+  // Sync URL when category filter changes
+  const handleCategoryChange = (value: string) => {
+    setCategoryFilter(value);
+    if (value === "all") {
+      router.push("/bbta-courses", { scroll: false });
+    } else {
+      const cat = categories.find((c) => c.id === value);
+      if (cat) {
+        router.push(`/${cat.slug}`, { scroll: false });
+      }
+    }
+  };
+
+  // Filter courses based on search and category
   const filteredCourses = React.useMemo(() => {
     let result = displayCourses;
 
-    // Apply tab filter
-    if (activeTab !== "all") {
+    // Apply category filter
+    if (categoryFilter !== "all") {
       result = result.filter(
-        (course) => course.level.toLowerCase() === activeTab.toLowerCase()
-      );
-    }
-
-    // Apply level filter (for dropdown)
-    if (levelFilter !== "all") {
-      result = result.filter(
-        (course) => course.level.toLowerCase() === levelFilter.toLowerCase()
+        (course) => course.categoryId === categoryFilter
       );
     }
 
@@ -82,7 +100,8 @@ export function CourseGrid({
       result = result.filter(
         (course) =>
           course.title.toLowerCase().includes(query) ||
-          course.description.toLowerCase().includes(query)
+          course.description?.toLowerCase().includes(query) ||
+          (course.categoryName || "").toLowerCase().includes(query)
       );
     }
 
@@ -91,10 +110,18 @@ export function CourseGrid({
       result = result.slice(0, maxCourses);
     }
 
-    return result;
-  }, [displayCourses, searchQuery, levelFilter, activeTab, maxCourses]);
+    // Sort by order field
+    result.sort((a: Course & { order?: number }, b: Course & { order?: number }) => (a.order ?? 999) - (b.order ?? 999));
 
-  const levels = ["Beginner", "Intermediate", "Advanced", "Expert"];
+    return result;
+  }, [displayCourses, searchQuery, categoryFilter, maxCourses]);
+
+  // Get the category slug for a course
+  const getCategorySlugForCourse = (course: Course) => {
+    if (!course.categoryId) return undefined;
+    const cat = categories.find((c) => c.id === course.categoryId);
+    return cat?.slug;
+  };
 
   return (
     <section className="section-padding bg-card relative">
@@ -118,91 +145,68 @@ export function CourseGrid({
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mb-8"
           >
-            {/* Tabs for Level Filter */}
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-                <TabsList className="bg-card/50 p-1">
-                  <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                    All Courses
-                  </TabsTrigger>
-                  {levels.map((level) => (
-                    <TabsTrigger
-                      key={level}
-                      value={level.toLowerCase()}
-                      className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hidden sm:inline-flex"
-                    >
-                      {level}
-                    </TabsTrigger>
+            {/* Category Filter and Search */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+              <Select value={categoryFilter} onValueChange={handleCategoryChange}>
+                <SelectTrigger className="w-full sm:w-56 bg-card/50 border-border">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </SelectItem>
                   ))}
-                </TabsList>
+                </SelectContent>
+              </Select>
 
-                {/* Search and Level Filter */}
-                <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <div className="relative flex-1 sm:flex-initial">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="text"
-                      placeholder="Search courses..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10 sm:w-50 bg-card/50 border-border"
-                    />
-                  </div>
-
-                  {/* Mobile Level Filter */}
-                  <Select value={levelFilter} onValueChange={setLevelFilter}>
-                    <SelectTrigger className="w-32.5 sm:hidden bg-card/50 border-border">
-                      <SelectValue placeholder="Level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Levels</SelectItem>
-                      {levels.map((level) => (
-                        <SelectItem key={level} value={level.toLowerCase()}>
-                          {level}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="relative w-full sm:w-auto">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search courses..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 sm:w-56 bg-card/50 border-border"
+                />
               </div>
+            </div>
 
-              {/* Course Grid */}
-              <TabsContent value={activeTab} className="mt-0">
-                {filteredCourses.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {filteredCourses.map((course, index) => (
-                      <CourseCard
-                        key={course.slug}
-                        course={course}
-                        index={index}
-                        className={
-                          mobileMaxCourses && index >= mobileMaxCourses
-                            ? "hidden md:block"
-                            : ""
-                        }
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-12">
-                    <p className="text-muted-foreground">
-                      No courses found matching your criteria.
-                    </p>
-                    <Button
-                      variant="link"
-                      onClick={() => {
-                        setSearchQuery("");
-                        setLevelFilter("all");
-                        setActiveTab("all");
-                      }}
-                      className="text-primary"
-                    >
-                      Clear filters
-                    </Button>
-                  </div>
-                )}
-              </TabsContent>
-            </Tabs>
+            {/* Course Grid */}
+            {filteredCourses.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredCourses.map((course, index) => (
+                  <CourseCard
+                    key={course.slug}
+                    course={course}
+                    index={index}
+                    categorySlug={getCategorySlugForCourse(course)}
+                    className={
+                      mobileMaxCourses && index >= mobileMaxCourses
+                        ? "hidden md:block"
+                        : ""
+                    }
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">
+                  No courses found matching your criteria.
+                </p>
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    setSearchQuery("");
+                    handleCategoryChange("all");
+                  }}
+                  className="text-primary"
+                >
+                  Clear filters
+                </Button>
+              </div>
+            )}
           </motion.div>
         )}
 
@@ -214,6 +218,7 @@ export function CourseGrid({
                 key={course.slug}
                 course={course}
                 index={index}
+                categorySlug={getCategorySlugForCourse(course)}
                 className={
                   mobileMaxCourses && index >= mobileMaxCourses
                     ? "hidden md:block"
