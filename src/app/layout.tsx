@@ -93,9 +93,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, courses] = await Promise.all([
+  const [settings, courses, categories] = await Promise.all([
     api.getSettings(),
-    api.getCourses()
+    api.getCourses(),
+    api.getCourseCategories()
   ]);
 
   return (
@@ -106,7 +107,7 @@ export default async function RootLayout({
         {/* Main Layout */}
         <div className="relative min-h-screen flex flex-col">
           {/* Navbar */}
-          <Navbar settings={settings} courses={courses} />
+          <Navbar settings={settings} categories={categories} />
 
           {/* Main Content */}
           <main className="flex-1">{children}</main>

@@ -19,16 +19,24 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { navLinks, type Course } from "@/lib/data";
+import { navLinks } from "@/lib/data";
 import Image from "next/image";
+
+interface CategoryNav {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  order?: number;
+}
 
 /**
  * Navbar Component
  * Sticky glassmorphism navigation with mega menu for courses
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function Navbar({ settings, courses: initialCourses = [] }: { settings?: Record<string, string>, courses?: Course[] }) {
-  const courses = initialCourses;
+export function Navbar({ settings, categories: initialCategories = [] }: { settings?: Record<string, string>, categories?: CategoryNav[] }) {
+  const categories = [...initialCategories].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -97,7 +105,7 @@ export function Navbar({ settings, courses: initialCourses = [] }: { settings?: 
                   <NavigationMenuTrigger
                     className={cn(
                       "px-4 py-2 text-sm font-medium bg-transparent rounded-md transition-colors underline-animated",
-                      pathname.includes("/bbta-courses") || courses.some(c => pathname === `/${c.slug}`)
+                      pathname.includes("/bbta-courses") || categories.some(c => pathname.startsWith(`/${c.slug}`))
                         ? "bg-primary text-white"
                         : "text-foreground hover:bg-primary hover:text-white"
                     )}
@@ -124,10 +132,10 @@ export function Navbar({ settings, courses: initialCourses = [] }: { settings?: 
                         </Link>
 
                         {/* Course Categories */}
-                        {courses.slice(0, 6).map((course) => (
+                        {categories.slice(0, 6).map((cat) => (
                           <Link
-                            key={course.slug}
-                            href={`/${course.slug}`}
+                            key={cat.slug}
+                            href={`/${cat.slug}`}
                             className="flex items-start gap-3 p-3 rounded-lg hover:bg-primary transition-colors group"
                           >
                             <div className="p-2 rounded-md bg-primary/10 group-hover:bg-primary/20">
@@ -135,11 +143,13 @@ export function Navbar({ settings, courses: initialCourses = [] }: { settings?: 
                             </div>
                             <div>
                               <div className="font-medium text-sm text-foreground group-hover:text-white transition-colors">
-                                {course.title}
+                                {cat.name}
                               </div>
-                              <p className="text-xs text-muted-foreground group-hover:text-white/70 mt-0.5">
-                                {course.duration} • {course.level}
-                              </p>
+                              {cat.description && (
+                                <p className="text-xs text-muted-foreground group-hover:text-white/70 mt-0.5 line-clamp-1">
+                                  {cat.description}
+                                </p>
+                              )}
                             </div>
                           </Link>
                         ))}
