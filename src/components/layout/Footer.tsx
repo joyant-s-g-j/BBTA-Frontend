@@ -141,46 +141,22 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
                   Upcoming Batches
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/why-bbta"
-                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
-                >
-                  Why BBTA
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/job-placement"
-                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
-                >
-                  Job Placement
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/certificate-verification"
-                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
-                >
-                  Verify Certificate
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/gallery"
-                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
-                >
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
-                >
-                  Blog
-                </Link>
-              </li>
+              {[
+                { href: "/why-bbta", label: "Why BBTA" },
+                { href: "/job-placement", label: "Job Placement" },
+                { href: "/certificate-verification", label: "Verify Certificate" },
+                { href: "/about", label: "About" },
+                { href: "/blog", label: "Blog" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
