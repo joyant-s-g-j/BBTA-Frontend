@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Parallax, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -24,9 +25,7 @@ interface BannerSliderProps {
 }
 
 export function BannerSlider({ slides }: BannerSliderProps) {
-    const [reverse, setReverse] = useState(false);
-    const [reverseLast, setReverseLast] = useState(false);
-    const [mounted, setMounted] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [parallaxValue, setParallaxValue] = useState(400);
 
     useEffect(() => {
@@ -45,11 +44,6 @@ export function BannerSlider({ slides }: BannerSliderProps) {
         return () => window.removeEventListener("resize", updateParallax);
     }, []);
 
-    useEffect(() => {
-        const timer = setTimeout(() => setMounted(true), 100);
-        return () => clearTimeout(timer);
-    }, []);
-
     // Filter to only active slides, sorted by order
     const activeSlides = slides
         .filter((s) => s.isActive)
@@ -57,38 +51,28 @@ export function BannerSlider({ slides }: BannerSliderProps) {
 
     if (activeSlides.length === 0) return null;
 
+    const handleSlideChange = (swiper: SwiperType) => {
+        setActiveIndex(swiper.realIndex);
+    };
+
     return (
         <section className="banner-slider">
             <Swiper
                 modules={[Navigation, Pagination, Parallax, Autoplay]}
-                speed={reverse ? 700 : 2500}
-                onSlideChange={(swiper) => {
-                    if (swiper.isEnd) {
-                        setTimeout(() => setReverse(true), 1900);
-                        setTimeout(() => setReverseLast(true), 2700);
-                    }
-                    if (reverse && swiper.isBeginning) {
-                        setReverse(false);
-                        setReverseLast(false);
-                    }
-                }}
-                allowTouchMove={false}
+                speed={1200}
+                onSlideChange={handleSlideChange}
                 autoplay={{
-                    delay: reverse ? 500 : 2500,
-                    disableOnInteraction: true,
-                    reverseDirection: reverse,
-                    stopOnLastSlide: true,
-                    pauseOnMouseEnter: false,
+                    delay: 4000,
+                    disableOnInteraction: false,
                 }}
                 parallax
                 loop
-                wrapperClass="swiper-wrapper"
                 pagination={{
                     clickable: true,
                     el: ".banner-pagination",
                 }}
             >
-                {activeSlides.map((slide) => (
+                {activeSlides.map((slide, index) => (
                     <SwiperSlide key={slide.id}>
                         <div
                             className="slide-bg"
@@ -101,7 +85,9 @@ export function BannerSlider({ slides }: BannerSliderProps) {
                             <div className="slide-container">
                                 <div className="slide-content">
                                     <h1
-                                        className={`slide-heading ${reverseLast ? "opacity-0" : "opacity-100"} ${mounted ? "slide-mounted" : ""}`}
+                                        className={`slide-heading ${
+                                            activeIndex === index ? "slide-text-enter" : "slide-text-idle"
+                                        }`}
                                     >
                                         <span className="block">{slide.line_1}</span>
                                         <span className="block">{slide.line_2}</span>

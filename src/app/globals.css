@@ -312,6 +312,7 @@
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .banner-slider .slide-overlay {
@@ -333,11 +334,15 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  text-align: center;
 }
 
 .banner-slider .slide-content {
   width: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .banner-slider .slide-heading {
@@ -346,7 +351,6 @@
   color: #ffffff;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  transition: opacity 0.5s ease;
   font-size: clamp(2.5rem, 8vw, 7rem);
 }
 
@@ -358,14 +362,20 @@
   color: #B11226;
 }
 
-.banner-slider .slide-heading.slide-mounted {
-  animation: slideUp 0.8s ease forwards;
+/* Text enters from bottom to center */
+.banner-slider .slide-text-enter {
+  animation: slideUpToCenter 0.8s ease forwards;
 }
 
-@keyframes slideUp {
+.banner-slider .slide-text-idle {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+@keyframes slideUpToCenter {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(60px);
   }
   to {
     opacity: 1;
@@ -377,7 +387,8 @@
 .banner-pagination {
   position: absolute;
   bottom: 2.5rem !important;
-  left: 2.5rem !important;
+  left: 50% !important;
+  transform: translateX(-50%);
   display: flex;
   gap: 0.5rem;
   z-index: 10;
