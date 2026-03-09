@@ -51,6 +51,7 @@ export async function getWhyBbtaPoints() { return await fetchAPI('/why-bbta-poin
 
 // ===================== Job Placement =====================
 export async function getJobListings() { return await fetchAPI('/job-listings') || []; }
+export async function getBannerSlides() { return await fetchAPI('/banner-slides') || []; }
 export async function submitJobApplication(data: Record<string, unknown>) {
     try {
         const res = await fetch(`${API_URL}/job-applications`, {

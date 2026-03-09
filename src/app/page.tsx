@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/sections/HeroSection";
+import { BannerSlider } from "@/components/sections/BannerSlider";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
 import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
@@ -18,7 +18,7 @@ import * as api from "@/lib/api";
 export default async function HomePage() {
   // Parallel fetching for SSR speed
   const [
-    hero,
+    bannerSlides,
     stats,
     courses,
     batches,
@@ -31,7 +31,7 @@ export default async function HomePage() {
     careerBenefits,
     sh,
   ] = await Promise.all([
-    api.getHero(),
+    api.getBannerSlides(),
     api.getStats(),
     api.getCourses(),
     api.getBatches(),
@@ -47,19 +47,7 @@ export default async function HomePage() {
 
   return (
     <>
-      {hero && (
-        <HeroSection
-          title={hero.title}
-          subtitle={hero.subtitle}
-          description={hero.description}
-          ctaText={hero.ctaText}
-          ctaHref={hero.ctaUrl}
-          secondaryCtaText={hero.secondaryCtaText}
-          secondaryCtaHref={hero.secondaryCtaUrl}
-          backgroundImage={hero.backgroundImage}
-          size="full"
-        />
-      )}
+      <BannerSlider slides={bannerSlides} />
 
       <StatsSection stats={stats} />
 
