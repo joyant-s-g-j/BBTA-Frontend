@@ -59,7 +59,7 @@ export function Navbar({ settings, categories: initialCategories = [] }: { setti
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "navbar-premium-gradient"
+          ? "bg-white/[0.057] border-b-2 border-white/10 backdrop-blur-[10px] shadow-[0_0_80px_rgba(0,0,0,0.2)]"
           : "bg-transparent border-b border-transparent"
       )}
     >

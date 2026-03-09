@@ -19,6 +19,7 @@ export default async function HomePage() {
   // Parallel fetching for SSR speed
   const [
     bannerSlides,
+    hero,
     stats,
     courses,
     batches,
@@ -32,6 +33,7 @@ export default async function HomePage() {
     sh,
   ] = await Promise.all([
     api.getBannerSlides(),
+    api.getHero(),
     api.getStats(),
     api.getCourses(),
     api.getBatches(),
@@ -47,7 +49,13 @@ export default async function HomePage() {
 
   return (
     <>
-      <BannerSlider slides={bannerSlides} />
+      <BannerSlider
+        slides={bannerSlides}
+        ctaText={hero?.ctaText}
+        ctaHref={hero?.ctaUrl}
+        secondaryCtaText={hero?.secondaryCtaText}
+        secondaryCtaHref={hero?.secondaryCtaUrl}
+      />
 
       <StatsSection stats={stats} />
 

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Parallax, Autoplay } from "swiper/modules";
+import { Navigation, Pagination, Parallax, Autoplay, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
@@ -10,6 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/parallax";
 import "swiper/css/autoplay";
+import "swiper/css/effect-fade";
 
 interface BannerSlide {
     id: string;
@@ -22,10 +24,15 @@ interface BannerSlide {
 
 interface BannerSliderProps {
     slides: BannerSlide[];
+    ctaText?: string;
+    ctaHref?: string;
+    secondaryCtaText?: string;
+    secondaryCtaHref?: string;
 }
 
-export function BannerSlider({ slides }: BannerSliderProps) {
+export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secondaryCtaHref }: BannerSliderProps) {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [prevIndex, setPrevIndex] = useState<number | null>(null);
     const [parallaxValue, setParallaxValue] = useState(400);
 
     useEffect(() => {
@@ -51,18 +58,20 @@ export function BannerSlider({ slides }: BannerSliderProps) {
 
     if (activeSlides.length === 0) return null;
 
-    const handleSlideChange = (swiper: SwiperType) => {
+    const handleSlideChangeStart = (swiper: SwiperType) => {
+        // Old text exits, new text enters — both start at same time as image
+        setPrevIndex(activeIndex);
         setActiveIndex(swiper.realIndex);
     };
 
     return (
         <section className="banner-slider">
             <Swiper
-                modules={[Navigation, Pagination, Parallax, Autoplay]}
-                speed={1200}
-                onSlideChange={handleSlideChange}
+                modules={[Navigation, Pagination, Parallax, Autoplay, EffectFade]}
+                speed={1800}
+                onSlideChangeTransitionStart={handleSlideChangeStart}
                 autoplay={{
-                    delay: 4000,
+                    delay: 5000,
                     disableOnInteraction: false,
                 }}
                 parallax
@@ -84,14 +93,34 @@ export function BannerSlider({ slides }: BannerSliderProps) {
                             <div className="slide-overlay" />
                             <div className="slide-container">
                                 <div className="slide-content">
-                                    <h1
-                                        className={`slide-heading ${
-                                            activeIndex === index ? "slide-text-enter" : "slide-text-idle"
+                                    <div
+                                        className={`slide-text-wrapper ${
+                                            activeIndex === index
+                                                ? "slide-text-enter"
+                                                : prevIndex === index
+                                                ? "slide-text-exit"
+                                                : "slide-text-hidden"
                                         }`}
                                     >
-                                        <span className="block">{slide.line_1}</span>
-                                        <span className="block">{slide.line_2}</span>
-                                    </h1>
+                                        <h1 className="slide-heading">
+                                            <span className="block">{slide.line_1}</span>
+                                            <span className="block">{slide.line_2}</span>
+                                        </h1>
+                                    </div>
+                                    {(ctaText || secondaryCtaText) && (
+                                        <div className="slide-cta-buttons">
+                                            {ctaText && ctaHref && (
+                                                <Link href={ctaHref} className="slide-btn-primary">
+                                                    {ctaText}
+                                                </Link>
+                                            )}
+                                            {secondaryCtaText && secondaryCtaHref && (
+                                                <Link href={secondaryCtaHref} className="slide-btn-secondary">
+                                                    {secondaryCtaText}
+                                                </Link>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
