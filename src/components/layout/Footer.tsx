@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { navLinks } from "@/lib/data";
 import { toast } from "sonner";
 import Image from "next/image";
 
@@ -142,16 +141,46 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
                   Upcoming Batches
                 </Link>
               </li>
-              {navLinks.slice(0, 6).map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/why-bbta"
+                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                >
+                  Why BBTA
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/job-placement"
+                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                >
+                  Job Placement
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/certificate-verification"
+                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                >
+                  Verify Certificate
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/gallery"
+                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                >
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -233,24 +262,6 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
               {copyright}
             </p>
             <div className="flex items-center gap-6 flex-wrap">
-              <Link
-                href="/why-bbta"
-                className="text-white/70 hover:text-primary transition-colors text-sm"
-              >
-                Why BBTA
-              </Link>
-              <Link
-                href="/job-placement"
-                className="text-white/70 hover:text-primary transition-colors text-sm"
-              >
-                Job Placement
-              </Link>
-              <Link
-                href="/certificate-verification"
-                className="text-white/70 hover:text-primary transition-colors text-sm"
-              >
-                Verify Certificate
-              </Link>
               <Link
                 href="/contact"
                 className="text-white/70 hover:text-primary transition-colors text-sm"
