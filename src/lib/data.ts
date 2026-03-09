@@ -95,6 +95,50 @@ export interface FAQ {
   answer: string;
 }
 
+export interface WhyBbtaPoint {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  image?: string;
+  order?: number;
+}
+
+export interface JobListing {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  jobType: string;
+  salaryRange?: string;
+  description: string;
+  requirements: string[];
+  contactWhatsapp?: string;
+  contactEmail?: string;
+  isActive: boolean;
+  image?: string;
+  createdAt: string;
+}
+
+export interface JobApplication {
+  id: string;
+  type: 'hirer' | 'job_seeker';
+  name: string;
+  email: string;
+  phone: string;
+  companyName?: string;
+  position?: string;
+  jobTypeNeeded?: string;
+  requirementsDesc?: string;
+  experience?: string;
+  skills?: string;
+  resumeUrl?: string;
+  preferredPosition?: string;
+  message?: string;
+  status: 'New' | 'Read' | 'Replied';
+  createdAt: string;
+}
+
 // Navigation links remain static
 export const navLinks = [
   { href: "/", label: "Home" },

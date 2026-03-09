@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import {
-  Coffee,
   Mail,
   Phone,
   MapPin,
@@ -24,7 +23,22 @@ import Image from "next/image";
  * Footer Component
  * Multi-column footer with newsletter signup, social links, and quick navigation
  */
-export function Footer({ settings, courses }: { settings?: any; courses?: any[] }) {
+interface FooterSettings {
+  footer?: { intro?: string; copyright?: string };
+  contactInfo?: { address?: string; phone?: string; email?: string };
+  address?: string;
+  phone?: string;
+  email?: string;
+  socialLinks?: { facebook?: string; instagram?: string; twitter?: string; youtube?: string };
+  logo?: string;
+}
+
+interface FooterCourse {
+  slug: string;
+  title: string;
+}
+
+export function Footer({ settings, courses }: { settings?: FooterSettings; courses?: FooterCourse[] }) {
   const [email, setEmail] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -145,7 +159,7 @@ export function Footer({ settings, courses }: { settings?: any; courses?: any[] 
           <div>
             <h4 className="font-serif text-lg font-semibold mb-4 text-white">Popular Courses</h4>
             <ul className="space-y-3">
-              {(courses || []).slice(0, 6).map((course: any) => (
+              {(courses || []).slice(0, 6).map((course) => (
                 <li key={course.slug}>
                   <Link
                     href={`/${course.slug}`}
@@ -218,7 +232,19 @@ export function Footer({ settings, courses }: { settings?: any; courses?: any[] 
             <p className="text-white/50 text-sm text-center sm:text-left">
               {copyright}
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 flex-wrap">
+              <Link
+                href="/why-bbta"
+                className="text-white/70 hover:text-primary transition-colors text-sm"
+              >
+                Why BBTA
+              </Link>
+              <Link
+                href="/job-placement"
+                className="text-white/70 hover:text-primary transition-colors text-sm"
+              >
+                Job Placement
+              </Link>
               <Link
                 href="/certificate-verification"
                 className="text-white/70 hover:text-primary transition-colors text-sm"

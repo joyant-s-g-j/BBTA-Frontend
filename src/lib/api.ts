@@ -45,6 +45,26 @@ export async function verifyCertificate(id: string) {
 export async function getHeroByPage(page: string) { return await getSettings(`hero_${page}`); }
 export async function getSeoByPage(page: string) { return await getSettings(`seo_${page}`); }
 
+// ===================== Why BBTA =====================
+export async function getWhyBbtaPoints() { return await fetchAPI('/why-bbta-points') || []; }
+
+// ===================== Job Placement =====================
+export async function getJobListings() { return await fetchAPI('/job-listings') || []; }
+export async function submitJobApplication(data: Record<string, unknown>) {
+    try {
+        const res = await fetch(`${API_URL}/job-applications`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error('Submission failed');
+        return await res.json();
+    } catch (error) {
+        console.warn('Failed to submit job application:', error);
+        return null;
+    }
+}
+
 // ===================== Section Headers =====================
 // Each section header is stored in Config with key: sh_{page}_{section}
 export async function getSectionHeader(key: string, defaults: { subtitle: string; title: string; description?: string }) {
@@ -97,6 +117,12 @@ export async function getAllSectionHeaders() {
         { key: 'sh_course_related', defaults: { subtitle: 'Explore More', title: 'Related Courses', description: undefined } },
         // Certificate Verification Page
         { key: 'sh_certificate_verify', defaults: { subtitle: 'Verify Credentials', title: 'Certificate Verification', description: 'Instantly verify the authenticity of any BBTA certificate using the unique certificate ID.' } },
+        // Why BBTA Page
+        { key: 'sh_why_bbta_points', defaults: { subtitle: 'Our Strengths', title: 'Why Choose BBTA?', description: 'Discover what makes Bangladesh Barista Training Academy the premier choice for coffee education.' } },
+        { key: 'sh_why_bbta_impact', defaults: { subtitle: 'Our Impact', title: 'Transforming Coffee Careers', description: 'See the real numbers behind our success.' } },
+        // Job Placement Page
+        { key: 'sh_job_forms', defaults: { subtitle: 'Get Connected', title: 'Hire or Get Hired', description: 'Whether you are looking to hire trained baristas or seeking your next opportunity, we are here to help.' } },
+        { key: 'sh_job_listings', defaults: { subtitle: 'Latest Opportunities', title: 'Job Openings', description: 'Browse the latest job opportunities in the coffee industry.' } },
     ];
 
     const results = await Promise.all(
