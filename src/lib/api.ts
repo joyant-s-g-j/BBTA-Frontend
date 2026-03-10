@@ -1,17 +1,49 @@
-// Fetch data from backend API
+// Fetch data from backend API with retry logic for cold-start timeouts
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrender.com/api';
 
-async function fetchAPI(endpoint: string) {
+const MAX_RETRIES = 3;
+const INITIAL_TIMEOUT = 15000; // 15s first attempt
+
+async function fetchWithTimeout(url: string, options: RequestInit = {}, timeout: number): Promise<Response> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
     try {
-        const res = await fetch(`${API_URL}${endpoint}`, {
-            next: { revalidate: 30 },
-        });
-        if (!res.ok) throw new Error(`API Error: ${res.status}`);
-        return await res.json();
-    } catch (error) {
-        console.warn(`Failed to fetch ${endpoint}:`, error);
-        return null;
+        const res = await fetch(url, { ...options, signal: controller.signal });
+        return res;
+    } finally {
+        clearTimeout(timeoutId);
     }
+}
+
+async function fetchAPI(endpoint: string) {
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+        try {
+            const timeout = INITIAL_TIMEOUT + attempt * 10000; // 15s, 25s, 35s
+            const res = await fetchWithTimeout(
+                `${API_URL}${endpoint}`,
+                { next: { revalidate: 30 } } as RequestInit,
+                timeout,
+            );
+            if (!res.ok) throw new Error(`API Error: ${res.status}`);
+            return await res.json();
+        } catch (error: unknown) {
+            const isTimeout =
+                (error instanceof Error && error.name === 'AbortError') ||
+                (error instanceof TypeError && (error as NodeJS.ErrnoException).cause?.toString().includes('ConnectTimeout'));
+            const isLastAttempt = attempt === MAX_RETRIES - 1;
+
+            if (isTimeout && !isLastAttempt) {
+                console.warn(`Fetch ${endpoint} timed out (attempt ${attempt + 1}/${MAX_RETRIES}), retrying...`);
+                // Small delay before retry
+                await new Promise((r) => setTimeout(r, 1000 * (attempt + 1)));
+                continue;
+            }
+
+            console.warn(`Failed to fetch ${endpoint} after ${attempt + 1} attempt(s):`, error);
+            return null;
+        }
+    }
+    return null;
 }
 
 export async function getCourses() { return await fetchAPI('/courses') || []; }
