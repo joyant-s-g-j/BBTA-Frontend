@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Parallax, Autoplay, EffectFade } from "swiper/modules";
+import { Navigation, Pagination, Parallax, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/parallax";
-import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
 
 interface BannerSlide {
@@ -34,6 +33,8 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
     const [activeIndex, setActiveIndex] = useState(0);
     const [prevIndex, setPrevIndex] = useState<number | null>(null);
     const [parallaxValue, setParallaxValue] = useState(400);
+    const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+    const directionRef = React.useRef<"forward" | "backward">("forward");
 
     useEffect(() => {
         const updateParallax = () => {
@@ -61,21 +62,54 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
     const handleSlideChangeStart = (swiper: SwiperType) => {
         // Old text exits, new text enters — both start at same time as image
         setPrevIndex(activeIndex);
-        setActiveIndex(swiper.realIndex);
+        setActiveIndex(swiper.activeIndex);
     };
+
+    const handleReachEnd = (swiper: SwiperType) => {
+        directionRef.current = "backward";
+        if (swiper.autoplay) {
+            swiper.autoplay.stop();
+            setTimeout(() => {
+                swiper.autoplay.start();
+            }, 50);
+        }
+    };
+
+    const handleReachBeginning = (swiper: SwiperType) => {
+        directionRef.current = "forward";
+        if (swiper.autoplay) {
+            swiper.autoplay.stop();
+            setTimeout(() => {
+                swiper.autoplay.start();
+            }, 50);
+        }
+    };
+
+    // Custom autoplay using interval to control direction
+    useEffect(() => {
+        if (!swiperInstance || activeSlides.length <= 1) return;
+
+        const interval = setInterval(() => {
+            if (directionRef.current === "forward") {
+                swiperInstance.slideNext(2000);
+            } else {
+                swiperInstance.slidePrev(2000);
+            }
+        }, 5000 + 2000); // delay + transition time
+
+        return () => clearInterval(interval);
+    }, [swiperInstance, activeSlides.length]);
 
     return (
         <section className="banner-slider">
             <Swiper
-                modules={[Navigation, Pagination, Parallax, Autoplay, EffectFade]}
-                speed={1800}
+                modules={[Navigation, Pagination, Parallax, EffectFade]}
+                speed={2000}
+                onSwiper={(swiper) => setSwiperInstance(swiper)}
                 onSlideChangeTransitionStart={handleSlideChangeStart}
-                autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                }}
+                onReachEnd={handleReachEnd}
+                onReachBeginning={handleReachBeginning}
                 parallax
-                loop
                 pagination={{
                     clickable: true,
                     el: ".banner-pagination",
