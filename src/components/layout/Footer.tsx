@@ -239,10 +239,11 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             </p>
             <div className="flex items-center gap-6 flex-wrap">
               <Link
-                href="/contact"
-                className="text-white/70 hover:text-primary transition-colors text-sm"
+                href="https://joyantsgj.dev/"
+                target="_blank"
+                className="text-[#124a37] text-sm"
               >
-                Privacy Policy
+                Developed by Joyant
               </Link>
             </div>
           </div>
