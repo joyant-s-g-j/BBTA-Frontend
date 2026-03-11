@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { X } from "lucide-react";
 
 interface PromoBannerData {
@@ -28,12 +29,13 @@ export function PromoBanner({ data }: { data: PromoBannerData | null }) {
   const content = (
     <div className="flex items-center gap-3 min-w-0 flex-1 justify-center">
       {data.image && (
-        <div className="w-7 h-7 rounded overflow-hidden shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="w-7 h-7 rounded overflow-hidden shrink-0 relative">
+          <Image
             src={data.image}
             alt=""
-            className="w-full h-full object-cover"
+            fill
+            sizes="28px"
+            className="object-cover"
           />
         </div>
       )}

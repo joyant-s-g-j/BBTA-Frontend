@@ -2,15 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Parallax, EffectFade } from "swiper/modules";
+import { Pagination, Parallax } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/parallax";
-import "swiper/css/effect-fade";
 
 interface BannerSlide {
     id: string;
@@ -36,6 +35,11 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
     const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
     const directionRef = React.useRef<"forward" | "backward">("forward");
 
+    // Filter to only active slides, sorted by order
+    const activeSlides = slides
+        .filter((s) => s.isActive)
+        .sort((a, b) => a.order - b.order);
+
     useEffect(() => {
         const updateParallax = () => {
             const width = window.innerWidth;
@@ -52,10 +56,20 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
         return () => window.removeEventListener("resize", updateParallax);
     }, []);
 
-    // Filter to only active slides, sorted by order
-    const activeSlides = slides
-        .filter((s) => s.isActive)
-        .sort((a, b) => a.order - b.order);
+    // Custom autoplay using interval to control direction
+    useEffect(() => {
+        if (!swiperInstance || activeSlides.length <= 1) return;
+
+        const interval = setInterval(() => {
+            if (directionRef.current === "forward") {
+                swiperInstance.slideNext(2000);
+            } else {
+                swiperInstance.slidePrev(2000);
+            }
+        }, 5000 + 2000); // delay + transition time
+
+        return () => clearInterval(interval);
+    }, [swiperInstance, activeSlides.length]);
 
     if (activeSlides.length === 0) return null;
 
@@ -85,25 +99,10 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
         }
     };
 
-    // Custom autoplay using interval to control direction
-    useEffect(() => {
-        if (!swiperInstance || activeSlides.length <= 1) return;
-
-        const interval = setInterval(() => {
-            if (directionRef.current === "forward") {
-                swiperInstance.slideNext(2000);
-            } else {
-                swiperInstance.slidePrev(2000);
-            }
-        }, 5000 + 2000); // delay + transition time
-
-        return () => clearInterval(interval);
-    }, [swiperInstance, activeSlides.length]);
-
     return (
         <section className="banner-slider">
             <Swiper
-                modules={[Navigation, Pagination, Parallax, EffectFade]}
+                modules={[Pagination, Parallax]}
                 speed={2000}
                 onSwiper={(swiper) => setSwiperInstance(swiper)}
                 onSlideChangeTransitionStart={handleSlideChangeStart}
@@ -119,11 +118,17 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
                     <SwiperSlide key={slide.id}>
                         <div
                             className="slide-bg"
-                            style={{
-                                backgroundImage: `url(${slide.image})`,
-                            }}
                             data-swiper-parallax={parallaxValue}
                         >
+                            <Image
+                                src={slide.image}
+                                alt={`${slide.line_1} ${slide.line_2}`}
+                                fill
+                                sizes="100vw"
+                                className="object-cover"
+                                priority={index === 0}
+                                quality={75}
+                            />
                             <div className="slide-overlay" />
                             <div className="slide-container">
                                 <div className="slide-content">

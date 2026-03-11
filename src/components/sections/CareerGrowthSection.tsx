@@ -5,23 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import * as LucideIcons from "lucide-react";
-import {
-  TrendingUp,
-  Globe,
-  BadgeDollarSign,
-  Briefcase,
-  GraduationCap,
-  Rocket,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
+interface CareerBenefit {
+  icon: string;
+  title: string;
+  description: string;
+  link?: string;
+}
 
 /**
  * CareerGrowthSection
  * Showcases how barista training accelerates career growth
  */
-export function CareerGrowthSection({ initialCareerBenefits, sectionHeader }: { initialCareerBenefits?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+export function CareerGrowthSection({ initialCareerBenefits, sectionHeader }: { initialCareerBenefits?: CareerBenefit[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialCareerBenefits || initialCareerBenefits.length === 0) return null;
   const displayBenefits = initialCareerBenefits;
   const sh = sectionHeader || { subtitle: 'Build Your Future', title: 'How Barista Training Helps Grow Your Career', description: 'The coffee industry is one of the fastest-growing sectors in Bangladesh and globally.' };
@@ -60,12 +58,12 @@ export function CareerGrowthSection({ initialCareerBenefits, sectionHeader }: { 
               className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 md:p-8 hover:border-primary/40 transition-all duration-300"
             >
               {/* Icon */}
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/15 mb-5 group-hover:bg-primary/25 transition-colors overflow-hidden border border-primary/10">
+              <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/15 mb-5 group-hover:bg-primary/25 transition-colors overflow-hidden border border-primary/10">
                 {typeof benefit.icon === "string" && (benefit.icon.startsWith("http") || benefit.icon.startsWith("/")) ? (
-                  <img src={benefit.icon} alt={benefit.title} className="h-full w-full object-cover" />
+                  <Image src={benefit.icon} alt={benefit.title} fill sizes="56px" className="object-cover" />
                 ) : (
                   (() => {
-                    const Icon = typeof benefit.icon === "string" ? (LucideIcons as any)[benefit.icon] || LucideIcons.HelpCircle : (benefit.icon || LucideIcons.TrendingUp);
+                    const Icon = typeof benefit.icon === "string" ? (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[benefit.icon] || LucideIcons.HelpCircle : LucideIcons.TrendingUp;
                     return <Icon className="h-7 w-7 text-primary" />;
                   })()
                 )}

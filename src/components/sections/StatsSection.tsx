@@ -1,13 +1,14 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { motion, useInView } from "motion/react";
-import { GraduationCap, Users, BookOpen, MapPin, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface StatItemProps {
-  icon: any;
+  icon: string;
   value: number;
   suffix?: string;
   label: string;
@@ -70,8 +71,8 @@ function AnimatedCounter({
 function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps) {
   const isUrl = typeof icon === "string" && (icon.startsWith("http") || icon.startsWith("/"));
   const IconComponent = typeof icon === "string"
-    ? (LucideIcons as any)[icon] || LucideIcons.HelpCircle
-    : (icon || Star);
+    ? (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon] || LucideIcons.HelpCircle
+    : Star;
 
   return (
     <motion.div
@@ -84,10 +85,10 @@ function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps
       <motion.div
         whileHover={{ scale: 1.1, rotate: 5 }}
         transition={{ type: "spring", stiffness: 300 }}
-        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors overflow-hidden border border-primary/5"
+        className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors overflow-hidden border border-primary/5"
       >
         {isUrl ? (
-          <img src={icon} alt={label} className="h-full w-full object-cover" />
+          <Image src={icon} alt={label} fill sizes="64px" className="object-cover" />
         ) : (
           <IconComponent className="h-8 w-8 text-primary" />
         )}
@@ -104,7 +105,7 @@ function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps
  * StatsSection Component
  * Animated counters showing key statistics
  */
-export function StatsSection({ stats: propStats, sectionHeader }: { stats?: any, sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+export function StatsSection({ stats: propStats, sectionHeader }: { stats?: Array<{ icon: string; value: number; label: string; order?: number; showSuffix?: boolean }>, sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   // Handle both array (from backend) and object (fallback) formats
   const statItems = (Array.isArray(propStats) && propStats.length > 0)
     ? [...propStats]

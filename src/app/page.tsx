@@ -1,16 +1,19 @@
+import dynamic from "next/dynamic";
 import { BannerSlider } from "@/components/sections/BannerSlider";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
-import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
-import { CareerGrowthSection } from "@/components/sections/CareerGrowthSection";
-import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
-import { CertificationSection } from "@/components/sections/CertificationSection";
-import { MediaCoverageSection } from "@/components/sections/MediaCoverageSection";
-import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
-import { BranchesMap } from "@/components/sections/BranchesMap";
-import { CTABanner } from "@/components/sections/CTABanner";
-import { UpcomingBatchesSection } from "@/components/sections/UpcomingBatchesSection";
 import * as api from "@/lib/api";
+
+// Lazy-load below-fold sections for reduced initial JS payload
+const UpcomingBatchesSection = dynamic(() => import("@/components/sections/UpcomingBatchesSection").then(m => ({ default: m.UpcomingBatchesSection })));
+const FeaturesGrid = dynamic(() => import("@/components/sections/FeaturesGrid").then(m => ({ default: m.FeaturesGrid })));
+const CareerGrowthSection = dynamic(() => import("@/components/sections/CareerGrowthSection").then(m => ({ default: m.CareerGrowthSection })));
+const MediaCoverageSection = dynamic(() => import("@/components/sections/MediaCoverageSection").then(m => ({ default: m.MediaCoverageSection })));
+const TestimonialsCarousel = dynamic(() => import("@/components/sections/TestimonialsCarousel").then(m => ({ default: m.TestimonialsCarousel })));
+const CertificationSection = dynamic(() => import("@/components/sections/CertificationSection").then(m => ({ default: m.CertificationSection })));
+const HomeFAQSection = dynamic(() => import("@/components/sections/HomeFAQSection").then(m => ({ default: m.HomeFAQSection })));
+const BranchesMap = dynamic(() => import("@/components/sections/BranchesMap").then(m => ({ default: m.BranchesMap })));
+const CTABanner = dynamic(() => import("@/components/sections/CTABanner").then(m => ({ default: m.CTABanner })));
 
 /**
  * Home Page

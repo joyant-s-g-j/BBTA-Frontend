@@ -130,7 +130,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
           {/* Quick Links Column */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Quick Links</h4>
+            <h3 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Quick Links</h3>
             <ul className="space-y-3">
               {[
                 { href: "/why-bbta", label: "Why BBTA" },
@@ -153,7 +153,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
           {/* Popular Courses Column */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Popular Courses</h4>
+            <h3 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Popular Courses</h3>
             <ul className="space-y-3">
               {(courses || []).slice(0, 6).map((course) => (
                 <li key={course.slug}>
@@ -170,7 +170,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
           {/* Contact & Newsletter Column */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Contact Us</h4>
+            <h3 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Contact Us</h3>
             <ul className="space-y-3 mb-6">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -199,7 +199,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             </ul>
 
             {/* Newsletter */}
-            <h5 className="font-medium text-sm mb-3 text-bbta-red">Subscribe to Newsletter</h5>
+            <h4 className="font-medium text-sm mb-3 text-bbta-red">Subscribe to Newsletter</h4>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
               <Input
                 type="email"
@@ -213,6 +213,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
                 size="icon"
                 disabled={isSubmitting}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0"
+                aria-label="Subscribe to newsletter"
               >
                 <Send className="h-4 w-4" />
               </Button>

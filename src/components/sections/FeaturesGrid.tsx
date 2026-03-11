@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import * as LucideIcons from "lucide-react";
 
@@ -19,7 +20,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
   const isUrl = typeof icon === "string" && (icon.startsWith("http") || icon.startsWith("/"));
   const IconComponent = typeof icon === "string"
-    ? (LucideIcons as any)[icon] || LucideIcons.HelpCircle
+    ? (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon] || LucideIcons.HelpCircle
     : LucideIcons.Star;
 
   return (
@@ -34,10 +35,10 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
       <motion.div
         whileHover={{ scale: 1.1, rotate: 5 }}
         transition={{ type: "spring", stiffness: 300 }}
-        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors overflow-hidden border border-primary/5"
+        className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors overflow-hidden border border-primary/5"
       >
         {isUrl ? (
-          <img src={icon} alt={title} className="h-full w-full object-cover" />
+          <Image src={icon} alt={title} fill sizes="64px" className="object-cover" />
         ) : (
           <IconComponent className="h-8 w-8 text-primary" />
         )}
@@ -60,7 +61,7 @@ function FeatureItem({ icon, title, description, index }: FeatureItemProps) {
  * FeaturesGrid Component
  * Responsive grid of feature cards with icons
  */
-export function FeaturesGrid({ initialFeatures, sectionHeader }: { initialFeatures?: any[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+export function FeaturesGrid({ initialFeatures, sectionHeader }: { initialFeatures?: Array<{ icon: string; title: string; description: string }>, sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   if (!initialFeatures || initialFeatures.length === 0) return null;
   const displayFeatures = initialFeatures;
   const sh = sectionHeader || { subtitle: '', title: '', description: '' };
