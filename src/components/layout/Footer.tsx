@@ -135,8 +135,8 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
               {[
                 { href: "/why-bbta", label: "Why BBTA" },
                 { href: "/job-placement", label: "Job Placement" },
+                { href: "/success-stories", label: "Success Stories" },
                 { href: "/videos", label: "Videos" },
-                { href: "/about", label: "About" },
                 { href: "/blog", label: "Blog" },
               ].map((link) => (
                 <li key={link.href}>

@@ -51,7 +51,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
   const isScrolled = useScrollPosition(50);
 
   const mainNavLinks = navLinks.filter(
-    (link) => link.href !== "/bbta-courses" && link.href !== "/certificate-verification"
+    (link) => link.href !== "/bbta-courses" && link.href !== "/certificate-verification" && link.href !== "/success-stories"
     && link.href !== "/videos" && link.href !== "/why-bbta" && link.href !== "/job-placement"
   );
 
