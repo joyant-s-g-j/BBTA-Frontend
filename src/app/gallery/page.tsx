@@ -28,6 +28,11 @@ export default function GalleryPage() {
   React.useEffect(() => {
     api.getGallery().then(data => {
       setItems(data);
+      // Extract unique categories from the gallery items
+      const uniqueCats: string[] = Array.from(new Set(data.map((item: Record<string, string>) => item.category).filter(Boolean)));
+      if (uniqueCats.length > 0) {
+        setCategories(["All", ...uniqueCats]);
+      }
       setLoading(false);
     }).catch(err => {
       console.error(err);
@@ -37,13 +42,6 @@ export default function GalleryPage() {
     api.getHeroByPage('gallery').then((data: Record<string, string>) => {
       if (data?.title) setHero(data);
     }).catch(console.error);
-
-    // Fetch custom categories from admin
-    api.getSettings('gallery_categories').then((data: Record<string, string[] | unknown>) => {
-      if (data?.categories && Array.isArray(data.categories) && data.categories.length > 0) {
-        setCategories(["All", ...data.categories]);
-      }
-    }).catch(() => { /* keep defaults */ });
   }, []);
 
   const filteredItems = React.useMemo(() => {
