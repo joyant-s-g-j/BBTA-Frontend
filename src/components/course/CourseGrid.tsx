@@ -105,13 +105,13 @@ export function CourseGrid({
       );
     }
 
-    // Limit courses if maxCourses is set
+    // Sort by order field first
+    result.sort((a: Course & { order?: number }, b: Course & { order?: number }) => (a.order ?? 999) - (b.order ?? 999));
+
+    // Limit courses if maxCourses is set (after sorting)
     if (maxCourses) {
       result = result.slice(0, maxCourses);
     }
-
-    // Sort by order field
-    result.sort((a: Course & { order?: number }, b: Course & { order?: number }) => (a.order ?? 999) - (b.order ?? 999));
 
     return result;
   }, [displayCourses, searchQuery, categoryFilter, maxCourses]);

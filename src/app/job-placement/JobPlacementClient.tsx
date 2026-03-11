@@ -150,7 +150,14 @@ export function JobPlacementClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "hirer",
-          ...data,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          company_name: data.companyName,
+          position: data.position,
+          job_type_needed: data.jobTypeNeeded,
+          requirements_desc: data.requirementsDesc,
+          message: data.message || "",
           status: "New",
         }),
       });
@@ -175,7 +182,14 @@ export function JobPlacementClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "job_seeker",
-          ...data,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          experience: data.experience,
+          skills: data.skills,
+          preferred_position: data.preferredPosition,
+          resume_url: data.resumeUrl || "",
+          message: data.message || "",
           status: "New",
         }),
       });
