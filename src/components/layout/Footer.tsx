@@ -230,7 +230,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             </p>
             <div className="flex items-center gap-6 flex-wrap">
               <Link
-                href="https://joyantsgj.dev/"
+                href="https://www.codethousand.net/"
                 target="_blank"
                 className="text-secondary text-sm"
               >
