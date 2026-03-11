@@ -216,15 +216,6 @@ export function Navbar({ settings, categories: initialCategories = [] }: { setti
                       </SheetClose>
                     ))}
                   </nav>
-
-                  {/* Mobile Book Now */}
-                  <SheetClose asChild>
-                    <Link href="/contact" className="mt-4">
-                      <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-gold font-semibold py-5 text-base">
-                        Book Now
-                      </Button>
-                    </Link>
-                  </SheetClose>
                 </div>
               </SheetContent>
             </Sheet>

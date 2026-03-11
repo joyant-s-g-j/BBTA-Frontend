@@ -5,6 +5,7 @@ import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
 import { CareerGrowthSection } from "@/components/sections/CareerGrowthSection";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { CertificationSection } from "@/components/sections/CertificationSection";
+import { MediaCoverageSection } from "@/components/sections/MediaCoverageSection";
 import { HomeFAQSection } from "@/components/sections/HomeFAQSection";
 import { BranchesMap } from "@/components/sections/BranchesMap";
 import { CTABanner } from "@/components/sections/CTABanner";
@@ -30,6 +31,7 @@ export default async function HomePage() {
     cta,
     branches,
     careerBenefits,
+    mediaCoverage,
     sh,
   ] = await Promise.all([
     api.getBannerSlides(),
@@ -44,6 +46,7 @@ export default async function HomePage() {
     api.getCtaBanner(),
     api.getBranches(),
     api.getCareerBenefits(),
+    api.getMediaCoverage(),
     api.getAllSectionHeaders(),
   ]);
 
@@ -83,6 +86,11 @@ export default async function HomePage() {
       <CareerGrowthSection
         initialCareerBenefits={careerBenefits}
         sectionHeader={sh['sh_home_career']}
+      />
+
+      <MediaCoverageSection
+        initialItems={mediaCoverage}
+        sectionHeader={sh['sh_home_media']}
       />
 
       <TestimonialsCarousel

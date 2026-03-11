@@ -86,7 +86,7 @@ export default function GalleryPage() {
                 className={
                   selectedCategory === category
                     ? "bg-primary text-primary-foreground"
-                    : "border-border hover:border-primary hover:text-primary"
+                    : "border-border hover:border-primary hover:bg-primary"
                 }
               >
                 {category}

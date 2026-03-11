@@ -84,6 +84,8 @@ export async function getWhyBbtaPoints() { return await fetchAPI('/why-bbta-poin
 // ===================== Job Placement =====================
 export async function getJobListings() { return await fetchAPI('/job-listings') || []; }
 export async function getBannerSlides() { return await fetchAPI('/banner-slides') || []; }
+export async function getMediaCoverage() { return await fetchAPI('/media-coverage') || []; }
+export async function getVideos() { return await fetchAPI('/videos') || []; }
 export async function submitJobApplication(data: Record<string, unknown>) {
     try {
         const res = await fetch(`${API_URL}/job-applications`, {
@@ -125,6 +127,7 @@ export async function getAllSectionHeaders() {
         { key: 'sh_home_certs', defaults: { subtitle: 'Industry Recognition', title: 'Our Certifications & Accreditations', description: 'We take pride in our international standards and local recognition.' } },
         { key: 'sh_home_faq', defaults: { subtitle: 'Common Questions', title: 'Frequently Asked Questions', description: 'Everything you need to know about our courses, certification, and career opportunities.' } },
         { key: 'sh_home_branches', defaults: { subtitle: 'Visit Us', title: 'Our Training Centers', description: 'State-of-the-art facilities equipped with professional-grade coffee equipment in prime Dhaka locations.' } },
+        { key: 'sh_home_media', defaults: { subtitle: 'Featured In', title: 'Media Coverage', description: 'Trusted by leading brands and featured in top media outlets.' } },
         // About Page
         { key: 'sh_about_mission', defaults: { subtitle: 'Our Mission', title: 'Empowering Coffee Professionals', description: undefined } },
         { key: 'sh_about_timeline', defaults: { subtitle: 'Our Journey', title: 'BBTA History & Milestones', description: undefined } },

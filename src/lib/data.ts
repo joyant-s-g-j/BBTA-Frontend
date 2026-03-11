@@ -147,6 +147,7 @@ export const navLinks = [
   { href: "/catering", label: "Catering" },
   { href: "/service-and-maintenance", label: "Services" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/videos", label: "Videos" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
   { href: "/certificate-verification", label: "Verify Certificate" }
