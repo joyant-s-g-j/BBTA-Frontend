@@ -57,14 +57,15 @@ export function Navbar({ settings, categories: initialCategories = [] }: { setti
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-50 backdrop-blur-[0.01px]",
+        "transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
         isScrolled
           ? "bg-white/[0.057] border-b-2 border-white/10 backdrop-blur-[10px] shadow-[0_0_80px_rgba(0,0,0,0.2)]"
-          : "bg-transparent border-b border-transparent"
+          : "bg-transparent border-b-2 border-transparent"
       )}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20 transition-[height] duration-300">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group relative z-10">
             <div className="rounded-xl p-1 transition-colors">

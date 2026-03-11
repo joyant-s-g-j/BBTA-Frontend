@@ -20,31 +20,17 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
             <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div className="flex flex-col md:flex-row md:items-center mb-12 gap-6">
                     <SectionHeader
                         subtitle={sh.subtitle}
                         title={sh.title}
                         description={sh.description}
-                        align="left"
                         className="mb-0"
                         titleSize="text-3xl md:text-4xl lg:text-5xl"
                     />
-
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <Button asChild className="group">
-                            <Link href="/bbta-courses" className="flex items-center gap-2">
-                                View Details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </Link>
-                        </Button>
-                    </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="flex flex-wrap justify-center gap-5">
                     {displayedBatches.map((batch, index) => (
                         <motion.div
                             key={batch.id}
@@ -52,6 +38,7 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(25%-0.9375rem)]"
                         >
                             <div className="group relative rounded-2xl bg-background border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
                                 {/* Info rows */}
@@ -66,24 +53,25 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
                                     </div>
                                 </div>
 
-                                {/* Status indicator */}
+                                {/* Enroll button */}
                                 <div className="mt-4 pt-3 border-t border-border/40">
-                                    <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${
-                                        batch.status === "Closed"
-                                            ? "text-destructive"
-                                            : batch.status === "Fast Filling"
-                                            ? "text-amber-500"
-                                            : "text-emerald-600"
-                                    }`}>
-                                        <span className={`w-1.5 h-1.5 rounded-full ${
-                                            batch.status === "Closed"
-                                                ? "bg-destructive"
-                                                : batch.status === "Fast Filling"
-                                                ? "bg-amber-500 animate-pulse"
-                                                : "bg-emerald-600 animate-pulse"
-                                        }`} />
-                                        {batch.status}
-                                    </span>
+                                    <Link href="/bbta-courses">
+                                        <Button
+                                            variant={batch.status === "Closed" ? "outline" : "default"}
+                                            size="sm"
+                                            className={`w-full gap-1.5 text-xs font-medium ${
+                                                batch.status === "Closed"
+                                                    ? "border-destructive/30 text-destructive hover:bg-destructive/10"
+                                                    : batch.status === "Fast Filling"
+                                                    ? "bg-amber-500 hover:bg-amber-600 text-white"
+                                                    : "bg-primary hover:bg-primary/90"
+                                            }`}
+                                            disabled={batch.status === "Closed"}
+                                        >
+                                            {batch.status === "Closed" ? "Closed" : batch.status === "Fast Filling" ? "Fast Filling — Enroll Now" : "Enroll Now"}
+                                            {batch.status !== "Closed" && <ArrowRight className="h-3 w-3" />}
+                                        </Button>
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>
