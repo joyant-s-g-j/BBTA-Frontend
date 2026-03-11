@@ -86,6 +86,7 @@ export async function getJobListings() { return await fetchAPI('/job-listings') 
 export async function getBannerSlides() { return await fetchAPI('/banner-slides') || []; }
 export async function getMediaCoverage() { return await fetchAPI('/media-coverage') || []; }
 export async function getVideos() { return await fetchAPI('/videos') || []; }
+export async function getSuccessStories() { return await fetchAPI('/success-stories') || []; }
 export async function submitJobApplication(data: Record<string, unknown>) {
     try {
         const res = await fetch(`${API_URL}/job-applications`, {
@@ -119,6 +120,7 @@ export async function getSectionHeader(key: string, defaults: { subtitle: string
 export async function getAllSectionHeaders() {
     const keys = [
         // Home Page
+        { key: 'sh_home_stats', defaults: { subtitle: 'Our Impact', title: 'BBTA in Numbers', description: 'Real numbers that reflect our commitment to coffee education excellence.' } },
         { key: 'sh_home_courses', defaults: { subtitle: 'Start Your Journey', title: 'Popular Courses', description: 'From beginner foundations to advanced professional training, find the perfect course for your coffee career.' } },
         { key: 'sh_home_batches', defaults: { subtitle: 'Secure Your Spot', title: 'Upcoming Batches', description: 'Check out our latest schedule and join our next training session. Limited seats available for each batch.' } },
         { key: 'sh_home_features', defaults: { subtitle: 'Why Choose Us', title: 'The BBTA Advantage', description: 'Experience world-class training with ISO-certified curriculum, expert instructors, and career-focused programs.' } },
@@ -158,6 +160,8 @@ export async function getAllSectionHeaders() {
         // Job Placement Page
         { key: 'sh_job_forms', defaults: { subtitle: 'Get Connected', title: 'Hire or Get Hired', description: 'Whether you are looking to hire trained baristas or seeking your next opportunity, we are here to help.' } },
         { key: 'sh_job_listings', defaults: { subtitle: 'Latest Opportunities', title: 'Job Openings', description: 'Browse the latest job opportunities in the coffee industry.' } },
+        // Success Stories Page
+        { key: 'sh_success_stories', defaults: { subtitle: 'Success Stories', title: 'Our Graduates\' Journeys', description: 'Discover how our alumni turned their passion into thriving careers in the coffee industry.' } },
     ];
 
     const results = await Promise.all(

@@ -45,8 +45,9 @@ export default function GalleryPage() {
   }, []);
 
   const filteredItems = React.useMemo(() => {
-    if (selectedCategory === "All") return items;
-    return items.filter((item) => item.category === selectedCategory);
+    const base = selectedCategory === "All" ? items : items.filter((item) => item.category === selectedCategory);
+    // Sort pinned items first
+    return [...base].sort((a, b) => ((b as any).isPinned ? 1 : 0) - ((a as any).isPinned ? 1 : 0));
   }, [selectedCategory, items]);
 
   const visibleItems = filteredItems.slice(0, visibleCount);

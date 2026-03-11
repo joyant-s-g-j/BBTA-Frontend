@@ -60,7 +60,7 @@ export default async function HomePage() {
         secondaryCtaHref={hero?.secondaryCtaUrl}
       />
 
-      <StatsSection stats={stats} />
+      <StatsSection stats={stats} sectionHeader={sh['sh_home_stats']} />
 
       <CourseGrid
         initialCourses={courses}

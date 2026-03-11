@@ -151,6 +151,7 @@ export const navLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/why-bbta", label: "Why BBTA" },
   { href: "/job-placement", label: "Job Placement" },
+  { href: "/success-stories", label: "Success Stories" },
   { href: "/contact", label: "Contact" },
   { href: "/certificate-verification", label: "Verify Certificate" }
 ];
