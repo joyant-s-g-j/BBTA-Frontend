@@ -149,7 +149,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                     <DollarSign className="mr-1 h-3 w-3" />
                     {course.price}
                   </Badge>
-                  <Badge className="bg-[#ee2a4a] text-white border-none">
+                  <Badge className="bg-bbta-red text-white border-none">
                     <DollarSign className="mr-1 h-3 w-3" />৳
                     {Math.round(
                       Number(
@@ -158,7 +158,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                         (1 - course.discountPercent / 100)
                     ).toLocaleString()}
                   </Badge>
-                  <Badge className="bg-[#ee2a4a]/10 text-[#ee2a4a] border-[#ee2a4a]/30">
+                  <Badge className="bg-bbta-red/10 text-bbta-red border-bbta-red/30">
                     {course.discountPercent}% OFF
                   </Badge>
                 </>

@@ -50,7 +50,7 @@
   /* Custom BBTA Colors */
   --color-bbta-red: var(--bbta-red);
   --color-bbta-green: var(--bbta-green);
-  --color-bbta-green-accent: var(--bbta-green-accent);
+  --color-bbta-green-hidden: var(--bbta-green-hidden);
 }
 
 :root {
@@ -66,7 +66,7 @@
   --popover: #171717;
   --popover-foreground: #ededed;
   
-  --primary: #B11226; /* Brand Red - kept same */
+  --primary: var(--bbta-red); /* Brand Red */
   --primary-foreground: #FFFFFF;
   
   --secondary: #262626; /* Darker gray for secondary */
@@ -75,7 +75,7 @@
   --muted: #262626;
   --muted-foreground: #a3a3a3; /* Muted text */
   
-  --accent: #1E7F5C; /* Brand Green Accent */
+  --accent: var(--bbta-green-accent); /* Brand Green Accent */
   --accent-foreground: #FFFFFF;
   
   --destructive: #ef4444;
@@ -83,28 +83,29 @@
   --border: #2e2e2e; /* Dark border */
   --input: #2e2e2e;
   
-  --ring: #B11226;
+  --ring: var(--bbta-red);
   
-  --chart-1: #B11226;
-  --chart-2: #1E7F5C;
+  --chart-1: var(--bbta-red);
+  --chart-2: var(--bbta-green-accent);
   --chart-3: #ededed;
   --chart-4: #a3a3a3;
   --chart-5: #262626;
   
   /* BBTA Custom Colors */
-  --bbta-red: #B11226;
+  --bbta-red: #EA1F3D;
   --bbta-green: #0F3D2E;
   --bbta-green-accent: #1E7F5C;
+  --bbta-green-hidden: #124a37;
   
   /* Sidebar */
-  --sidebar: #0F3D2E;
+  --sidebar: var(--bbta-green);
   --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #B11226;
+  --sidebar-primary: var(--bbta-red);
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1E7F5C;
+  --sidebar-accent: var(--bbta-green-accent);
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: rgba(255, 255, 255, 0.12);
-  --sidebar-ring: #B11226;
+  --sidebar-ring: var(--bbta-red);
 }
 
 @layer base {
@@ -151,13 +152,13 @@
   
   /* Red glow effect */
   .glow-gold {
-    box-shadow: 0 0 20px rgba(177, 18, 38, 0.30),
-                0 0 40px rgba(177, 18, 38, 0.10);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--bbta-red) 30%, transparent),
+                0 0 40px color-mix(in srgb, var(--bbta-red) 10%, transparent);
   }
   
   .glow-gold-hover:hover {
-    box-shadow: 0 0 30px rgba(177, 18, 38, 0.40),
-                0 0 60px rgba(177, 18, 38, 0.20);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--bbta-red) 40%, transparent),
+                0 0 60px color-mix(in srgb, var(--bbta-red) 20%, transparent);
   }
   
   /* Gradient backgrounds - Darkened */
@@ -170,18 +171,13 @@
       to bottom,
       #0a0a0a 0%,
       #0d0d0d 80%,
-      rgba(177, 18, 38, 0.1) 100%
+      color-mix(in srgb, var(--bbta-red) 10%, transparent) 100%
     );
-  }
-  
-  .bg-gradient-gold {
-    background: linear-gradient(135deg, #B11226 0%, #8a0e1d 100%);
   }
   
   /* Text gradients */
   .text-gradient-gold {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #B11226, #ff4d63);
+    color: var(--bbta-red);
   }
   
   /* Noise texture overlay */
@@ -207,7 +203,7 @@
   .card-hover:hover {
     @apply -translate-y-1;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(177, 18, 38, 0.2);
+                0 0 30px color-mix(in srgb, var(--bbta-red) 20%, transparent);
   }
   
   /* Animated underline — Positioned outside the box */
@@ -222,7 +218,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: #B11226;
+    background: var(--bbta-red);
     transition: width 0.3s ease;
   }
   
@@ -263,23 +259,23 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B11226;
+  background: var(--bbta-red);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D41A30;
+  background: var(--bbta-red);
 }
 
 /* Selection color */
 ::selection {
-  background: rgba(177, 18, 38, 0.40);
-  color: #ededed;
+  background: color-mix(in srgb, var(--bbta-red) 40%, transparent);
+  color: var(--foreground);
 }
 
 /* Focus visible — Green ring for subtle tertiary accent */
 :focus-visible {
-  outline: 2px solid #1E7F5C;
+  outline: 2px solid var(--bbta-green-accent);
   outline-offset: 2px;
 }
 
@@ -363,7 +359,7 @@
 }
 
 .banner-slider .slide-heading span:last-child {
-  color: #B11226;
+  color: var(--bbta-red);
 }
 
 /* Text enters: bottom → middle, synced with image slide (2s) */
@@ -417,7 +413,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.875rem 2.5rem;
-  background: #B11226;
+  background: var(--bbta-red);
   color: #ffffff;
   font-weight: 600;
   font-size: 1rem;
@@ -428,9 +424,9 @@
 }
 
 .slide-btn-primary:hover {
-  background: #8a0e1d;
+  background: var(--bbta-red);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(177, 18, 38, 0.4);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--bbta-red) 40%, transparent);
 }
 
 .slide-btn-secondary {
@@ -476,9 +472,9 @@
 }
 
 .banner-pagination .swiper-pagination-bullet-active {
-  background: #B11226;
+  background: var(--bbta-red);
   transform: scale(1.3);
-  box-shadow: 0 0 10px rgba(177, 18, 38, 0.5);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--bbta-red) 50%, transparent);
 }
 
 /* Navigation arrow overrides */
@@ -497,7 +493,7 @@
 .banner-slider .swiper-button-next:hover,
 .banner-slider .swiper-button-prev:hover {
   opacity: 1;
-  color: #B11226;
+  color: var(--bbta-red);
 }
 
 /* Responsive */

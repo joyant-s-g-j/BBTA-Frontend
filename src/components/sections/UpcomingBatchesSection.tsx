@@ -38,7 +38,7 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(25%-0.9375rem)]"
+                            className="w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.833rem)] xl:w-[calc(25%-0.9375rem)]"
                         >
                             <div className="group relative rounded-2xl bg-background border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
                                 {/* Info rows */}

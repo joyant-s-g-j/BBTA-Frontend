@@ -65,10 +65,10 @@ export function CourseCard({ course, index = 0, className, categorySlug }: Cours
             {course.discountPercent && course.discountPercent > 0 ? (
               <>
                 <span className="line-through opacity-60">{course.price}</span>{" "}
-                <span className="font-bold text-[#ee2a4a]">
+                <span className="font-bold text-bbta-red">
                   ৳{Math.round(Number(String(course.price).replace(/[^0-9]/g, '')) * (1 - course.discountPercent / 100)).toLocaleString()}
                 </span>{" "}
-                <span className="bg-[#ee2a4a]/20 text-[#ee2a4a] px-1.5 py-0.5 rounded-full text-[10px] font-bold">{course.discountPercent}% OFF</span>
+                <span className="bg-bbta-red/20 text-bbta-red px-1.5 py-0.5 rounded-full text-[10px] font-bold">{course.discountPercent}% OFF</span>
               </>
             ) : (
               <span className="font-bold">{course.price}</span>
@@ -85,7 +85,7 @@ export function CourseCard({ course, index = 0, className, categorySlug }: Cours
         <div className="mt-auto -mx-8">
           <Link href={courseHref}>
             <Button
-              className="w-full flex items-center justify-center rounded-none h-8 bg-[#ee2a4a] hover:bg-[#0f3d2e] text-foreground font-bold text-lg transition-colors border-none"
+              className="w-full flex items-center justify-center rounded-none h-8 bg-bbta-red hover:bg-bbta-green text-foreground font-bold text-lg transition-colors border-none"
             >
               Course Details
             </Button>

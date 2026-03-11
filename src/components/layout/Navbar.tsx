@@ -56,23 +56,23 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
 
   return (
     <div
-      className={`flex justify-between items-center fixed top-0 left-0 right-0 py-3 px-4 sm:px-6 lg:px-24 z-50 transition-all duration-300 ${isScrolled ? " backdrop-blur-md" : "bg-transparent"}`}
+      className={`flex justify-between items-center fixed top-0 left-0 right-0 py-3 px-4 sm:px-6 lg:px-8 xl:px-24 z-50 transition-all duration-300 ${isScrolled ? " backdrop-blur-md" : "bg-transparent"}`}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <Link href="/">
             <Image
               src="/bbtalogo.png"
               alt="BBTA Logo"
               width={64}
               height={64}
-              className="h-12 w-auto lg:h-16 lg:w-24 object-contain"
+              className="h-12 w-auto lg:h-14 xl:h-16 lg:w-20 xl:w-24 object-contain"
               priority
             />
           </Link>
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:block items-center gap-1">
+      <div className="hidden lg:flex items-center gap-1">
         <NavigationMenu>
           <NavigationMenuList>
             {/* Home Link */}
@@ -80,7 +80,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
               <NavigationMenuLink
                 asChild
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-md transition-colors underline-animated",
+                  "px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors underline-animated",
                   pathname === "/"
                     ? "bg-primary text-white"
                     : "text-foreground hover:bg-primary hover:text-white"
@@ -96,7 +96,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
             <NavigationMenuItem>
               <NavigationMenuTrigger
                 className={cn(
-                  "px-4 py-2 text-sm font-medium bg-transparent rounded-md transition-colors underline-animated",
+                  "px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-medium bg-transparent rounded-md transition-colors underline-animated",
                   pathname.includes("/bbta-courses") || categories.some(c => pathname.startsWith(`/${c.slug}`))
                     ? "bg-primary text-white"
                     : "text-foreground hover:bg-primary hover:text-white"
@@ -105,19 +105,19 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
                 Courses
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="w-150 p-6 glass-strong">
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="w-125 xl:w-150 p-4 xl:p-6 glass-strong">
+                  <div className="grid grid-cols-2 gap-3 xl:gap-4">
                     {/* All Courses Link */}
                     <Link
                       href="/bbta-courses"
-                      className="col-span-2 flex items-center gap-3 p-4 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors group"
+                      className="col-span-2 flex items-center gap-3 p-3 xl:p-4 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors group"
                     >
-                      <GraduationCap className="h-8 w-8 text-primary" />
+                      <GraduationCap className="h-7 w-7 xl:h-8 xl:w-8 text-primary" />
                       <div>
-                        <div className="font-semibold text-foreground group-hover:text-white transition-colors">
+                        <div className="font-semibold text-sm xl:text-base text-foreground group-hover:text-white transition-colors">
                           View All Courses
                         </div>
-                        <p className="text-sm text-muted-foreground group-hover:text-white/80">
+                        <p className="text-xs xl:text-sm text-muted-foreground group-hover:text-white/80">
                           Explore our complete range of professional training
                         </p>
                       </div>
@@ -128,13 +128,13 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
                       <Link
                         key={cat.slug}
                         href={`/${cat.slug}`}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-primary transition-colors group"
+                        className="flex items-start gap-2 xl:gap-3 p-2.5 xl:p-3 rounded-lg hover:bg-primary transition-colors group"
                       >
-                        <div className="p-2 rounded-md bg-primary/10 group-hover:bg-primary/20">
+                        <div className="p-1.5 xl:p-2 rounded-md bg-primary/10 group-hover:bg-primary/20">
                           <Coffee className="h-4 w-4 text-primary group-hover:text-white" />
                         </div>
                         <div>
-                          <div className="font-medium text-sm text-foreground group-hover:text-white transition-colors">
+                          <div className="font-medium text-xs xl:text-sm text-foreground group-hover:text-white transition-colors">
                             {cat.name}
                           </div>
                           {cat.description && (
@@ -156,7 +156,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
                 <NavigationMenuLink
                   asChild
                   className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-md transition-colors underline-animated",
+                    "px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors underline-animated",
                     pathname === link.href
                       ? "bg-primary text-white"
                       : "text-foreground hover:bg-primary hover:text-white"
@@ -173,12 +173,12 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
       </div>
 
       {/* Right Side Actions */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 lg:gap-3 shrink-0">
         <MobileNavbar />
         {/* Book Now Button (Desktop) */}
         <Link href="/certificate-verification" className="hidden lg:block">
           <Button
-            className="bg-primary text-primary-foreground hover:bg-primary/90 glow-gold-hover font-semibold"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 glow-gold-hover font-semibold text-xs xl:text-sm px-3 xl:px-4"
           >
             Certificate Verification
           </Button>

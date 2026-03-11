@@ -54,7 +54,7 @@ export default async function CateringPage() {
             titleSize="text-3xl md:text-4xl"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {cateringServices.map((service: Record<string, string | string[]>) => {
               const IconComponent =
                 (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[
