@@ -105,7 +105,7 @@ export default async function RootLayout({
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
         {/* Main Layout */}
-        <div className="relative min-h-screen flex flex-col">
+        <div className="relative min-h-screen flex flex-col overflow-x-hidden">
           {/* Navbar */}
           <Navbar settings={settings} categories={categories} />
 
