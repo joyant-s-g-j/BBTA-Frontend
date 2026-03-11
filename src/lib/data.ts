@@ -149,6 +149,8 @@ export const navLinks = [
   { href: "/gallery", label: "Gallery" },
   { href: "/videos", label: "Videos" },
   { href: "/blog", label: "Blog" },
+  { href: "/why-bbta", label: "Why BBTA" },
+  { href: "/job-placement", label: "Job Placement" },
   { href: "/contact", label: "Contact" },
   { href: "/certificate-verification", label: "Verify Certificate" }
 ];

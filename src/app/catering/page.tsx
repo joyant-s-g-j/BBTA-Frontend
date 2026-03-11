@@ -42,7 +42,7 @@ export default async function CateringPage() {
         {...hero}
         size="medium"
         showScrollIndicator={false}
-      />筋
+      />
 
       {/* Services Grid */}
       <section className="section-padding">

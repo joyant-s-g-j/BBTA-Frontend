@@ -130,12 +130,12 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
           {/* Quick Links Column */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4 text-white">Quick Links</h4>
+            <h4 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Quick Links</h4>
             <ul className="space-y-3">
               {[
                 { href: "/why-bbta", label: "Why BBTA" },
                 { href: "/job-placement", label: "Job Placement" },
-                { href: "/certificate-verification", label: "Verify Certificate" },
+                { href: "/videos", label: "Videos" },
                 { href: "/about", label: "About" },
                 { href: "/blog", label: "Blog" },
               ].map((link) => (
@@ -153,7 +153,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
           {/* Popular Courses Column */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4 text-white">Popular Courses</h4>
+            <h4 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Popular Courses</h4>
             <ul className="space-y-3">
               {(courses || []).slice(0, 6).map((course) => (
                 <li key={course.slug}>
@@ -170,7 +170,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
           {/* Contact & Newsletter Column */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-4 text-white">Contact Us</h4>
+            <h4 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Contact Us</h4>
             <ul className="space-y-3 mb-6">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -199,7 +199,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             </ul>
 
             {/* Newsletter */}
-            <h5 className="font-medium text-sm mb-3 text-white">Subscribe to Newsletter</h5>
+            <h5 className="font-medium text-sm mb-3 text-bbta-red">Subscribe to Newsletter</h5>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
               <Input
                 type="email"

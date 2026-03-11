@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ChevronDown } from "lucide-react";
 
 interface HeroSectionProps {
@@ -21,8 +22,6 @@ interface HeroSectionProps {
   overlay?: "dark" | "gradient" | "none";
 }
 
-import { SectionHeader } from "@/components/ui/SectionHeader";
-
 /**
  * HeroSection Component
  * Full viewport hero with parallax background, animated text, and floating coffee beans
@@ -38,7 +37,7 @@ export function HeroSection({
   backgroundImage,
   showScrollIndicator = true,
   size = "full",
-  overlay = "gradient",
+  overlay = "dark",
 }: HeroSectionProps) {
   const bgImage = backgroundImage || "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920";
   const sizeClasses = {
@@ -49,8 +48,8 @@ export function HeroSection({
   };
 
   const overlayClasses = {
-    dark: "bg-gradient-to-b from-black/70 via-black/50 to-black/30",
-    gradient: "bg-[linear-gradient(135deg,rgba(255,255,255,0.35)_0%,transparent_35%),linear-gradient(to_bottom,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.8)_100%)]",
+    dark: "bg-gradient-to-b from-black/90 via-black/80 to-black/70",
+    gradient: "bg-[linear-gradient(135deg,rgba(255,255,255,0.25)_0%,transparent_30%),linear-gradient(to_bottom,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0.85)_100%)]",
     none: "",
   };
 
@@ -81,32 +80,7 @@ export function HeroSection({
       <div className="absolute inset-0 noise" />
 
       {/* Floating Coffee Beans Animation */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-4 h-4 rounded-full bg-primary/20"
-            initial={{
-              x: Math.random() * 100 + "%",
-              y: "110%",
-              rotate: 0,
-            }}
-            animate={{
-              y: "-10%",
-              rotate: 360,
-            }}
-            transition={{
-              duration: 15 + Math.random() * 10,
-              repeat: Infinity,
-              delay: i * 2,
-              ease: "linear",
-            }}
-            style={{
-              left: `${10 + i * 15}%`,
-            }}
-          />
-        ))}
-      </div>
+      <FloatingBeans />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
@@ -172,5 +146,44 @@ export function HeroSection({
         </motion.div>
       )}
     </section>
+  );
+}
+
+/** Pre-compute random values outside render to avoid impure Math.random calls */
+const BEAN_DATA = Array.from({ length: 6 }, (_, i) => ({
+  xInit: `${Math.random() * 100}%`,
+  duration: 15 + Math.random() * 10,
+  left: `${10 + i * 15}%`,
+  delay: i * 2,
+}));
+
+function FloatingBeans() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {BEAN_DATA.map((bean, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-4 h-4 rounded-full bg-primary/20"
+          initial={{
+            x: bean.xInit,
+            y: "110%",
+            rotate: 0,
+          }}
+          animate={{
+            y: "-10%",
+            rotate: 360,
+          }}
+          transition={{
+            duration: bean.duration,
+            repeat: Infinity,
+            delay: bean.delay,
+            ease: "linear",
+          }}
+          style={{
+            left: bean.left,
+          }}
+        />
+      ))}
+    </div>
   );
 }

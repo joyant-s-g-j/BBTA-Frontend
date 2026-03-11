@@ -52,6 +52,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
 
   const mainNavLinks = navLinks.filter(
     (link) => link.href !== "/bbta-courses" && link.href !== "/certificate-verification"
+    && link.href !== "/videos" && link.href !== "/why-bbta" && link.href !== "/job-placement"
   );
 
   return (
