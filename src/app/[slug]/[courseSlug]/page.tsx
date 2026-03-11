@@ -283,39 +283,60 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
             <div className="lg:col-span-1">
               <div id="enroll" className="sticky top-24 space-y-4">
                 {addonCourse && (
-                  <div className="bg-linear-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl border border-primary/20 p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                        <Gift className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-primary uppercase tracking-wider">Free Bonus Course</p>
+                  <div className="relative rounded-2xl border border-primary/30 overflow-hidden bg-linear-to-br from-primary/15 via-primary/5 to-transparent">
+                    {/* Ribbon badge */}
+                    <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-4 py-1 rounded-bl-xl">
+                      Free
+                    </div>
+
+                    {/* Header */}
+                    <div className="px-5 pt-5 pb-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="h-9 w-9 rounded-xl bg-primary/20 flex items-center justify-center ring-2 ring-primary/10">
+                          <Gift className="h-4.5 w-4.5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-primary uppercase tracking-wider">Bonus Course Included</p>
+                          <p className="text-[11px] text-muted-foreground">With your enrollment</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex gap-3 items-start">
-                      {addonCourse.image && (
-                        <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-border/30">
-                          <Image
-                            src={addonCourse.image}
-                            alt={addonCourse.title}
-                            width={64}
-                            height={64}
-                            className="w-full h-full object-cover"
-                          />
+
+                    {/* Course preview */}
+                    <div className="px-5 pb-5">
+                      <div className="rounded-xl bg-background/60 border border-border/40 p-3 backdrop-blur-sm">
+                        <div className="flex gap-3 items-center">
+                          {addonCourse.image && (
+                            <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 ring-1 ring-border/50">
+                              <Image
+                                src={addonCourse.image}
+                                alt={addonCourse.title}
+                                width={56}
+                                height={56}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-sm text-foreground line-clamp-2 leading-snug">{addonCourse.title}</h4>
+                            {addonCourse.duration && (
+                              <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-1">
+                                <Clock className="h-3 w-3" /> {addonCourse.duration}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm text-foreground line-clamp-2">{addonCourse.title}</h4>
-                        <p className="text-xs text-muted-foreground mt-1">Enroll in {course.title} and get this course absolutely free!</p>
-                        {getCatSlug(addonCourse) && (
-                          <Link
-                            href={`/${getCatSlug(addonCourse)}/${addonCourse.slug}`}
-                            className="text-xs text-primary hover:underline mt-1 inline-block"
-                          >
-                            View Course →
-                          </Link>
-                        )}
                       </div>
+
+                      {/* CTA link */}
+                      {getCatSlug(addonCourse) && (
+                        <Link
+                          href={`/${getCatSlug(addonCourse)}/${addonCourse.slug}`}
+                          className="mt-3 flex items-center justify-center gap-1.5 w-full text-xs font-semibold text-primary hover:text-primary/80 transition-colors py-1.5"
+                        >
+                          View Bonus Course <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      )}
                     </div>
                   </div>
                 )}
