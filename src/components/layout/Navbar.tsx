@@ -56,12 +56,12 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
 
   return (
     <div
-      className={`flex justify-between items-center fixed top-0 left-0 right-0 py-3 px-4 sm:px-6 lg:px-24 z-50 transition-all duration-300 overflow-x-hidden ${isScrolled ? " backdrop-blur-md" : "bg-transparent"}`}
+      className={`flex justify-between items-center fixed top-0 left-0 right-0 py-3 px-4 sm:px-6 lg:px-24 z-50 transition-all duration-300 ${isScrolled ? " backdrop-blur-md" : "bg-transparent"}`}
     >
       <div className="flex items-center gap-2">
         <Link href="/">
             <Image
-              src="/bbtalogo.webp"
+              src="/bbtalogo.png"
               alt="BBTA Logo"
               width={64}
               height={64}
