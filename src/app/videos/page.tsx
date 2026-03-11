@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Play, Filter } from "lucide-react";
+import { Play, Filter, ChevronDown } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,8 @@ interface VideoItem {
   order: number;
 }
 
+const VIDEOS_PER_LOAD = 6; // 2 rows × 3 columns
+
 /**
  * Videos Page
  * Modern grid layout with category filters, lightbox player, and hover previews.
@@ -29,6 +31,7 @@ export default function VideosPage() {
   const [playingVideo, setPlayingVideo] = React.useState<VideoItem | null>(null);
   const [hero, setHero] = React.useState<Record<string, string>>({ title: "", subtitle: "" });
   const [cta, setCta] = React.useState<Record<string, string> | null>(null);
+  const [visibleCount, setVisibleCount] = React.useState(VIDEOS_PER_LOAD);
 
   React.useEffect(() => {
     api.getVideos().then((data: VideoItem[]) => {
@@ -56,6 +59,18 @@ export default function VideosPage() {
     if (selectedCategory === "All") return videos;
     return videos.filter((v) => v.category === selectedCategory);
   }, [selectedCategory, videos]);
+
+  const visibleVideos = filteredVideos.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredVideos.length;
+
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    setVisibleCount(VIDEOS_PER_LOAD);
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + VIDEOS_PER_LOAD);
+  };
 
   /**
    * Extract a YouTube thumbnail from an embed URL.
@@ -89,7 +104,7 @@ export default function VideosPage() {
                 <Button
                   key={cat}
                   variant={selectedCategory === cat ? "default" : "outline"}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => handleCategoryChange(cat)}
                   className={
                     selectedCategory === cat
                       ? "bg-primary text-primary-foreground"
@@ -118,7 +133,7 @@ export default function VideosPage() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               <AnimatePresence>
-                {filteredVideos.map((video, index) => {
+                {visibleVideos.map((video, index) => {
                   const thumb = video.thumbnail || getYouTubeThumbnail(video.embedUrl);
                   return (
                     <motion.div
@@ -176,6 +191,21 @@ export default function VideosPage() {
                 })}
               </AnimatePresence>
             </motion.div>
+          )}
+
+          {/* View More Button */}
+          {!loading && hasMore && (
+            <div className="flex justify-center mt-10">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleLoadMore}
+                className="gap-2 px-8 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all"
+              >
+                View More
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </div>
           )}
         </div>
       </section>
