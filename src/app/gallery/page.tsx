@@ -3,12 +3,14 @@
 import * as React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
-import { X } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import * as api from "@/lib/api";
+
+const IMAGES_PER_LOAD = 8; // 2 rows × 4 columns
 
 /**
  * Gallery Page
@@ -21,6 +23,7 @@ export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
   const [hero, setHero] = React.useState<Record<string, string>>({ title: "", subtitle: "" });
   const [categories, setCategories] = React.useState<string[]>(["All"]);
+  const [visibleCount, setVisibleCount] = React.useState(IMAGES_PER_LOAD);
 
   React.useEffect(() => {
     api.getGallery().then(data => {
@@ -48,6 +51,18 @@ export default function GalleryPage() {
     return items.filter((item) => item.category === selectedCategory);
   }, [selectedCategory, items]);
 
+  const visibleItems = filteredItems.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredItems.length;
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setVisibleCount(IMAGES_PER_LOAD);
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + IMAGES_PER_LOAD);
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -69,7 +84,7 @@ export default function GalleryPage() {
               <Button
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => handleCategoryChange(category)}
                 className={
                   selectedCategory === category
                     ? "bg-primary text-primary-foreground"
@@ -92,7 +107,7 @@ export default function GalleryPage() {
               className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4"
             >
               <AnimatePresence>
-                {filteredItems.map((item, index) => (
+                {visibleItems.map((item, index) => (
                   <motion.div
                     key={item.id}
                     layout
@@ -129,6 +144,21 @@ export default function GalleryPage() {
                 ))}
               </AnimatePresence>
             </motion.div>
+          )}
+
+          {/* View More Button */}
+          {!loading && hasMore && (
+            <div className="flex justify-center mt-10">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleLoadMore}
+                className="gap-2 px-8 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all"
+              >
+                View More
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </div>
           )}
         </div>
       </section>

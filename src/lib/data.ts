@@ -68,13 +68,9 @@ export interface Feature {
 
 export interface UpcomingBatch {
   id: number | string;
-  courseTitle: string;
   startDate: string;
-  duration: string;
-  timeSlot: string;
   branch: string;
   status: "Enrolling" | "Fast Filling" | "Closed";
-  price: string | number;
 }
 
 export interface Service {

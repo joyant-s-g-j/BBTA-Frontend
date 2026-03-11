@@ -132,15 +132,6 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
           <div>
             <h4 className="font-serif text-lg font-semibold mb-4 text-white">Quick Links</h4>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/upcoming-batch"
-                  className="text-white font-medium hover:text-primary transition-colors text-sm underline-animated flex items-center gap-2"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  Upcoming Batches
-                </Link>
-              </li>
               {[
                 { href: "/why-bbta", label: "Why BBTA" },
                 { href: "/job-placement", label: "Job Placement" },

@@ -2,10 +2,8 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { type UpcomingBatch } from "@/lib/data";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -39,14 +37,14 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
                         transition={{ duration: 0.6 }}
                     >
                         <Button asChild className="group">
-                            <Link href="/upcoming-batch" className="flex items-center gap-2">
-                                View Full Schedule <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            <Link href="/bbta-courses" className="flex items-center gap-2">
+                                View Details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                         </Button>
                     </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     {displayedBatches.map((batch, index) => (
                         <motion.div
                             key={batch.id}
@@ -55,55 +53,39 @@ export function UpcomingBatchesSection({ limit, initialBatches, sectionHeader }:
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <Card className="h-full border-none shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden bg-background">
-                                <CardHeader className="pb-4">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <Badge
-                                            variant={batch.status === "Closed" ? "destructive" : batch.status === "Fast Filling" ? "secondary" : "default"}
-                                            className="font-medium"
-                                        >
-                                            {batch.status}
-                                        </Badge>
+                            <div className="group relative rounded-2xl bg-background border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+                                {/* Info rows */}
+                                <div className="space-y-3">
+                                    <div className="flex items-center gap-2.5 text-sm">
+                                        <Calendar className="h-4 w-4 text-primary shrink-0" />
+                                        <span className="font-medium text-foreground">{batch.startDate}</span>
                                     </div>
-                                    <CardTitle className="text-xl font-bold leading-tight text-gradient-gold transition-colors">
-                                        {batch.courseTitle}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="space-y-4 pb-6">
-                                    <div className="flex items-center gap-3 text-muted-foreground">
-                                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-primary">
-                                            <Calendar className="h-4 w-4" />
-                                        </div>
-                                        <div className="text-sm">
-                                            <p className="font-semibold text-foreground">Starts {batch.startDate}</p>
-                                            <p>{batch.duration}</p>
-                                        </div>
+                                    <div className="flex items-center gap-2.5 text-sm">
+                                        <MapPin className="h-4 w-4 text-primary shrink-0" />
+                                        <span className="text-muted-foreground">{batch.branch}</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-muted-foreground">
-                                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-primary">
-                                            <Clock className="h-4 w-4" />
-                                        </div>
-                                        <div className="text-sm">
-                                            <p className="font-semibold text-foreground">{batch.timeSlot}</p>
-                                            <p>Class Time</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-muted-foreground">
-                                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-primary">
-                                            <MapPin className="h-4 w-4" />
-                                        </div>
-                                        <div className="text-sm">
-                                            <p className="font-semibold text-foreground">{batch.branch}</p>
-                                            <p>Location</p>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                                <CardFooter className="pt-0 pb-6 pr-6 pl-6">
-                                    <Button className="w-full" disabled={batch.status === "Closed"}>
-                                        {batch.status === "Closed" ? "Batch Full" : "Enroll Now"}
-                                    </Button>
-                                </CardFooter>
-                            </Card>
+                                </div>
+
+                                {/* Status indicator */}
+                                <div className="mt-4 pt-3 border-t border-border/40">
+                                    <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${
+                                        batch.status === "Closed"
+                                            ? "text-destructive"
+                                            : batch.status === "Fast Filling"
+                                            ? "text-amber-500"
+                                            : "text-emerald-600"
+                                    }`}>
+                                        <span className={`w-1.5 h-1.5 rounded-full ${
+                                            batch.status === "Closed"
+                                                ? "bg-destructive"
+                                                : batch.status === "Fast Filling"
+                                                ? "bg-amber-500 animate-pulse"
+                                                : "bg-emerald-600 animate-pulse"
+                                        }`} />
+                                        {batch.status}
+                                    </span>
+                                </div>
+                            </div>
                         </motion.div>
                     ))}
                 </div>

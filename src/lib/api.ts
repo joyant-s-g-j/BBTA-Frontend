@@ -131,8 +131,6 @@ export async function getAllSectionHeaders() {
         { key: 'sh_about_team', defaults: { subtitle: 'Meet the Experts', title: 'Our Professional Trainers', description: undefined } },
         // Courses Page
         { key: 'sh_courses_faq', defaults: { subtitle: 'Common Questions', title: 'Frequently Asked Questions', description: 'Everything you need to know about our courses and certification.' } },
-        // Upcoming Batch Page
-        { key: 'sh_upcoming_why', defaults: { subtitle: 'Our Advantages', title: 'Why Join Our Upcoming Batches?', description: 'Our training programs are designed to provide maximum hands-on experience and professional exposure.' } },
         // Catering Page
         { key: 'sh_catering_services', defaults: { subtitle: 'Our Services', title: 'Events We Serve', description: undefined } },
         { key: 'sh_catering_events', defaults: { subtitle: 'Past Events', title: 'Event Highlights', description: undefined } },
