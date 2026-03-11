@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { PromoBanner } from "@/components/layout/PromoBanner";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -93,10 +94,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, courses, categories] = await Promise.all([
+  const [settings, courses, categories, promoBanner] = await Promise.all([
     api.getSettings(),
     api.getCourses(),
-    api.getCourseCategories()
+    api.getCourseCategories(),
+    api.getPromoBanner(),
   ]);
 
   return (
@@ -117,6 +119,9 @@ export default async function RootLayout({
 
           {/* Back to Top Button */}
           <BackToTop />
+
+          {/* Promo Banner */}
+          <PromoBanner data={promoBanner} />
         </div>
 
         {/* Toast Notifications */}

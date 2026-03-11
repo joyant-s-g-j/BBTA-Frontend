@@ -107,7 +107,9 @@ function StatItem({ icon, value, suffix = "+", label, delay = 0 }: StatItemProps
 export function StatsSection({ stats: propStats, sectionHeader }: { stats?: any, sectionHeader?: { subtitle: string; title: string; description?: string } }) {
   // Handle both array (from backend) and object (fallback) formats
   const statItems = (Array.isArray(propStats) && propStats.length > 0)
-    ? propStats.map(s => ({ icon: s.icon, value: s.value, label: s.label, suffix: "+" }))
+    ? [...propStats]
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+        .map(s => ({ icon: s.icon, value: s.value, label: s.label, suffix: s.showSuffix !== false ? "+" : "" }))
     : [];
 
   if (statItems.length === 0) return null;

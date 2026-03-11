@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ArrowRight,
   Calendar,
+  Gift,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -100,6 +101,11 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
         c.slug !== course.slug && c.categoryId === course.categoryId
     )
     .slice(0, 3);
+
+  // Get add-on course if set
+  const addonCourse = course.addonCourseId
+    ? allCourses.find((c: Course & { id?: string }) => c.id === course.addonCourseId)
+    : null;
 
   // Helper to get category slug for a course
   const getCatSlug = (c: Course) => {
@@ -275,7 +281,44 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
             </div>
 
             <div className="lg:col-span-1">
-              <div id="enroll" className="sticky top-24">
+              <div id="enroll" className="sticky top-24 space-y-4">
+                {addonCourse && (
+                  <div className="bg-linear-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl border border-primary/20 p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                        <Gift className="h-4 w-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-primary uppercase tracking-wider">Free Bonus Course</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 items-start">
+                      {addonCourse.image && (
+                        <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-border/30">
+                          <Image
+                            src={addonCourse.image}
+                            alt={addonCourse.title}
+                            width={64}
+                            height={64}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-sm text-foreground line-clamp-2">{addonCourse.title}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">Enroll in {course.title} and get this course absolutely free!</p>
+                        {getCatSlug(addonCourse) && (
+                          <Link
+                            href={`/${getCatSlug(addonCourse)}/${addonCourse.slug}`}
+                            className="text-xs text-primary hover:underline mt-1 inline-block"
+                          >
+                            View Course →
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <EnrollmentForm
                   selectedCourse={course.slug}
                   variant="full"

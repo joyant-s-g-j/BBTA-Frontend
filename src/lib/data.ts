@@ -16,6 +16,7 @@ export interface Course {
   features: string[];
   curriculum: { day: string; topics: string[] }[];
   image: string;
+  addonCourseId?: string;
 }
 
 export interface Testimonial {
