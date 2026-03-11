@@ -94,7 +94,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
   };
 
   return (
-    <footer className="bg-bbta-green text-white border-t border-white/10">
+    <footer className="bg-background text-white border-t border-white/10">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 xl:gap-12">
@@ -232,9 +232,9 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
               <Link
                 href="https://joyantsgj.dev/"
                 target="_blank"
-                className="text-bbta-green-hidden text-sm"
+                className="text-secondary text-sm"
               >
-                Developed by Joyant
+                Developed by Codethousand
               </Link>
             </div>
           </div>
