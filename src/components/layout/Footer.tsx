@@ -46,7 +46,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
   const copyright = settings?.footer?.copyright || `© ${new Date().getFullYear()} Bangladesh Barista Training Academy. All rights reserved.`;
 
   const address = settings?.contactInfo?.address || settings?.address || "Baridhara & Dhanmondi, Dhaka";
-  const phone = settings?.contactInfo?.phone || settings?.phone || "+880 1234 56789";
+  const phone = settings?.contactInfo?.phone || settings?.phone || "+880174-5045500";
   const emailAddr = settings?.contactInfo?.email || settings?.email || "info@bbta.com.bd";
 
   const socialLinks = [

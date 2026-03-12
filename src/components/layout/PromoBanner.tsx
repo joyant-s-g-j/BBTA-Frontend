@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { createPortal } from "react-dom";
 
 interface PromoBannerData {
   enabled: boolean;
@@ -11,6 +12,7 @@ interface PromoBannerData {
   linkUrl: string;
   linkText: string;
   backgroundColor: string;
+  textColor: string;
   image: string;
 }
 
@@ -19,63 +21,96 @@ export function PromoBanner({ data }: { data: PromoBannerData | null }) {
   const [showClose, setShowClose] = useState(false);
 
   useEffect(() => {
-    // Show the close button after 3 seconds
     const timer = setTimeout(() => setShowClose(true), 3000);
     return () => clearTimeout(timer);
   }, []);
 
   if (!data?.enabled || !data?.text || !visible) return null;
 
-  const content = (
-    <div className="flex items-center gap-3 min-w-0 flex-1 justify-center">
-      {data.image && (
-        <div className="w-7 h-7 rounded overflow-hidden shrink-0 relative">
-          <Image
-            src={data.image}
-            alt=""
-            fill
-            sizes="28px"
-            className="object-cover"
-          />
-        </div>
-      )}
-      <p className="text-white text-sm font-medium truncate">{data.text}</p>
-      {data.linkText && (
-        <span className="shrink-0 text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-colors px-3 py-1 rounded-full">
-          {data.linkText}
-        </span>
-      )}
-    </div>
-  );
+  const hasImage = !!data.image;
+  const textColor = data.textColor || "#FFFFFF";
+  const isBrowser = typeof window !== "undefined";
+
+  // Close button rendered via portal to document.body — completely outside banner DOM
+  const closeButton =
+    isBrowser && showClose
+      ? createPortal(
+          <button
+            onClick={() => setVisible(false)}
+            style={{
+              position: "fixed",
+              bottom: 76,
+              right: 12,
+              zIndex: 9999,
+            }}
+            className="p-1.5 rounded-full bg-gray-800 border-2 border-white/30 text-white/80 hover:text-white hover:bg-gray-700 shadow-lg"
+            aria-label="Close promo banner"
+          >
+            <X className="h-4 w-4" />
+          </button>,
+          document.body
+        )
+      : null;
 
   return (
-    <div
-      className="fixed bottom-0 left-0 right-0 z-50 flex items-center px-4 sm:px-6"
-      style={{
-        backgroundColor: data.backgroundColor || "#EA1F3D",
-        height: "56px",
-      }}
-    >
-      {data.linkUrl ? (
-        <Link href={data.linkUrl} className="flex-1 flex items-center">
-          {content}
-        </Link>
-      ) : (
-        <div className="flex-1 flex items-center">{content}</div>
-      )}
+    <>
+      {closeButton}
 
-      {/* Close button — appears after delay */}
-      <button
-        onClick={() => setVisible(false)}
-        className={`shrink-0 ml-2 p-1.5 rounded-full text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300 ${
-          showClose
-            ? "opacity-100 translate-x-0"
-            : "opacity-0 translate-x-4 pointer-events-none"
-        }`}
-        aria-label="Close promo banner"
+      <div
+        className="fixed bottom-0 left-0 right-0 z-50 overflow-hidden"
+        style={{
+          backgroundColor: !hasImage
+            ? data.backgroundColor || "#EA1F3D"
+            : undefined,
+        }}
       >
-        <X className="h-4 w-4" />
-      </button>
-    </div>
+        {/* Background image — full cover */}
+        {hasImage && (
+          <div className="absolute inset-0">
+            <Image
+              src={data.image}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+        )}
+
+        {/* Banner content */}
+        <div className="relative z-10 flex items-center min-h-16 sm:min-h-20 px-4 sm:px-8">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 justify-center flex-wrap sm:flex-nowrap py-2 sm:py-0">
+            {data.linkUrl ? (
+              <Link
+                href={data.linkUrl}
+                className="flex items-center gap-2 sm:gap-3 min-w-0 flex-wrap sm:flex-nowrap justify-center"
+              >
+                <p className="text-sm sm:text-base font-medium text-center sm:text-left leading-snug whitespace-normal" style={{ color: textColor }}>
+                  {data.text}
+                </p>
+                {data.linkText && (
+                  <span className="shrink-0 text-xs font-bold bg-white/20 hover:bg-white/30 transition-colors px-3 py-1 rounded-full" style={{ color: textColor }}>
+                    {data.linkText}
+                  </span>
+                )}
+              </Link>
+            ) : (
+              <>
+                <p className="text-sm sm:text-base font-medium text-center sm:text-left leading-snug whitespace-normal" style={{ color: textColor }}>
+                  {data.text}
+                </p>
+                {data.linkText && (
+                  <span className="shrink-0 text-xs font-bold bg-white/20 hover:bg-white/30 transition-colors px-3 py-1 rounded-full" style={{ color: textColor }}>
+                    {data.linkText}
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

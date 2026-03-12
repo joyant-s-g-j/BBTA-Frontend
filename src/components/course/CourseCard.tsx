@@ -47,11 +47,6 @@ export function CourseCard({ course, index = 0, className, categorySlug }: Cours
 
       {/* Content Overlay */}
       <div className="relative z-10 h-full flex flex-col pt-10 px-8">
-        {/* Top Header */}
-        <p className="text-white/60 text-xs font-medium uppercase tracking-[0.25em] mb-4">
-          FOR GROWING BARISTA
-        </p>
-
         {/* Main Title */}
         <h3 className="font-sans text-3xl font-bold text-gradient-gold mb-6 leading-tight pb-1">
           {course.title}
