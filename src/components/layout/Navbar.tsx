@@ -93,23 +93,6 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
               </NavigationMenuLink>
             </NavigationMenuItem>
 
-            {/* About Link */}
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                asChild
-                className={cn(
-                  "px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors underline-animated",
-                  pathname === "/about"
-                    ? "bg-primary text-white"
-                    : "text-foreground hover:bg-primary hover:text-white"
-                )}
-              >
-                <Link href="/about">
-                  About
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
             {/* Courses Mega Menu */}
             <NavigationMenuItem>
               <NavigationMenuTrigger
@@ -166,6 +149,23 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
                   </div>
                 </div>
               </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            {/* About Link */}
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={cn(
+                  "px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors underline-animated",
+                  pathname === "/about"
+                    ? "bg-primary text-white"
+                    : "text-foreground hover:bg-primary hover:text-white"
+                )}
+              >
+                <Link href="/about">
+                  About
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
 
             {/* Other Nav Links */}
