@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Star, Quote } from "lucide-react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { ReviewTestimonialsGrid } from "@/components/sections/ReviewTestimonialsGrid";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { generatePageMetadata } from "@/lib/seo";
 import * as api from "@/lib/api";
@@ -76,64 +75,7 @@ export default async function ReviewPage() {
               No reviews published yet. Please check again soon.
             </p>
           ) : (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mt-12">
-              {reviews.map((review) => {
-                const rating = Math.max(0, Math.min(5, Number(review.rating || 0)));
-
-                return (
-                  <article
-                    key={review.id}
-                    className="group relative rounded-2xl border border-border/60 bg-background/80 backdrop-blur-sm p-6 card-hover overflow-hidden"
-                  >
-                    <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
-
-                    <div className="relative z-10">
-                      <div className="flex items-start justify-between gap-4 mb-5">
-                        <div className="flex items-center gap-3">
-                          <div className="relative h-14 w-14 rounded-full overflow-hidden border border-primary/30 shrink-0 bg-muted">
-                            {review.image ? (
-                              <Image
-                                src={review.image}
-                                alt={review.name}
-                                fill
-                                className="object-cover"
-                                sizes="56px"
-                              />
-                            ) : (
-                              <div className="h-full w-full flex items-center justify-center text-lg font-bold text-primary">
-                                {review.name.charAt(0)}
-                              </div>
-                            )}
-                          </div>
-
-                          <div>
-                            <h3 className="font-semibold text-base text-foreground group-hover:text-primary transition-colors">
-                              {review.name}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">{review.role}</p>
-                          </div>
-                        </div>
-
-                        <Quote className="h-8 w-8 text-primary/30 shrink-0" />
-                      </div>
-
-                      <div className="flex items-center gap-1 mb-4">
-                        {[...Array(5)].map((_, index) => (
-                          <Star
-                            key={`${review.id}-${index}`}
-                            className={`h-4 w-4 ${index < rating ? "text-primary fill-primary" : "text-muted-foreground/40"}`}
-                          />
-                        ))}
-                      </div>
-
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-6">
-                        &ldquo;{review.quote}&rdquo;
-                      </p>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
+            <ReviewTestimonialsGrid reviews={reviews} />
           )}
         </div>
       </section>
