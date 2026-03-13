@@ -14,10 +14,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("courses", {
-    title: "All Courses",
-    description: "Explore BBTA's comprehensive barista training courses. From beginner to expert level - espresso, latte art, roasting, and cafe management programs.",
-  });
+  return generatePageMetadata("courses");
 }
 
 export default async function CoursesPage() {

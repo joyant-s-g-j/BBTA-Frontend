@@ -5,10 +5,16 @@ const SITE_NAME = "BBTA - Bangladesh Barista Training Academy";
 const SITE_URL = "https://bbta-frontend.vercel.app";
 
 interface SeoDefaults {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     keywords?: string;
     ogImage?: string;
+}
+
+function formatPageTitle(page: string): string {
+    return page
+        .replace(/[_-]+/g, " ")
+        .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 /**
@@ -27,12 +33,17 @@ interface SeoDefaults {
  */
 export async function generatePageMetadata(
     page: string,
-    defaults: SeoDefaults
+    defaults: SeoDefaults = {}
 ): Promise<Metadata> {
     const seo = await getSeoByPage(page);
 
-    const title = seo?.metaTitle || defaults.title;
-    const description = seo?.metaDescription || defaults.description;
+    const fallbackTitle = defaults.title || formatPageTitle(page);
+    const fallbackDescription =
+        defaults.description ||
+        "Bangladesh Barista Training Academy offers professional coffee education, barista training, and career-focused programs.";
+
+    const title = seo?.metaTitle || fallbackTitle;
+    const description = seo?.metaDescription || fallbackDescription;
     const keywords = seo?.keywords || defaults.keywords || "";
     const ogTitle = seo?.ogTitle || title;
     const ogDescription = seo?.ogDescription || description;

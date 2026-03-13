@@ -4,10 +4,7 @@ import CertificateVerificationClient from "@/components/sections/CertificateVeri
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("certificate", {
-    title: "Certificate Verification",
-    description: "Verify the authenticity of any BBTA certificate using the unique certificate ID.",
-  });
+  return generatePageMetadata("certificate");
 }
 
 export default async function CertificateVerificationPage() {

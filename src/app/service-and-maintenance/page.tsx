@@ -17,10 +17,7 @@ import * as api from "@/lib/api";
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("services", {
-    title: "Servicing & Maintenance",
-    description: "Professional espresso machine repair, grinder calibration, and preventive maintenance services for cafes and businesses.",
-  });
+  return generatePageMetadata("services");
 }
 
 export default async function ServiceMaintenancePage() {

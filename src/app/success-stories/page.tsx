@@ -7,10 +7,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import * as api from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
-    return generatePageMetadata("success_stories", {
-        title: "Success Stories",
-        description: "Discover inspiring success stories from BBTA graduates who transformed their passion for coffee into thriving professional careers.",
-    });
+    return generatePageMetadata("success_stories");
 }
 
 interface SuccessStory {

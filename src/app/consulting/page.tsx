@@ -9,10 +9,7 @@ import * as api from "@/lib/api";
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("consulting", {
-    title: "Cafe Consulting",
-    description: "Expert cafe consulting services from BBTA. Menu planning, staff training, cafe setup, and quality audits for coffee businesses.",
-  });
+  return generatePageMetadata("consulting");
 }
 
 export default async function ConsultingPage() {

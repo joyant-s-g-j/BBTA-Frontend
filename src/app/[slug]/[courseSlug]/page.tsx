@@ -60,13 +60,29 @@ export async function generateMetadata({
     return { title: "Course Not Found" };
   }
 
+  const title = course.metaTitle || course.title;
+  const description = course.metaDescription || course.shortDescription;
+  const ogTitle = course.ogTitle || title;
+  const ogDescription = course.ogDescription || description;
+  const ogImage = course.ogImage || course.image;
+  const keywords = course.keywords
+    ? course.keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
+    : undefined;
+
   return {
-    title: course.title,
-    description: course.shortDescription,
+    title,
+    description,
+    ...(keywords && keywords.length > 0 ? { keywords } : {}),
     openGraph: {
-      title: `${course.title} | BBTA Courses`,
-      description: course.shortDescription,
-      images: [{ url: course.image, alt: course.title }],
+      title: ogTitle,
+      description: ogDescription,
+      images: [{ url: ogImage, alt: ogTitle }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+      images: [ogImage],
     },
   };
 }

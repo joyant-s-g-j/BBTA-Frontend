@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { JobPlacementClient } from "@/components/sections/JobPlacementClient";
 import { generatePageMetadata } from "@/lib/seo";
 import * as api from "@/lib/api";
-import { JobPlacementClient } from "@/app/job-placement/JobPlacementClient";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("job_placement", {
-    title: "Job Placement",
-    description:
-      "Find job opportunities or hire trained baristas through BBTA's job placement program. Connect with top coffee industry employers.",
-  });
+  return generatePageMetadata("job_placement");
 }
 
 export default async function JobPlacementPage() {

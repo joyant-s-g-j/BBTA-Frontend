@@ -10,10 +10,7 @@ import * as api from "@/lib/api";
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("blog", {
-    title: "Blog",
-    description: "Coffee insights, barista tips, and industry news from BBTA experts. Learn about latte art, espresso techniques, and cafe business.",
-  });
+  return generatePageMetadata("blog");
 }
 
 /**

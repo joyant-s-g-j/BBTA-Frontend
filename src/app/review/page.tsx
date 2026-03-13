@@ -7,13 +7,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import * as api from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("review", {
-    title: "Student Reviews",
-    description:
-      "Read authentic student testimonials and reviews from BBTA graduates who built successful coffee careers through our training.",
-    keywords:
-      "BBTA reviews, student testimonials, barista training reviews, coffee academy feedback",
-  });
+  return generatePageMetadata("review");
 }
 
 interface Testimonial {

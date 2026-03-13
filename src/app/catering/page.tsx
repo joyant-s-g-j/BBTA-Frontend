@@ -9,10 +9,7 @@ import * as api from "@/lib/api";
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("catering", {
-    title: "Event Catering",
-    description: "Premium mobile coffee bar and barista services for weddings, corporate events, and private parties in Bangladesh.",
-  });
+  return generatePageMetadata("catering");
 }
 
 export default async function CateringPage() {

@@ -8,10 +8,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { generatePageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("contact", {
-    title: "Contact Us",
-    description: "Get in touch with Bangladesh Barista Training Academy. Visit our Dhaka training centers or reach us by phone and email.",
-  });
+  return generatePageMetadata("contact");
 }
 
 import * as api from "@/lib/api";

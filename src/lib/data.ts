@@ -2,6 +2,7 @@
 // All components should use these interfaces for type safety.
 
 export interface Course {
+  id?: string;
   slug: string;
   title: string;
   duration: string;
@@ -11,12 +12,19 @@ export interface Course {
   categoryId?: string;
   categoryName?: string;
   order?: number;
+  shortDescription?: string;
   description: string;
   fullDescription: string;
   features: string[];
   curriculum: { day: string; topics: string[] }[];
   image: string;
   addonCourseId?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
 }
 
 export interface Testimonial {
@@ -45,6 +53,7 @@ export interface TeamMember {
 }
 
 export interface BlogPost {
+  id?: string;
   slug: string;
   title: string;
   excerpt: string;
@@ -52,6 +61,14 @@ export interface BlogPost {
   category: string;
   image: string;
   author: string;
+  content?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  updatedAt?: string;
 }
 
 export interface GalleryItem {

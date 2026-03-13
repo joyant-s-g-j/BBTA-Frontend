@@ -10,11 +10,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import * as api from "@/lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata("why_bbta", {
-    title: "Why BBTA",
-    description:
-      "Discover why Bangladesh Barista Training Academy is the premier choice for coffee education. ISO certified, internationally recognized training.",
-  });
+  return generatePageMetadata("why_bbta");
 }
 
 export default async function WhyBbtaPage() {

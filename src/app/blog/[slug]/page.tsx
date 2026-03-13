@@ -20,12 +20,19 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     if (!post) return { title: "Post Not Found" };
 
     const url = `${SITE_URL}/blog/${slug}`;
-    const ogImage = post.image || `${SITE_URL}/og-image.jpg`;
+    const title = post.metaTitle || post.title;
+    const description = post.metaDescription || post.excerpt;
+    const ogTitle = post.ogTitle || title;
+    const ogDescription = post.ogDescription || description;
+    const ogImage = post.ogImage || post.image || `${SITE_URL}/og-image.jpg`;
+    const keywords = post.keywords
+        ? post.keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
+        : [post.category, "BBTA", "barista", "coffee", "blog", post.author].filter(Boolean);
 
     return {
-        title: `${post.title} | BBTA Blog`,
-        description: post.excerpt,
-        keywords: [post.category, "BBTA", "barista", "coffee", "blog", post.author].filter(Boolean),
+        title,
+        description,
+        keywords,
         authors: [{ name: post.author }],
         creator: post.author,
         publisher: SITE_NAME,
@@ -37,10 +44,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
             locale: "en_US",
             url,
             siteName: SITE_NAME,
-            title: post.title,
-            description: post.excerpt,
+            title: ogTitle,
+            description: ogDescription,
             publishedTime: post.date,
-            modifiedTime: post.updated_at || post.date,
+            modifiedTime: post.updatedAt || post.date,
             authors: [post.author],
             section: post.category,
             images: [
@@ -48,14 +55,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
                     url: ogImage,
                     width: 1200,
                     height: 630,
-                    alt: post.title,
+                    alt: ogTitle,
                 },
             ],
         },
         twitter: {
             card: "summary_large_image",
-            title: `${post.title} | BBTA Blog`,
-            description: post.excerpt,
+            title: ogTitle,
+            description: ogDescription,
             images: [ogImage],
         },
         robots: {
@@ -105,7 +112,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         description: post.excerpt,
         image: post.image || undefined,
         datePublished: post.date,
-        dateModified: post.updated_at || post.date,
+        dateModified: post.updatedAt || post.date,
         author: {
             "@type": "Person",
             name: post.author,
