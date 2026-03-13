@@ -51,8 +51,8 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
   const isScrolled = useScrollPosition(50);
 
   const mainNavLinks = navLinks.filter(
-    (link) => link.href !== "/bbta-courses" && link.href !== "/certificate-verification" && link.href !== "/consulting"
-    && link.href !== "/catering" && link.href !== "/why-bbta" && link.href !== "/service-and-maintenance" && link.href !== "/about"
+    (link) => link.href !== "/" && link.href !== "/about" && link.href !== "/bbta-courses" && link.href !== "/certificate-verification" && link.href !== "/consulting"
+    && link.href !== "/catering" && link.href !== "/why-bbta" && link.href !== "/service-and-maintenance"
   );
 
   return (
@@ -169,7 +169,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
             </NavigationMenuItem>
 
             {/* Other Nav Links */}
-            {mainNavLinks.slice(2).map((link) => (
+            {mainNavLinks.map((link) => (
               <NavigationMenuItem key={link.href}>
                 <NavigationMenuLink
                   asChild
