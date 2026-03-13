@@ -52,7 +52,7 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
 
   const mainNavLinks = navLinks.filter(
     (link) => link.href !== "/bbta-courses" && link.href !== "/certificate-verification" && link.href !== "/consulting"
-    && link.href !== "/catering" && link.href !== "/why-bbta" && link.href !== "/service-and-maintenance"
+    && link.href !== "/catering" && link.href !== "/why-bbta" && link.href !== "/service-and-maintenance" && link.href !== "/about"
   );
 
   return (
@@ -89,6 +89,23 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
               >
                 <Link href="/">
                   Home
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            {/* About Link */}
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={cn(
+                  "px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors underline-animated",
+                  pathname === "/about"
+                    ? "bg-primary text-white"
+                    : "text-foreground hover:bg-primary hover:text-white"
+                )}
+              >
+                <Link href="/about">
+                  About
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>

@@ -134,10 +134,10 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             <ul className="space-y-3">
               {[
                 { href: "/why-bbta", label: "Why BBTA" },
-                { href: "/job-placement", label: "Job Placement" },
+                { href: "/service-and-maintenance", label: "Service & Maintenance" },
                 { href: "/success-stories", label: "Success Stories" },
-                { href: "/videos", label: "Videos" },
-                { href: "/blog", label: "Blog" },
+                { href: "/catering", label: "Catering" },
+                { href: "/consulting", label: "Consulting" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
