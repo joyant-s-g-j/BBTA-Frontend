@@ -11,26 +11,27 @@ interface CTABannerProps {
   description?: string;
   ctaText?: string;
   ctaHref?: string;
-  variant?: "green" | "dark";
+  variant?: "default" | "dark";
 }
 
 /**
  * CTABanner Component
- * Full-width call-to-action banner with explicit light green background
+ * Full-width call-to-action banner
  */
 export function CTABanner({
   title = "Ready to Start Your Coffee Journey?",
   description = "Join over 2,000 graduates who have transformed their passion for coffee into successful careers.",
   ctaText = "Enroll Now",
   ctaHref = "/bbta-courses",
-  variant = "green",
+  variant = "default",
 }: CTABannerProps) {
   const variantStyles = {
-    green: "bg-secondary text-foreground", // Explicit light green background
+    default: "bg-secondary text-foreground",
+    dark: "bg-background text-foreground",
   };
 
   return (
-    <section className={`py-16 md:py-24 relative overflow-hidden ${variantStyles["green"]}`}>
+    <section className={`py-16 md:py-24 relative overflow-hidden ${variantStyles[variant]}`}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />

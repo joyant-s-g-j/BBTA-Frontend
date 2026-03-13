@@ -89,7 +89,7 @@ export async function generateMetadata({
 
 // Level color mapping
 const levelColors: Record<string, string> = {
-  Beginner: "bg-green-500/20 text-green-400 border-green-500/30",
+  Beginner: "bg-primary/20 text-primary border-primary/30",
   Intermediate: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   Advanced: "bg-orange-500/20 text-orange-400 border-orange-500/30",
   Expert: "bg-red-500/20 text-red-400 border-red-500/30",

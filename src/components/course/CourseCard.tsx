@@ -80,7 +80,7 @@ export function CourseCard({ course, index = 0, className, categorySlug }: Cours
         <div className="mt-auto -mx-8">
           <Link href={courseHref}>
             <Button
-              className="w-full flex items-center justify-center rounded-none h-8 bg-bbta-red hover:bg-bbta-green text-foreground font-bold text-lg transition-colors border-none"
+              className="w-full flex items-center justify-center rounded-none h-8 bg-bbta-red hover:bg-bbta-red-accent text-foreground font-bold text-lg transition-colors border-none"
             >
               Course Details
             </Button>

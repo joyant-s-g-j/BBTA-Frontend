@@ -218,9 +218,9 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
                 transition={{ duration: 0.3 }}
               >
                 {result.valid && result.data ? (
-                  <Card className="border-green-500/30 bg-green-500/5">
+                  <Card className="border-primary/30 bg-primary/5">
                     <CardContent className="p-8">
-                      <div className="flex items-center gap-3 mb-6 text-green-500">
+                      <div className="flex items-center gap-3 mb-6 text-primary">
                         <CheckCircle2 className="h-8 w-8" />
                         <span className="text-xl font-bold">
                           Certificate Verified!
@@ -293,7 +293,7 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
                         </div>
                       </div>
 
-                      <div className="mt-6 pt-6 border-t border-green-500/20 flex items-center justify-between">
+                      <div className="mt-6 pt-6 border-t border-primary/20 flex items-center justify-between">
                         <p className="text-sm text-muted-foreground">
                           Certificate ID:{" "}
                           <span className="font-mono font-semibold text-foreground">
@@ -312,7 +312,7 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
                               });
                             }
                           }}
-                          className="gap-2 bg-green-600 hover:bg-green-700 text-white"
+                          className="gap-2 bg-bbta-red-accent hover:bg-primary text-white"
                         >
                           <Download className="h-4 w-4" />
                           Download Certificate
