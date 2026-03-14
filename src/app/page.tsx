@@ -70,6 +70,9 @@ export default async function HomePage() {
         maxCourses={8}
         mobileMaxCourses={4}
         showFilters={false}
+        showViewMoreButton
+        viewMoreHref="/bbta-courses"
+        viewMoreLabel="View More"
         title={sh['sh_home_courses']?.title}
         subtitle={sh['sh_home_courses']?.subtitle}
         description={sh['sh_home_courses']?.description}

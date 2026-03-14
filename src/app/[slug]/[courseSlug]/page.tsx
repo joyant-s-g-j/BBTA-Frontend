@@ -297,7 +297,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
             </div>
 
             <div className="lg:col-span-1">
-              <div id="enroll" className="sticky top-24 space-y-4">
+              <div className="sticky top-24 space-y-4">
                 {addonCourse && (
                   <div className="relative rounded-2xl border border-primary/30 overflow-hidden bg-linear-to-br from-primary/15 via-primary/5 to-transparent">
                     {/* Ribbon badge */}
@@ -357,6 +357,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                   </div>
                 )}
                 <EnrollmentForm
+                  id="enroll"
                   selectedCourse={course.slug}
                   variant="full"
                   title={`Enroll in ${course.title}`}

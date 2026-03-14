@@ -17,7 +17,7 @@ export function AdvantagesGrid({ initialAdvantages }: { initialAdvantages?: Adva
     useEffect(() => {
         if (!initialAdvantages) {
             const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrender.com/api';
-            fetch(`${API_URL}/settings/upcoming_advantages`, { next: { revalidate: 60 } } as any)
+            fetch(`${API_URL}/settings/upcoming_advantages`)
                 .then(res => res.ok ? res.json() : null)
                 .then(data => {
                     if (data?.items && data.items.length > 0) {

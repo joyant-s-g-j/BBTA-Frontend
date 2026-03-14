@@ -23,6 +23,9 @@ interface CourseGridProps {
   mobileMaxCourses?: number;
   showFilters?: boolean;
   showHeader?: boolean;
+  showViewMoreButton?: boolean;
+  viewMoreHref?: string;
+  viewMoreLabel?: string;
   title?: string;
   subtitle?: string;
   description?: string;
@@ -39,6 +42,9 @@ export function CourseGrid({
   mobileMaxCourses,
   showFilters = true,
   showHeader = true,
+  showViewMoreButton,
+  viewMoreHref = "/bbta-courses",
+  viewMoreLabel = "View More",
   title = "Our Courses",
   subtitle = "Explore Our Programs",
   description,
@@ -229,8 +235,8 @@ export function CourseGrid({
           </div>
         )}
 
-        {/* View All Button */}
-        {maxCourses && filteredCourses.length > maxCourses && (
+        {/* View More Button */}
+        {(showViewMoreButton ?? !!maxCourses) && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -238,13 +244,13 @@ export function CourseGrid({
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center mt-12"
           >
-            <Link href="/bbta-courses">
+            <Link href={viewMoreHref}>
               <Button
                 variant="outline"
                 size="lg"
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               >
-                View All Courses
+                {viewMoreLabel}
               </Button>
             </Link>
           </motion.div>

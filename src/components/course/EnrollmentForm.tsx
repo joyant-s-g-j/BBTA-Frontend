@@ -9,7 +9,6 @@ import { Send, User, Mail, Phone, MessageSquare, Calendar, MapPin } from "lucide
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -27,6 +26,7 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import * as api from "@/lib/api";
+import { type Course } from "@/lib/data";
 
 // Form validation schema
 const enrollmentSchema = z.object({
@@ -45,6 +45,7 @@ const enrollmentSchema = z.object({
 type EnrollmentFormData = z.infer<typeof enrollmentSchema>;
 
 interface EnrollmentFormProps {
+  id?: string;
   selectedCourse?: string;
   variant?: "full" | "compact";
   title?: string;
@@ -53,6 +54,7 @@ interface EnrollmentFormProps {
 }
 
 export function EnrollmentForm({
+  id,
   selectedCourse,
   variant = "full",
   title = "Enroll Now",
@@ -60,7 +62,14 @@ export function EnrollmentForm({
   source = "contact",
 }: EnrollmentFormProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [availableCourses, setAvailableCourses] = React.useState<any[]>([]);
+  const [availableCourses, setAvailableCourses] = React.useState<Course[]>([]);
+
+  const formatPrice = (price?: string) => {
+    if (!price) return "";
+    const numericPrice = Number(String(price).replace(/[^0-9.]/g, ""));
+    if (!Number.isFinite(numericPrice) || numericPrice <= 0) return "";
+    return ` - ৳${numericPrice.toLocaleString()}`;
+  };
 
   React.useEffect(() => {
     api.getCourses().then(setAvailableCourses).catch(console.error);
@@ -98,7 +107,7 @@ export function EnrollmentForm({
         description: "We'll contact you within 24 hours to confirm your enrollment.",
       });
       form.reset();
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong", {
         description: "Please try again or contact us directly.",
       });
@@ -109,11 +118,12 @@ export function EnrollmentForm({
 
   return (
     <motion.div
+      id={id}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={`bg-card rounded-2xl border border-border p-6 md:p-8 ${variant === "compact" ? "" : "shadow-xl"
+      className={`scroll-mt-28 bg-card rounded-2xl border border-border p-6 md:p-8 ${variant === "compact" ? "" : "shadow-xl"
         }`}
     >
       {/* Header */}
@@ -234,9 +244,10 @@ export function EnrollmentForm({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {availableCourses.map((course: any) => (
+                    {availableCourses.map((course) => (
                       <SelectItem key={course.slug} value={course.slug}>
-                        {course.title} {course.price ? ` - ৳${course.price.toLocaleString()}` : ''}
+                        {course.title}
+                        {formatPrice(course.price)}
                       </SelectItem>
                     ))}
                     {availableCourses.length === 0 && (

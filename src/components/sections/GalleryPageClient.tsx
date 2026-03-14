@@ -12,8 +12,16 @@ import * as api from "@/lib/api";
 
 const IMAGES_PER_LOAD = 8;
 
+type GalleryItem = {
+  id: string | number;
+  title: string;
+  image: string;
+  category?: string;
+  isPinned?: boolean;
+};
+
 export function GalleryPageClient() {
-  const [items, setItems] = React.useState<Record<string, string>[]>([]);
+  const [items, setItems] = React.useState<GalleryItem[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
@@ -22,9 +30,9 @@ export function GalleryPageClient() {
   const [visibleCount, setVisibleCount] = React.useState(IMAGES_PER_LOAD);
 
   React.useEffect(() => {
-    api.getGallery().then(data => {
+    api.getGallery().then((data: GalleryItem[]) => {
       setItems(data);
-      const uniqueCats: string[] = Array.from(new Set(data.map((item: Record<string, string>) => item.category).filter(Boolean)));
+      const uniqueCats: string[] = Array.from(new Set(data.map((item) => item.category).filter((category): category is string => Boolean(category))));
       if (uniqueCats.length > 0) {
         setCategories(["All", ...uniqueCats]);
       }
@@ -41,7 +49,7 @@ export function GalleryPageClient() {
 
   const filteredItems = React.useMemo(() => {
     const base = selectedCategory === "All" ? items : items.filter((item) => item.category === selectedCategory);
-    return [...base].sort((a, b) => ((b as any).isPinned ? 1 : 0) - ((a as any).isPinned ? 1 : 0));
+    return [...base].sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0));
   }, [selectedCategory, items]);
 
   const visibleItems = filteredItems.slice(0, visibleCount);

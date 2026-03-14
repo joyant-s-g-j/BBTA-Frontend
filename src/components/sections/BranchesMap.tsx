@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
 import Address from "./Address";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { type Branch } from "@/lib/data";
 
 interface BranchesMapProps {
   compact?: boolean;
@@ -13,7 +13,7 @@ interface BranchesMapProps {
  * BranchesMap Component
  * Google Maps embed with branch info cards
  */
-export function BranchesMap({ compact = false, initialBranches, sectionHeader }: BranchesMapProps & { initialBranches?: any[] }) {
+export function BranchesMap({ compact = false, initialBranches, sectionHeader }: BranchesMapProps & { initialBranches?: Branch[] }) {
   const sh = sectionHeader || { subtitle: 'Visit Us', title: 'Our Training Centers', description: 'State-of-the-art facilities equipped with professional-grade coffee equipment in prime Dhaka locations.' };
 
   return (
