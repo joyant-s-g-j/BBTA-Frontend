@@ -133,33 +133,33 @@ export function BannerSlider({ slides, ctaText, ctaHref, secondaryCtaText, secon
                             <div className="slide-container">
                                 <div className="slide-content">
                                     <div
-                                        className={`slide-text-wrapper ${
-                                            activeIndex === index
+                                        className={`slide-text-wrapper ${activeIndex === index
                                                 ? "slide-text-enter"
                                                 : prevIndex === index
-                                                ? "slide-text-exit"
-                                                : "slide-text-hidden"
-                                        }`}
+                                                    ? "slide-text-exit"
+                                                    : "slide-text-hidden"
+                                            }`}
                                     >
                                         <h1 className="slide-heading">
                                             <span className="block">{slide.line_1}</span>
                                             <span className="block">{slide.line_2}</span>
                                         </h1>
+
+                                        {(ctaText || secondaryCtaText) && (
+                                            <div className="slide-cta-buttons">
+                                                {ctaText && ctaHref && (
+                                                    <Link href={ctaHref} className="slide-btn-primary">
+                                                        {ctaText}
+                                                    </Link>
+                                                )}
+                                                {secondaryCtaText && secondaryCtaHref && (
+                                                    <Link href={secondaryCtaHref} className="slide-btn-secondary">
+                                                        {secondaryCtaText}
+                                                    </Link>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
-                                    {(ctaText || secondaryCtaText) && (
-                                        <div className="slide-cta-buttons">
-                                            {ctaText && ctaHref && (
-                                                <Link href={ctaHref} className="slide-btn-primary">
-                                                    {ctaText}
-                                                </Link>
-                                            )}
-                                            {secondaryCtaText && secondaryCtaHref && (
-                                                <Link href={secondaryCtaHref} className="slide-btn-secondary">
-                                                    {secondaryCtaText}
-                                                </Link>
-                                            )}
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </div>
