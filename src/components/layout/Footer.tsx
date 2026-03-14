@@ -248,7 +248,6 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
               <Link
                 href="https://www.codethousand.net/"
                 target="_blank"
-                className="text-white hover:text-white/80 underline"
               >
                 Code Thousand
               </Link>
