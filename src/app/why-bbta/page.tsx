@@ -21,6 +21,7 @@ export default async function WhyBbtaPage() {
     stats,
     testimonials,
     whyBbtaContent,
+    ctaSettings,
   ] = await Promise.all([
     api.getHeroByPage("why_bbta"),
     api.getAllSectionHeaders(),
@@ -28,6 +29,7 @@ export default async function WhyBbtaPage() {
     api.getStats(),
     api.getTestimonials(),
     api.getSettings("why_bbta_content"),
+    api.getSettings("cta_why_bbta"),
   ]);
 
   const hero = {
@@ -58,8 +60,8 @@ export default async function WhyBbtaPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <SectionHeader
-                  subtitle={sh["sh_why_bbta_points"]?.subtitle || "Our Strengths"}
-                  title={sh["sh_why_bbta_points"]?.title || "Why Choose BBTA?"}
+                  subtitle={sh["sh_why_bbta_points"]?.subtitle || ""}
+                  title={sh["sh_why_bbta_points"]?.title || ""}
                   description={sh["sh_why_bbta_points"]?.description}
                   align="left"
                   titleSize="text-3xl md:text-4xl"
@@ -95,8 +97,8 @@ export default async function WhyBbtaPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             {!(introText || introImage) && (
               <SectionHeader
-                subtitle={sh["sh_why_bbta_points"]?.subtitle || "Our Strengths"}
-                title={sh["sh_why_bbta_points"]?.title || "Why Choose BBTA?"}
+                subtitle={sh["sh_why_bbta_points"]?.subtitle || ""}
+                title={sh["sh_why_bbta_points"]?.title || ""}
                 description={sh["sh_why_bbta_points"]?.description}
                 titleSize="text-3xl md:text-4xl"
               />
@@ -181,21 +183,19 @@ export default async function WhyBbtaPage() {
       {testimonials && testimonials.length > 0 && (
         <TestimonialsCarousel
           initialTestimonials={testimonials}
-          sectionHeader={{
-            subtitle: "Success Stories",
-            title: "What Our Graduates Say",
-            description: "Hear from the professionals who launched their coffee careers with BBTA.",
-          }}
+          sectionHeader={sh["sh_home_testimonials"]}
         />
       )}
 
       {/* CTA Banner */}
-      <CTABanner
-        title="Ready to Join Bangladesh's Best Barista Academy?"
-        description="Take the first step toward a rewarding coffee career with BBTA."
-        ctaText="Explore Courses"
-        ctaHref="/bbta-courses"
-      />
+      {(ctaSettings?.title && ctaSettings?.ctaText && ctaSettings?.ctaUrl) ? (
+        <CTABanner
+          title={ctaSettings.title}
+          description={ctaSettings.description || ""}
+          ctaText={ctaSettings.ctaText}
+          ctaHref={ctaSettings.ctaUrl}
+        />
+      ) : null}
     </>
   );
 }

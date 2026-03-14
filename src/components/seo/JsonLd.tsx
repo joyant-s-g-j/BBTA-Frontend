@@ -1,8 +1,12 @@
-import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, DEFAULT_DESCRIPTION } from "@/lib/constants";
+import { SITE_NAME, SITE_URL } from "@/lib/constants";
 
 interface OrganizationSchemaProps {
     logo?: string;
     description?: string;
+    name?: string;
+    url?: string;
+    addressCountry?: string;
+    addressLocality?: string;
     socialLinks?: {
         facebook?: string;
         instagram?: string;
@@ -15,21 +19,25 @@ interface OrganizationSchemaProps {
 /**
  * Organization JSON-LD for rich snippets in search results.
  */
-export function OrganizationSchema({ logo, description, socialLinks }: OrganizationSchemaProps) {
+export function OrganizationSchema({ logo, description, name, url, addressCountry, addressLocality, socialLinks }: OrganizationSchemaProps) {
     const sameAs = Object.values(socialLinks || {}).filter(Boolean);
 
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "EducationalOrganization",
-        name: SITE_NAME,
-        url: SITE_URL,
-        logo: logo || DEFAULT_OG_IMAGE,
-        description: description || DEFAULT_DESCRIPTION,
-        address: {
-            "@type": "PostalAddress",
-            addressCountry: "BD",
-            addressLocality: "Dhaka",
-        },
+        name: name || SITE_NAME,
+        url: url || SITE_URL,
+        ...(logo ? { logo } : {}),
+        ...(description ? { description } : {}),
+        ...((addressCountry || addressLocality)
+            ? {
+                address: {
+                    "@type": "PostalAddress",
+                    ...(addressCountry ? { addressCountry } : {}),
+                    ...(addressLocality ? { addressLocality } : {}),
+                },
+            }
+            : {}),
         ...(sameAs.length > 0 ? { sameAs } : {}),
     };
 
@@ -52,7 +60,7 @@ export function WebSiteSchema({ name }: WebSiteSchemaProps) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: name || SITE_NAME,
+        name: name || SITE_NAME || "",
         url: SITE_URL,
         potentialAction: {
             "@type": "SearchAction",

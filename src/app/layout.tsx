@@ -25,9 +25,13 @@ const playfair = Playfair_Display({
 
 // SEO Metadata
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = await import("@/lib/api").then(api => api.getSeoByPage("home"));
+  const [seo, settings] = await Promise.all([
+    import("@/lib/api").then(api => api.getSeoByPage("home")),
+    import("@/lib/api").then(api => api.getSettings("site")),
+  ]);
 
-  const title = seo?.metaTitle || `${SITE_NAME} | Professional Coffee Training`;
+  const siteName = settings?.siteName || SITE_NAME || "";
+  const title = seo?.metaTitle || "";
   const description = seo?.metaDescription || DEFAULT_DESCRIPTION;
   const keywords = seo?.keywords
     ? seo.keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
@@ -35,42 +39,49 @@ export async function generateMetadata(): Promise<Metadata> {
   const ogTitle = seo?.ogTitle || title;
   const ogDescription = seo?.ogDescription || description;
   const ogImage = seo?.ogImage || DEFAULT_OG_IMAGE;
+  const metadataBase = SITE_URL ? new URL(SITE_URL) : undefined;
 
   return {
-    metadataBase: new URL(SITE_URL),
+    ...(metadataBase ? { metadataBase } : {}),
     title: {
       default: title,
-      template: `%s | ${SITE_NAME}`,
+      template: siteName ? `%s | ${siteName}` : "%s",
     },
     description,
     keywords,
-    authors: [{ name: "Bangladesh Barista Training Academy" }],
-    creator: "BBTA",
-    publisher: "Bangladesh Barista Training Academy",
-    alternates: {
-      canonical: SITE_URL,
-    },
+    authors: siteName ? [{ name: siteName }] : [],
+    creator: siteName,
+    publisher: siteName,
+    ...(SITE_URL
+      ? {
+        alternates: {
+          canonical: SITE_URL,
+        },
+      }
+      : {}),
     openGraph: {
       type: "website",
       locale: "en_US",
       url: SITE_URL,
-      siteName: SITE_NAME,
+      siteName,
       title: ogTitle,
       description: ogDescription,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: SITE_NAME,
-        },
-      ],
+      images: ogImage
+        ? [
+          {
+            url: ogImage,
+            width: 1200,
+            height: 630,
+            alt: siteName,
+          },
+        ]
+        : [],
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: ogDescription,
-      images: [ogImage],
+      images: ogImage ? [ogImage] : [],
     },
     robots: {
       index: true,

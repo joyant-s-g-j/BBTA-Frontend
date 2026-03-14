@@ -25,16 +25,17 @@ interface SuccessStory {
 }
 
 export default async function SuccessStoriesPage() {
-    const [stories, heroSettings, sh] = await Promise.all([
+    const [stories, heroSettings, sh, ctaSettings] = await Promise.all([
         api.getSuccessStories(),
         api.getHeroByPage("success_stories"),
         api.getAllSectionHeaders(),
+        api.getSettings("cta_success_stories"),
     ]);
 
     const hero = {
-        title: heroSettings?.title || "Success Stories",
-        subtitle: heroSettings?.subtitle || "Alumni Spotlights",
-        description: heroSettings?.description || "Real stories from BBTA graduates who are shaping the coffee industry.",
+        title: heroSettings?.title || "",
+        subtitle: heroSettings?.subtitle || "",
+        description: heroSettings?.description || "",
         backgroundImage: heroSettings?.backgroundImage || "",
         ctaText: heroSettings?.ctaText || "",
         ctaHref: heroSettings?.ctaUrl || "",
@@ -141,12 +142,14 @@ export default async function SuccessStoriesPage() {
                 </div>
             </section>
 
-            <CTABanner
-                title="Start Your Success Story"
-                description="Join BBTA and transform your passion for coffee into a rewarding career."
-                ctaText="Explore Courses"
-                ctaHref="/bbta-courses"
-            />
+            {(ctaSettings?.title && ctaSettings?.ctaText && ctaSettings?.ctaUrl) ? (
+                <CTABanner
+                    title={ctaSettings.title}
+                    description={ctaSettings.description || ""}
+                    ctaText={ctaSettings.ctaText}
+                    ctaHref={ctaSettings.ctaUrl}
+                />
+            ) : null}
         </>
     );
 }

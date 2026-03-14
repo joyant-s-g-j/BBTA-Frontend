@@ -1,5 +1,5 @@
 // Fetch data from backend API with retry logic for cold-start timeouts
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrender.com/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 const MAX_RETRIES = 3;
 const INITIAL_TIMEOUT = 15000; // 15s first attempt
@@ -16,6 +16,10 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}, timeout:
 }
 
 async function fetchAPI(endpoint: string) {
+    if (!API_URL) {
+        console.warn(`Missing NEXT_PUBLIC_API_URL for endpoint: ${endpoint}`);
+        return null;
+    }
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
         try {
             const timeout = INITIAL_TIMEOUT + attempt * 10000; // 15s, 25s, 35s
@@ -106,70 +110,60 @@ export async function submitJobApplication(data: Record<string, unknown>) {
 // ===================== Section Headers =====================
 // Each section header is stored in Config with key: sh_{page}_{section}
 export async function getSectionHeader(key: string, defaults: { subtitle: string; title: string; description?: string }) {
+    void defaults;
     try {
         const data = await fetchAPI(`/settings/${key}`);
         return {
-            subtitle: data?.subtitle || defaults.subtitle,
-            title: data?.title || defaults.title,
-            description: data?.description !== undefined ? data.description : defaults.description,
+            subtitle: data?.subtitle || "",
+            title: data?.title || "",
+            description: data?.description || "",
         };
     } catch {
-        return defaults;
+        return { subtitle: "", title: "", description: "" };
     }
 }
 
 export async function getAllSectionHeaders() {
     const keys = [
-        // Home Page
-        { key: 'sh_home_stats', defaults: { subtitle: 'Our Impact', title: 'BBTA in Numbers', description: 'Real numbers that reflect our commitment to coffee education excellence.' } },
-        { key: 'sh_home_courses', defaults: { subtitle: 'Start Your Journey', title: 'Popular Courses', description: 'From beginner foundations to advanced professional training, find the perfect course for your coffee career.' } },
-        { key: 'sh_home_batches', defaults: { subtitle: 'Secure Your Spot', title: 'Upcoming Batches', description: 'Check out our latest schedule and join our next training session. Limited seats available for each batch.' } },
-        { key: 'sh_home_features', defaults: { subtitle: 'Why Choose Us', title: 'The BBTA Advantage', description: 'Experience world-class training with ISO-certified curriculum, expert instructors, and career-focused programs.' } },
-        { key: 'sh_home_career', defaults: { subtitle: 'Build Your Future', title: 'How Barista Training Helps Grow Your Career', description: 'The coffee industry is one of the fastest-growing sectors in Bangladesh and globally.' } },
-        { key: 'sh_home_testimonials', defaults: { subtitle: 'Success Stories', title: 'What Our Graduates Say', description: undefined } },
-        { key: 'sh_home_certs', defaults: { subtitle: 'Industry Recognition', title: 'Our Certifications & Accreditations', description: 'We take pride in our international standards and local recognition.' } },
-        { key: 'sh_home_faq', defaults: { subtitle: 'Common Questions', title: 'Frequently Asked Questions', description: 'Everything you need to know about our courses, certification, and career opportunities.' } },
-        { key: 'sh_home_branches', defaults: { subtitle: 'Visit Us', title: 'Our Training Centers', description: 'State-of-the-art facilities equipped with professional-grade coffee equipment in prime Dhaka locations.' } },
-        { key: 'sh_home_media', defaults: { subtitle: 'Featured In', title: 'Media Coverage', description: 'Trusted by leading brands and featured in top media outlets.' } },
-        // About Page
-        { key: 'sh_about_mission', defaults: { subtitle: 'Our Mission', title: 'Empowering Coffee Professionals', description: undefined } },
-        { key: 'sh_about_timeline', defaults: { subtitle: 'Our Journey', title: 'BBTA History & Milestones', description: undefined } },
-        { key: 'sh_about_team', defaults: { subtitle: 'Meet the Experts', title: 'Our Professional Trainers', description: undefined } },
-        // Courses Page
-        { key: 'sh_courses_faq', defaults: { subtitle: 'Common Questions', title: 'Frequently Asked Questions', description: 'Everything you need to know about our courses and certification.' } },
-        // Catering Page
-        { key: 'sh_catering_services', defaults: { subtitle: 'Our Services', title: 'Events We Serve', description: undefined } },
-        { key: 'sh_catering_events', defaults: { subtitle: 'Past Events', title: 'Event Highlights', description: undefined } },
-        { key: 'sh_catering_pricing', defaults: { subtitle: 'Pricing', title: 'Choose Your Package', description: undefined } },
-        // Consulting Page
-        { key: 'sh_consulting_svcs', defaults: { subtitle: 'Our Services', title: 'Comprehensive Consulting Solutions', description: undefined } },
-        { key: 'sh_consulting_cases', defaults: { subtitle: 'Success Stories', title: 'Client Case Studies', description: undefined } },
-        { key: 'sh_consulting_form', defaults: { subtitle: 'Get Started', title: 'Request a Consultation', description: undefined } },
-        // Maintenance Page
-        { key: 'sh_maint_services', defaults: { subtitle: 'Our Services', title: 'Comprehensive Equipment Care', description: 'Our certified technicians specialize in maintaining and repairing all major coffee equipment brands.' } },
-        { key: 'sh_maint_rates', defaults: { subtitle: 'Pricing', title: 'Service Rates', description: undefined } },
-        { key: 'sh_maint_form', defaults: { subtitle: 'Get Help', title: 'Request a Service', description: undefined } },
-        // Contact Page
-        { key: 'sh_contact_info', defaults: { subtitle: 'Reach Out', title: 'Contact Information', description: undefined } },
-        // Course detail page
-        { key: 'sh_course_related', defaults: { subtitle: 'Explore More', title: 'Related Courses', description: undefined } },
-        // Certificate Verification Page
-        { key: 'sh_certificate_verify', defaults: { subtitle: 'Verify Credentials', title: 'Certificate Verification', description: 'Instantly verify the authenticity of any BBTA certificate using the unique certificate ID.' } },
-        // Why BBTA Page
-        { key: 'sh_why_bbta_points', defaults: { subtitle: 'Our Strengths', title: 'Why Choose BBTA?', description: 'Discover what makes Bangladesh Barista Training Academy the premier choice for coffee education.' } },
-        { key: 'sh_why_bbta_impact', defaults: { subtitle: 'Our Impact', title: 'Transforming Coffee Careers', description: 'See the real numbers behind our success.' } },
-        // Job Placement Page
-        { key: 'sh_job_forms', defaults: { subtitle: 'Get Connected', title: 'Hire or Get Hired', description: 'Whether you are looking to hire trained baristas or seeking your next opportunity, we are here to help.' } },
-        { key: 'sh_job_listings', defaults: { subtitle: 'Latest Opportunities', title: 'Job Openings', description: 'Browse the latest job opportunities in the coffee industry.' } },
-        // Success Stories Page
-        { key: 'sh_success_stories', defaults: { subtitle: 'Success Stories', title: 'Our Graduates\' Journeys', description: 'Discover how our alumni turned their passion into thriving careers in the coffee industry.' } },
+        'sh_home_stats',
+        'sh_home_courses',
+        'sh_home_batches',
+        'sh_home_features',
+        'sh_home_career',
+        'sh_home_testimonials',
+        'sh_home_certs',
+        'sh_home_faq',
+        'sh_home_branches',
+        'sh_home_media',
+        'sh_about_mission',
+        'sh_about_timeline',
+        'sh_about_team',
+        'sh_courses_faq',
+        'sh_catering_services',
+        'sh_catering_events',
+        'sh_catering_pricing',
+        'sh_consulting_svcs',
+        'sh_consulting_cases',
+        'sh_consulting_form',
+        'sh_maint_services',
+        'sh_maint_rates',
+        'sh_maint_form',
+        'sh_contact_info',
+        'sh_course_related',
+        'sh_certificate_verify',
+        'sh_why_bbta_points',
+        'sh_why_bbta_impact',
+        'sh_job_forms',
+        'sh_job_listings',
+        'sh_success_stories',
+        'sh_review_testimonials',
     ];
 
     const results = await Promise.all(
-        keys.map(({ key, defaults }) => getSectionHeader(key, defaults))
+        keys.map((key) => getSectionHeader(key, { subtitle: "", title: "", description: "" }))
     );
 
     const map: Record<string, { subtitle: string; title: string; description?: string }> = {};
-    keys.forEach(({ key }, i) => { map[key] = results[i]; });
+    keys.forEach((key, i) => { map[key] = results[i]; });
     return map;
 }

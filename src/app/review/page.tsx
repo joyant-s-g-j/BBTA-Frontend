@@ -21,30 +21,23 @@ interface Testimonial {
 }
 
 export default async function ReviewPage() {
-  const [testimonials, heroSettings] = await Promise.all([
+  const [testimonials, heroSettings, reviewSectionHeader, ctaSettings] = await Promise.all([
     api.getTestimonials(),
     api.getHeroByPage("review"),
+    api.getSectionHeader("sh_review_testimonials", { subtitle: "", title: "", description: "" }),
+    api.getSettings("cta_review"),
   ]);
 
   const hero = {
-    title: heroSettings?.title || "Student Reviews",
-    subtitle: heroSettings?.subtitle || "Real Voices, Real Results",
-    description:
-      heroSettings?.description ||
-      "See what our students say about their learning journey, practical training, and career outcomes at BBTA.",
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
     backgroundImage: heroSettings?.backgroundImage || "",
     ctaText: heroSettings?.ctaText || "",
     ctaHref: heroSettings?.ctaUrl || "",
     secondaryCtaText: heroSettings?.secondaryCtaText || "",
     secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
-
-  const reviewSectionHeader = await api.getSectionHeader("sh_review_testimonials", {
-    subtitle: "Student Testimonials",
-    title: "What Our Students Say",
-    description:
-      "Every review comes directly from students managed in our admin panel testimonial section.",
-  });
 
   const reviews = (testimonials as Testimonial[])
     .filter((item) => item?.name && item?.quote)
@@ -78,12 +71,14 @@ export default async function ReviewPage() {
         </div>
       </section>
 
-      <CTABanner
-        title="Ready to Become Our Next Success Story?"
-        description="Start your professional coffee journey with BBTA and build a career you are proud of."
-        ctaText="Explore Courses"
-        ctaHref="/bbta-courses"
-      />
+      {(ctaSettings?.title && ctaSettings?.ctaText && ctaSettings?.ctaUrl) ? (
+        <CTABanner
+          title={ctaSettings.title}
+          description={ctaSettings.description || ""}
+          ctaText={ctaSettings.ctaText}
+          ctaHref={ctaSettings.ctaUrl}
+        />
+      ) : null}
     </>
   );
 }

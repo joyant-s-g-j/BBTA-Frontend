@@ -45,7 +45,7 @@ const useScrollPosition = (threshold = 50) => {
   return isScrolled;
 };
 
-export function Navbar({ categories: initialCategories = [] }: { settings?: Record<string, string>, categories?: CategoryNav[] }) {
+export function Navbar({ settings, categories: initialCategories = [] }: { settings?: Record<string, string>, categories?: CategoryNav[] }) {
   const categories = [...initialCategories].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
   const pathname = usePathname();
   const isScrolled = useScrollPosition(50);
@@ -61,14 +61,16 @@ export function Navbar({ categories: initialCategories = [] }: { settings?: Reco
     >
       <div className="flex items-center gap-2 shrink-0">
         <Link href="/">
+          {typeof settings?.logo === "string" && settings.logo ? (
             <Image
-              src="/bbtalogo.png"
+              src={settings.logo}
               alt="BBTA Logo"
               width={64}
               height={64}
               className="h-12 w-auto lg:h-14 xl:h-16 lg:w-20 xl:w-24 object-contain"
               priority
             />
+          ) : null}
           </Link>
       </div>
 

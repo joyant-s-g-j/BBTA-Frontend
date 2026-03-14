@@ -19,22 +19,24 @@ interface CareerBenefit {
  * CareerGrowthSection
  * Showcases how barista training accelerates career growth
  */
-export function CareerGrowthSection({ initialCareerBenefits, sectionHeader }: { initialCareerBenefits?: CareerBenefit[], sectionHeader?: { subtitle: string; title: string; description?: string } }) {
+export function CareerGrowthSection({ initialCareerBenefits, sectionHeader, backgroundImage }: { initialCareerBenefits?: CareerBenefit[], sectionHeader?: { subtitle: string; title: string; description?: string }, backgroundImage?: string }) {
   if (!initialCareerBenefits || initialCareerBenefits.length === 0) return null;
   const displayBenefits = initialCareerBenefits;
-  const sh = sectionHeader || { subtitle: 'Build Your Future', title: 'How Barista Training Helps Grow Your Career', description: 'The coffee industry is one of the fastest-growing sectors in Bangladesh and globally.' };
+  const sh = sectionHeader || { subtitle: '', title: '', description: '' };
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920"
-          alt="Coffee background"
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
+        {backgroundImage ? (
+          <Image
+            src={backgroundImage}
+            alt="Coffee background"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        ) : null}
         <div className="absolute inset-0 bg-black/80" />
       </div>
 

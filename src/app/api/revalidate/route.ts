@@ -6,9 +6,14 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
     try {
         const secret = request.headers.get('x-revalidate-secret');
+        const expectedSecret = process.env.REVALIDATION_SECRET;
+
+        if (!expectedSecret) {
+            return NextResponse.json({ message: 'Revalidation secret not configured' }, { status: 500 });
+        }
 
         // Simple secret check to prevent abuse
-        if (secret !== (process.env.REVALIDATION_SECRET || 'bbta-revalidate-2026')) {
+        if (secret !== expectedSecret) {
             return NextResponse.json({ message: 'Invalid secret' }, { status: 401 });
         }
 

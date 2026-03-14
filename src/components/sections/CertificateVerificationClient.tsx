@@ -32,8 +32,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { downloadCertificatePDF } from "@/lib/generate-certificate-pdf";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://bbta-backend.onrender.com/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 // Validation schema
 const verificationSchema = z.object({
@@ -96,6 +95,7 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
     setResult(null);
 
     try {
+      if (!API_URL) throw new Error("API URL not configured");
       const res = await fetch(`${API_URL}/verify-certificate`);
       if (!res.ok) throw new Error("API error");
       const all = await res.json();

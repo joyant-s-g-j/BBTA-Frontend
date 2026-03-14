@@ -41,20 +41,19 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
   const [email, setEmail] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  // Use dynamic settings with safe fallbacks
-  const footerIntro = settings?.footer?.intro || "Bangladesh Barista Training Academy - Your gateway to a professional coffee career. ISO certified training with international standards.";
-  const copyright = settings?.footer?.copyright || `© ${new Date().getFullYear()} Bangladesh Barista Training Academy. All rights reserved.`;
+  const footerIntro = settings?.footer?.intro || "";
+  const copyright = settings?.footer?.copyright || "";
 
-  const address = settings?.contactInfo?.address || settings?.address || "Baridhara & Dhanmondi, Dhaka";
-  const phone = settings?.contactInfo?.phone || settings?.phone || "+880174-5045500";
-  const emailAddr = settings?.contactInfo?.email || settings?.email || "info@bbta.com.bd";
+  const address = settings?.contactInfo?.address || settings?.address || "";
+  const phone = settings?.contactInfo?.phone || settings?.phone || "";
+  const emailAddr = settings?.contactInfo?.email || settings?.email || "";
 
   const socialLinks = [
-    { icon: Facebook, href: settings?.socialLinks?.facebook || "https://facebook.com/bbta", label: "Facebook" },
-    { icon: Instagram, href: settings?.socialLinks?.instagram || "https://instagram.com/bbta", label: "Instagram" },
-    { icon: Twitter, href: settings?.socialLinks?.twitter || "https://twitter.com/bbta", label: "Twitter" },
-    { icon: Youtube, href: settings?.socialLinks?.youtube || "https://youtube.com/bbta", label: "YouTube" },
-  ];
+    { icon: Facebook, href: settings?.socialLinks?.facebook || "", label: "Facebook" },
+    { icon: Instagram, href: settings?.socialLinks?.instagram || "", label: "Instagram" },
+    { icon: Twitter, href: settings?.socialLinks?.twitter || "", label: "Twitter" },
+    { icon: Youtube, href: settings?.socialLinks?.youtube || "", label: "YouTube" },
+  ].filter((item) => item.href);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,7 +64,11 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
     setIsSubmitting(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bbta-backend.onrender.com/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL;
+      if (!API_URL) {
+        toast.error("API URL is not configured.");
+        return;
+      }
       // Fetch existing subscribers
       const existingRes = await fetch(`${API_URL}/settings/blog_subscribers`);
       const existingData = await existingRes.json();
@@ -102,7 +105,9 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="rounded-xl p-1">
-                <Image src="/bbtalogo.png" alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
+                {settings?.logo ? (
+                  <Image src={settings.logo} alt="BBTA Logo" width={64} height={64} className="h-12 w-auto lg:h-16 lg:w-24 object-contain" />
+                ) : null}
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
@@ -138,6 +143,8 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
                 { href: "/success-stories", label: "Success Stories" },
                 { href: "/catering", label: "Catering" },
                 { href: "/consulting", label: "Consulting" },
+                { href: "/privacy-policy", label: "Privacy Policy" },
+                { href: "/terms-and-conditions", label: "Terms & Conditions" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -172,30 +179,36 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
           <div>
             <h3 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Contact Us</h3>
             <ul className="space-y-3 mb-6">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-white/70 text-sm">
-                  {address}
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-primary shrink-0" />
-                <a
-                  href={`tel:${phone}`}
-                  className="text-white/70 hover:text-primary transition-colors text-sm"
-                >
-                  {phone}
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-primary shrink-0" />
-                <a
-                  href={`mailto:${emailAddr}`}
-                  className="text-white/70 hover:text-primary transition-colors text-sm"
-                >
-                  {emailAddr}
-                </a>
-              </li>
+              {address ? (
+                <li className="flex items-start gap-3">
+                  <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span className="text-white/70 text-sm">
+                    {address}
+                  </span>
+                </li>
+              ) : null}
+              {phone ? (
+                <li className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 text-primary shrink-0" />
+                  <a
+                    href={`tel:${phone}`}
+                    className="text-white/70 hover:text-primary transition-colors text-sm"
+                  >
+                    {phone}
+                  </a>
+                </li>
+              ) : null}
+              {emailAddr ? (
+                <li className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 text-primary shrink-0" />
+                  <a
+                    href={`mailto:${emailAddr}`}
+                    className="text-white/70 hover:text-primary transition-colors text-sm"
+                  >
+                    {emailAddr}
+                  </a>
+                </li>
+              ) : null}
             </ul>
 
             {/* Newsletter */}
@@ -229,27 +242,6 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             <p className="text-white/50 text-sm text-center sm:text-left">
               {copyright}
             </p>
-            <div className="flex items-center gap-6 flex-wrap">
-              <Link
-                href="/privacy-policy"
-                className="text-white/60 hover:text-primary text-sm transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-and-conditions"
-                className="text-white/60 hover:text-primary text-sm transition-colors"
-              >
-                Terms & Conditions
-              </Link>
-              <Link
-                href="https://www.codethousand.net/"
-                target="_blank"
-                className="text-secondary text-sm"
-              >
-                Developed by Codethousand
-              </Link>
-            </div>
           </div>
         </div>
       </div>

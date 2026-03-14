@@ -39,7 +39,7 @@ export function HeroSection({
   size = "full",
   overlay = "dark",
 }: HeroSectionProps) {
-  const bgImage = backgroundImage || "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920";
+  const bgImage = backgroundImage || "";
   const sizeClasses = {
     full: "min-h-screen",
     large: "min-h-[85vh]",
@@ -57,21 +57,23 @@ export function HeroSection({
   return (
     <section className={`relative ${sizeClasses[size]} flex items-center justify-center overflow-hidden`}>
       {/* Background Image with Parallax Effect */}
-      <motion.div
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0"
-      >
-        <Image
-          src={bgImage}
-          alt="Hero background"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-      </motion.div>
+      {bgImage ? (
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={bgImage}
+            alt="Hero background"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </motion.div>
+      ) : null}
 
       {/* Overlay */}
       <div className={`absolute inset-0 ${overlayClasses[overlay]}`} />

@@ -9,12 +9,6 @@ interface SeoDefaults {
     ogImage?: string;
 }
 
-function formatPageTitle(page: string): string {
-    return page
-        .replace(/[_-]+/g, " ")
-        .replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
 /**
  * Generates dynamic page metadata by fetching SEO data from backend.
  * Falls back to provided defaults if no backend data exists.
@@ -36,11 +30,8 @@ export async function generatePageMetadata(
 ): Promise<Metadata> {
     const seo = await getSeoByPage(page);
 
-    const fallbackTitle = defaults.title || formatPageTitle(page);
-    const fallbackDescription = defaults.description || DEFAULT_DESCRIPTION;
-
-    const title = seo?.metaTitle || fallbackTitle;
-    const description = seo?.metaDescription || fallbackDescription;
+    const title = seo?.metaTitle || defaults.title || "";
+    const description = seo?.metaDescription || defaults.description || DEFAULT_DESCRIPTION;
     const keywords = seo?.keywords || defaults.keywords || "";
     const ogTitle = seo?.ogTitle || title;
     const ogDescription = seo?.ogDescription || description;
@@ -66,20 +57,22 @@ export async function generatePageMetadata(
             siteName: SITE_NAME,
             title: `${ogTitle} | ${SITE_NAME}`,
             description: ogDescription,
-            images: [
-                {
-                    url: ogImage,
-                    width: 1200,
-                    height: 630,
-                    alt: ogTitle,
-                },
-            ],
+            images: ogImage
+                ? [
+                    {
+                        url: ogImage,
+                        width: 1200,
+                        height: 630,
+                        alt: ogTitle,
+                    },
+                ]
+                : [],
         },
         twitter: {
             card: "summary_large_image",
             title: `${ogTitle} | ${SITE_NAME}`,
             description: ogDescription,
-            images: [ogImage],
+            images: ogImage ? [ogImage] : [],
         },
         robots: {
             index: true,
