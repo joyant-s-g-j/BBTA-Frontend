@@ -50,6 +50,13 @@ export function Navbar({ settings, categories: initialCategories = [] }: { setti
   const pathname = usePathname();
   const isScrolled = useScrollPosition(50);
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const mainNavLinks = navLinks.filter(
     (link) => link.href !== "/" && link.href !== "/about" && link.href !== "/bbta-courses" && link.href !== "/certificate-verification" && link.href !== "/consulting"
     && link.href !== "/catering" && link.href !== "/why-bbta" && link.href !== "/service-and-maintenance"
@@ -60,7 +67,7 @@ export function Navbar({ settings, categories: initialCategories = [] }: { setti
       className={`flex justify-between items-center fixed top-0 left-0 right-0 py-3 px-4 sm:px-6 lg:px-8 xl:px-24 z-50 transition-all duration-300 ${isScrolled ? " backdrop-blur-md" : "bg-transparent"}`}
     >
       <div className="flex items-center gap-2 shrink-0">
-        <Link href="/">
+        <Link href="/" onClick={handleLogoClick}>
           {typeof settings?.logo === "string" && settings.logo ? (
             <Image
               src={settings.logo}
