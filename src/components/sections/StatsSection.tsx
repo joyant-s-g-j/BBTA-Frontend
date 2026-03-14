@@ -130,6 +130,7 @@ export function StatsSection({ stats: propStats, sectionHeader }: { stats?: Arra
         <SectionHeader
           subtitle={sh.subtitle}
           title={sh.title}
+          description={sh.description}
           titleSize="text-3xl md:text-4xl"
         />
 
