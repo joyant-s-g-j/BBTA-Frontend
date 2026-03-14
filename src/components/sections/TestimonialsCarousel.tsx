@@ -70,6 +70,7 @@ export function TestimonialsCarousel({ initialTestimonials, sectionHeader }: { i
         <SectionHeader
           subtitle={sh.subtitle}
           title={sh.title}
+          description={sh.description}
           titleSize="text-3xl md:text-4xl"
         />
 
