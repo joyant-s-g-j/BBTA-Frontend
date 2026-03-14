@@ -58,21 +58,26 @@ export default async function ContactPage() {
               <div className="mb-8">
                 <Badge className="bg-primary text-primary-foreground px-4 py-2 text-lg">
                   <Phone className="h-5 w-5 mr-2" />
-                  Hotline: {siteSettings?.phone || ""}
+                  Hotline: {siteSettings?.contactInfo?.phone || siteSettings?.phone || ""}
                 </Badge>
               </div>
 
               {/* Branch Info */}
               <div className="space-y-6">
                 <div className="text-muted-foreground mb-6 leading-relaxed">
-                  {siteSettings?.address && (
+                  {(siteSettings?.contactInfo?.address || siteSettings?.address) && (
                     <p className="mb-4">
-                      <strong>Address:</strong> {siteSettings.address}
+                      <strong>Address:</strong> {siteSettings?.contactInfo?.address || siteSettings.address}
                     </p>
                   )}
                   <p>
-                    {siteSettings?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings.phone}</a></>}
-                    {siteSettings?.whatsapp && (
+                    {siteSettings?.contactInfo?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings?.contactInfo?.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.contactInfo?.phone}</a></>}
+                    {!siteSettings?.contactInfo?.phone && siteSettings?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings.phone}</a></>}
+                    
+                    {siteSettings?.contactInfo?.whatsapp && (
+                      <> or WhatsApp at <a href={`https://wa.me/${(siteSettings?.contactInfo?.whatsapp).replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.contactInfo?.whatsapp}</a></>
+                    )}
+                    {!siteSettings?.contactInfo?.whatsapp && siteSettings?.whatsapp && (
                       <> or WhatsApp at <a href={`https://wa.me/${siteSettings.whatsapp.replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings.whatsapp}</a></>
                     )}. You can also visit our website for online course registration, upcoming events, and special promotions.
                   </p>
@@ -83,10 +88,10 @@ export default async function ContactPage() {
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <Mail className="h-5 w-5 text-primary shrink-0" />
                   <a
-                    href={`mailto:${siteSettings?.email || ""}`}
+                    href={`mailto:${siteSettings?.contactInfo?.email || siteSettings?.email || ""}`}
                     className="hover:text-primary transition-colors"
                   >
-                    {siteSettings?.email || ""}
+                    {siteSettings?.contactInfo?.email || siteSettings?.email || ""}
                   </a>
                 </div>
               </div>

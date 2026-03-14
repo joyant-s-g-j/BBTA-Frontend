@@ -88,6 +88,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 import * as api from "@/lib/api";
+import parse from "html-react-parser";
 
 export default async function RootLayout({
   children,
@@ -103,6 +104,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Global Header Scripts */}
+        {settings?.globalSeo?.headerScripts && parse(settings.globalSeo.headerScripts)}
+      </head>
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
@@ -131,6 +136,9 @@ export default async function RootLayout({
           closeButton
           theme="light"
         />
+
+        {/* Global Footer Scripts */}
+        {settings?.globalSeo?.footerScripts && parse(settings.globalSeo.footerScripts)}
       </body>
     </html>
   );
