@@ -95,9 +95,9 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     icons: {
-      icon: "/icon.jpeg",
-      shortcut: "/icon.jpeg",
-      apple: "/icon.jpeg",
+      icon: "/icon.webp",
+      shortcut: "/icon.webp",
+      apple: "/icon.webp",
     },
     manifest: "/site.webmanifest",
     verification: {
