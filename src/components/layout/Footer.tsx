@@ -237,12 +237,22 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="container mx-auto justify-between px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-white/50 text-sm text-center sm:text-left">
               {copyright}
             </p>
           </div>
+          <p className="text-white/50 text-sm text-center sm:text-left">
+              Developed by{" "}
+              <Link
+                href="https://www.codethousand.net/"
+                target="_blank"
+                className="text-white hover:text-white/80 underline"
+              >
+                Code Thousand
+              </Link>
+            </p>
         </div>
       </div>
     </footer>
