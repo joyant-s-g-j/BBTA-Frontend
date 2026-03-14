@@ -13,7 +13,7 @@ interface BranchesMapProps {
 const Address = ({ showMap = true, initialBranches }: BranchesMapProps) => {
     const displayBranches = initialBranches?.length ? initialBranches : [];
     const getMapUrl = (branch: Branch) => {
-        let val = branch?.mapUrl || branch?.mapEmbedUrl || "";
+        const val = branch?.mapUrl || branch?.mapEmbedUrl || "";
         if (typeof val === "string") {
             const srcMatch = val.match(/src="([^"]+)"/);
             return srcMatch && srcMatch[1] ? srcMatch[1] : val;
