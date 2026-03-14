@@ -196,7 +196,6 @@ export default async function BlogPage() {
         description="Turn these tips into skills with our hands-on training courses."
         ctaText="View Courses"
         ctaHref="/bbta-courses"
-        variant="dark"
       />
     </>
   );

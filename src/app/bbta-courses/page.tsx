@@ -24,6 +24,11 @@ export default async function CoursesPage() {
     api.getAllSectionHeaders()
   ]);
 
+  const faqHeader =
+    sh['sh_courses_faq']?.title || sh['sh_courses_faq']?.subtitle || sh['sh_courses_faq']?.description
+      ? sh['sh_courses_faq']
+      : sh['sh_home_faq'];
+
   const hero = {
     title: heroSettings?.title || "",
     subtitle: heroSettings?.subtitle || "",
@@ -56,9 +61,9 @@ export default async function CoursesPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-start">
               <div>
                 <SectionHeader
-                  subtitle={sh['sh_courses_faq']?.subtitle}
-                  title={sh['sh_courses_faq']?.title}
-                  description={sh['sh_courses_faq']?.description}
+                  subtitle={faqHeader?.subtitle}
+                  title={faqHeader?.title}
+                  description={faqHeader?.description}
                   align="left"
                   titleSize="text-3xl md:text-4xl"
                 />
@@ -94,7 +99,6 @@ export default async function CoursesPage() {
         description="Contact us for a free consultation and we'll help you choose the perfect program for your goals."
         ctaText="Get in Touch"
         ctaHref="/contact"
-        variant="dark"
       />
     </>
   );
