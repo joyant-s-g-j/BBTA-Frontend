@@ -70,17 +70,21 @@ export default async function ContactPage() {
                       <strong>Address:</strong> {siteSettings?.contactInfo?.address || siteSettings.address}
                     </p>
                   )}
-                  <p>
-                    {siteSettings?.contactInfo?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings?.contactInfo?.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.contactInfo?.phone}</a></>}
-                    {!siteSettings?.contactInfo?.phone && siteSettings?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings.phone}</a></>}
-                    
-                    {siteSettings?.contactInfo?.whatsapp && (
-                      <> or WhatsApp at <a href={`https://wa.me/${(siteSettings?.contactInfo?.whatsapp).replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.contactInfo?.whatsapp}</a></>
-                    )}
-                    {!siteSettings?.contactInfo?.whatsapp && siteSettings?.whatsapp && (
-                      <> or WhatsApp at <a href={`https://wa.me/${siteSettings.whatsapp.replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings.whatsapp}</a></>
-                    )}. You can also visit our website for online course registration, upcoming events, and special promotions.
-                  </p>
+                  {siteSettings?.contactInfo?.description ? (
+                    <p className="whitespace-pre-wrap">{siteSettings.contactInfo.description}</p>
+                  ) : (
+                    <p>
+                      {siteSettings?.contactInfo?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings?.contactInfo?.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.contactInfo?.phone}</a></>}
+                      {!siteSettings?.contactInfo?.phone && siteSettings?.phone && <>For more information, inquiries, or enrollment assistance, reach us at <a href={`tel:${siteSettings.phone}`} className="hover:text-primary transition-colors font-medium">{siteSettings.phone}</a></>}
+                      
+                      {siteSettings?.contactInfo?.whatsapp && (
+                        <> or WhatsApp at <a href={`https://wa.me/${(siteSettings?.contactInfo?.whatsapp).replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings?.contactInfo?.whatsapp}</a></>
+                      )}
+                      {!siteSettings?.contactInfo?.whatsapp && siteSettings?.whatsapp && (
+                        <> or WhatsApp at <a href={`https://wa.me/${siteSettings.whatsapp.replace(/[^0-9]/g, '')}`} className="hover:text-primary transition-colors font-medium">{siteSettings.whatsapp}</a></>
+                      )}. You can also visit our website for online course registration, upcoming events, and special promotions.
+                    </p>
+                  )}
                 </div>
 
 
