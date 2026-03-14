@@ -30,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${SITE_URL}/certificate-verification`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
         { url: `${SITE_URL}/why-bbta`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
         { url: `${SITE_URL}/job-placement`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+        { url: `${SITE_URL}/accommodation`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
         { url: `${SITE_URL}/review`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
         { url: `${SITE_URL}/success-stories`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.6 },
         { url: `${SITE_URL}/privacy-policy`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },

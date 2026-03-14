@@ -91,6 +91,7 @@ export async function getBannerSlides() { return await fetchAPI('/banner-slides'
 export async function getMediaCoverage() { return await fetchAPI('/media-coverage') || []; }
 export async function getVideos() { return await fetchAPI('/videos') || []; }
 export async function getSuccessStories() { return await fetchAPI('/success-stories') || []; }
+export async function getAccommodations() { return await fetchAPI('/accommodations') || []; }
 export async function getPromoBanner() { return await fetchAPI('/settings/promo_banner') || null; }
 export async function submitJobApplication(data: Record<string, unknown>) {
     try {
@@ -155,6 +156,7 @@ export async function getAllSectionHeaders() {
         'sh_why_bbta_impact',
         'sh_job_forms',
         'sh_job_listings',
+        'sh_accommodation',
         'sh_success_stories',
         'sh_review_testimonials',
     ];

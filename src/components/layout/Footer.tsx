@@ -143,6 +143,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
                 { href: "/success-stories", label: "Success Stories" },
                 { href: "/catering", label: "Catering" },
                 { href: "/consulting", label: "Consulting" },
+                { href: "/accommodation", label: "Accommodation" },
                 { href: "/privacy-policy", label: "Privacy Policy" },
                 { href: "/terms-and-conditions", label: "Terms & Conditions" },
               ].map((link) => (

@@ -156,6 +156,25 @@ export interface JobApplication {
   createdAt: string;
 }
 
+export interface Accommodation {
+  id: string;
+  title: string;
+  gender: "Male" | "Female";
+  location?: string;
+  price?: string;
+  roomType?: string;
+  roomCount?: number;
+  seatCount?: number;
+  attachedBathroom?: boolean;
+  facilities: string[];
+  images: string[];
+  description?: string;
+  contactLink?: string;
+  isActive: boolean;
+  order: number;
+  createdAt?: string;
+}
+
 // Navigation links remain static
 export const navLinks = [
   { href: "/", label: "Home" },
