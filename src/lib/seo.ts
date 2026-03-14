@@ -31,7 +31,8 @@ function formatPageTitle(page: string): string {
  */
 export async function generatePageMetadata(
     page: string,
-    defaults: SeoDefaults = {}
+    defaults: SeoDefaults = {},
+    options?: { routePath?: string }
 ): Promise<Metadata> {
     const seo = await getSeoByPage(page);
 
@@ -49,17 +50,19 @@ export async function generatePageMetadata(
         ? keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
         : [];
 
+    const routePath = options?.routePath || `/${page === "home" ? "" : page}`;
+
     return {
         title,
         description,
         ...(keywordsArray.length > 0 && { keywords: keywordsArray }),
         alternates: {
-            canonical: `${SITE_URL}/${page === "home" ? "" : page}`,
+            canonical: `${SITE_URL}${routePath}`,
         },
         openGraph: {
             type: "website",
             locale: "en_US",
-            url: `${SITE_URL}/${page === "home" ? "" : page}`,
+            url: `${SITE_URL}${routePath}`,
             siteName: SITE_NAME,
             title: `${ogTitle} | ${SITE_NAME}`,
             description: ogDescription,

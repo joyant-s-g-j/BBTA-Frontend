@@ -231,6 +231,18 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
             </p>
             <div className="flex items-center gap-6 flex-wrap">
               <Link
+                href="/privacy-policy"
+                className="text-white/60 hover:text-primary text-sm transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms-and-conditions"
+                className="text-white/60 hover:text-primary text-sm transition-colors"
+              >
+                Terms & Conditions
+              </Link>
+              <Link
                 href="https://www.codethousand.net/"
                 target="_blank"
                 className="text-secondary text-sm"
