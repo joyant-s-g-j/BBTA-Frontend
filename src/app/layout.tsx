@@ -95,9 +95,12 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     icons: {
-      icon: "/icon.webp",
-      shortcut: "/icon.webp",
-      apple: "/icon.webp",
+      icon: [
+        { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
+        { url: "/icon.webp", type: "image/webp", sizes: "any" },
+      ],
+      shortcut: [{ url: "/favicon.ico", type: "image/x-icon" }],
+      apple: [{ url: "/icon.webp", type: "image/webp" }],
     },
     manifest: "/site.webmanifest",
     verification: {
