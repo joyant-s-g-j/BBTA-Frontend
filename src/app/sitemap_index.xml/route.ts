@@ -14,6 +14,7 @@ export async function GET() {
     { url: `${SITE_URL}/post-sitemap.xml`, lastmod: new Date() },
     { url: `${SITE_URL}/page-sitemap.xml`, lastmod: new Date() },
     { url: `${SITE_URL}/category-sitemap.xml`, lastmod: new Date() },
+    { url: `${SITE_URL}/course-sitemap.xml`, lastmod: new Date() },
     { url: `${SITE_URL}/author-sitemap.xml`, lastmod: new Date() },
   ];
 
