@@ -21,17 +21,28 @@ interface Testimonial {
 }
 
 export default async function ReviewPage() {
-  const [testimonials, heroSettings, reviewSectionHeader, ctaSettings] = await Promise.all([
+  const [
+    testimonials,
+    heroSettings,
+    testimonialsHeader,
+    reviewSectionHeader,
+    ctaSettings,
+  ] = await Promise.all([
     api.getTestimonials(),
     api.getHeroByPage("review"),
+    api.getSectionHeader("sh_home_testimonials", {
+      subtitle: "",
+      title: "",
+      description: "",
+    }),
     api.getSectionHeader("sh_review_testimonials", { subtitle: "", title: "", description: "" }),
     api.getSettings("cta_review"),
   ]);
 
   const hero = {
-    title: heroSettings?.title || "",
-    subtitle: heroSettings?.subtitle || "",
-    description: heroSettings?.description || "",
+    title: testimonialsHeader?.title || heroSettings?.title || "",
+    subtitle: testimonialsHeader?.subtitle || heroSettings?.subtitle || "",
+    description: testimonialsHeader?.description || heroSettings?.description || "",
     backgroundImage: heroSettings?.backgroundImage || "",
     ctaText: heroSettings?.ctaText || "",
     ctaHref: heroSettings?.ctaUrl || "",
