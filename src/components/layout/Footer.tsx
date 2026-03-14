@@ -136,7 +136,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
           {/* Quick Links Column */}
           <div>
             <h3 className="font-serif text-lg font-semibold mb-4 text-bbta-red">Quick Links</h3>
-            <ul className="space-y-3">
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
               {[
                 { href: "/why-bbta", label: "Why BBTA" },
                 { href: "/service-and-maintenance", label: "Service & Maintenance" },
@@ -150,7 +150,7 @@ export function Footer({ settings, courses }: { settings?: FooterSettings; cours
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-primary transition-colors text-sm underline-animated"
+                    className="block text-white/70 hover:text-primary transition-colors text-sm underline-animated"
                   >
                     {link.label}
                   </Link>
