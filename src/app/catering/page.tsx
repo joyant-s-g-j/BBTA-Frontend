@@ -27,7 +27,11 @@ export default async function CateringPage() {
     title: heroSettings?.title || "",
     subtitle: heroSettings?.subtitle || "",
     description: heroSettings?.description || "",
-    backgroundImage: heroSettings?.backgroundImage || ""
+    backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
 
   const pricingTiers = pricingSettings?.items || [];

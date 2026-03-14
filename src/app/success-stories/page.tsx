@@ -36,6 +36,10 @@ export default async function SuccessStoriesPage() {
         subtitle: heroSettings?.subtitle || "Alumni Spotlights",
         description: heroSettings?.description || "Real stories from BBTA graduates who are shaping the coffee industry.",
         backgroundImage: heroSettings?.backgroundImage || "",
+        ctaText: heroSettings?.ctaText || "",
+        ctaHref: heroSettings?.ctaUrl || "",
+        secondaryCtaText: heroSettings?.secondaryCtaText || "",
+        secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
     };
 
     const activeStories = (stories as SuccessStory[])

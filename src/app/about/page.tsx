@@ -29,7 +29,11 @@ export default async function AboutPage() {
     title: heroSettings?.title || "",
     subtitle: heroSettings?.subtitle || "",
     description: heroSettings?.description || "",
-    backgroundImage: heroSettings?.backgroundImage || ""
+    backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
 
   const timeline = timelineSettings?.items || [];

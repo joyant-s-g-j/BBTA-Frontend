@@ -38,11 +38,11 @@ export function VideosPageClient() {
 
     api.getHeroByPage("videos").then((data: Record<string, string>) => {
       if (data?.title) setHero(data);
-    }).catch(() => {});
+    }).catch(() => { });
 
     api.getCtaBanner().then((data: Record<string, string>) => {
       if (data?.title) setCta(data);
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   const categories = React.useMemo(() => {
@@ -80,6 +80,10 @@ export function VideosPageClient() {
         subtitle={hero.subtitle || "Watch & Learn"}
         description={hero.description}
         backgroundImage={hero.backgroundImage}
+        ctaText={hero.ctaText}
+        ctaHref={hero.ctaUrl}
+        secondaryCtaText={hero.secondaryCtaText}
+        secondaryCtaHref={hero.secondaryCtaUrl}
         size="medium"
         showScrollIndicator={false}
       />

@@ -71,6 +71,10 @@ export function GalleryPageClient() {
         subtitle={hero.subtitle || ""}
         description={hero.description}
         backgroundImage={hero.backgroundImage}
+        ctaText={hero.ctaText}
+        ctaHref={hero.ctaUrl}
+        secondaryCtaText={hero.secondaryCtaText}
+        secondaryCtaHref={hero.secondaryCtaUrl}
         size="medium"
         showScrollIndicator={false}
       />

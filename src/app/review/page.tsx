@@ -33,6 +33,10 @@ export default async function ReviewPage() {
       heroSettings?.description ||
       "See what our students say about their learning journey, practical training, and career outcomes at BBTA.",
     backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
 
   const reviewSectionHeader = await api.getSectionHeader("sh_review_testimonials", {

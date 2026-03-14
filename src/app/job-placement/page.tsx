@@ -22,6 +22,10 @@ export default async function JobPlacementPage() {
     subtitle: heroSettings?.subtitle || "",
     description: heroSettings?.description || "",
     backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
 
   // Filter only active listings

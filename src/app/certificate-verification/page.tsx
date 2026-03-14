@@ -23,6 +23,10 @@ export default async function CertificateVerificationPage() {
     subtitle: heroSettings?.subtitle || "",
     description: heroSettings?.description || "",
     backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
 
   return <CertificateVerificationClient hero={hero} sectionHeader={sh} />;

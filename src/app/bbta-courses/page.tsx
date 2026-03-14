@@ -28,7 +28,11 @@ export default async function CoursesPage() {
     title: heroSettings?.title || "",
     subtitle: heroSettings?.subtitle || "",
     description: heroSettings?.description || "",
-    backgroundImage: heroSettings?.backgroundImage || ""
+    backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
   };
 
   return (

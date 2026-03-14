@@ -67,11 +67,15 @@ export default async function CoursePage({ params }: CoursePageProps) {
       api.getAllSectionHeaders(),
     ]);
     const hero = {
-      title: heroSettings?.title || "",
-      subtitle: heroSettings?.subtitle || "",
-      description: heroSettings?.description || "",
-      backgroundImage: heroSettings?.backgroundImage || "",
-    };
+    title: heroSettings?.title || "",
+    subtitle: heroSettings?.subtitle || "",
+    description: heroSettings?.description || "",
+    backgroundImage: heroSettings?.backgroundImage || "",
+    ctaText: heroSettings?.ctaText || "",
+    ctaHref: heroSettings?.ctaUrl || "",
+    secondaryCtaText: heroSettings?.secondaryCtaText || "",
+    secondaryCtaHref: heroSettings?.secondaryCtaUrl || ""
+  };
     return (
       <>
         <HeroSection {...hero} size="medium" showScrollIndicator={false} />

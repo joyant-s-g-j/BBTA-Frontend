@@ -63,6 +63,10 @@ interface HeroData {
   subtitle: string;
   description: string;
   backgroundImage: string;
+  ctaText?: string;
+  ctaHref?: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
 }
 
 interface SectionHeaderData {
@@ -125,6 +129,10 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
     <>
       <HeroSection
         {...hero}
+        ctaText={hero.ctaText}
+        ctaHref={hero.ctaHref}
+        secondaryCtaText={hero.secondaryCtaText}
+        secondaryCtaHref={hero.secondaryCtaHref}
         size="medium"
         showScrollIndicator={false}
       />
@@ -261,12 +269,12 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
                             <p className="font-semibold">
                               {result.data.startDate
                                 ? new Date(
-                                    result.data.startDate
-                                  ).toLocaleDateString("en-GB", {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric",
-                                  })
+                                  result.data.startDate
+                                ).toLocaleDateString("en-GB", {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                })
                                 : "—"}
                             </p>
                           </div>
@@ -281,12 +289,12 @@ export default function CertificateVerificationClient({ hero, sectionHeader }: P
                             <p className="font-semibold">
                               {result.data.endDate
                                 ? new Date(
-                                    result.data.endDate
-                                  ).toLocaleDateString("en-GB", {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric",
-                                  })
+                                  result.data.endDate
+                                ).toLocaleDateString("en-GB", {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                })
                                 : "—"}
                             </p>
                           </div>
