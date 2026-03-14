@@ -12,7 +12,14 @@ interface BranchesMapProps {
 
 const Address = ({ showMap = true, initialBranches }: BranchesMapProps) => {
     const displayBranches = initialBranches?.length ? initialBranches : [];
-    const getMapUrl = (branch: Branch) => branch?.mapUrl || branch?.mapEmbedUrl || "";
+    const getMapUrl = (branch: Branch) => {
+        let val = branch?.mapUrl || branch?.mapEmbedUrl || "";
+        if (typeof val === "string") {
+            const srcMatch = val.match(/src="([^"]+)"/);
+            return srcMatch && srcMatch[1] ? srcMatch[1] : val;
+        }
+        return "";
+    };
     const [activeMapUrl, setActiveMapUrl] = React.useState(displayBranches.length > 0 ? getMapUrl(displayBranches[0]) : "");
 
     return (
@@ -29,8 +36,8 @@ const Address = ({ showMap = true, initialBranches }: BranchesMapProps) => {
                     >
                         <Card
                             className={`cursor-pointer transition-all duration-300 hover:border-primary/50 ${activeMapUrl === getMapUrl(branch)
-                                    ? "border-primary bg-primary/5"
-                                    : ""
+                                ? "border-primary bg-primary/5"
+                                : ""
                                 }`}
                             onClick={() => setActiveMapUrl(getMapUrl(branch))}
                         >
