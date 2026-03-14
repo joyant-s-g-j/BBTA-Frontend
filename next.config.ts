@@ -11,6 +11,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  redirects: async () => [
+    {
+      source: '/author/bbta',
+      destination: '/blog',
+      permanent: true,
+    },
+    {
+      source: '/category/barista-informantion',
+      destination: '/blog',
+      permanent: true,
+    },
+  ],
   compress: true,
   headers: async () => [
     {

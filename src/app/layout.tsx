@@ -116,12 +116,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, courses, categories, promoBanner] = await Promise.all([
+  const [settings, courses, categories, promoBanner, adsTracking] = await Promise.all([
     api.getSettings(),
     api.getCourses(),
     api.getCourseCategories(),
     api.getPromoBanner(),
+    api.getSettings("ads_tracking"),
   ]);
+
+  const bodyScripts =
+    settings?.globalSeo?.bodyScripts || adsTracking?.customBodyScripts || "";
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -140,6 +144,9 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
+        {/* Global Body Scripts (injected near body start) */}
+        {bodyScripts && parse(bodyScripts)}
+
         {/* Main Layout */}
         <div className="relative min-h-screen flex flex-col overflow-x-hidden">
           {/* Navbar */}

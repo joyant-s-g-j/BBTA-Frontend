@@ -1,40 +1,117 @@
-# dependencies
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# =========================
+# Dependencies
+# =========================
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-/.vscode
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# testing
-/coverage
-
-# next.js
+# =========================
+# Next.js
+# =========================
 /.next/
 /out/
+next-env.d.ts
 
-# production
+# =========================
+# Production / Build
+# =========================
 /build
+/dist
+/.cache
 
-# misc
-.DS_Store
-*.pem
+# =========================
+# Testing
+# =========================
+/coverage
+*.lcov
+.nyc_output
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
+# =========================
+# Environment Files
+# =========================
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# vercel
+# =========================
+# IDE / Editor
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# =========================
+# OS Generated
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# =========================
+# Debug / Logs
+# =========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# =========================
+# TypeScript
+# =========================
+*.tsbuildinfo
+
+# =========================
+# Misc
+# =========================
+*.pem
+*.key
+*.cert
+*.crt
+
+# =========================
+# Vercel
+# =========================
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# =========================
+# Turbo
+# =========================
+.turbo
+
+# =========================
+# ESLint / Prettier Cache
+# =========================
+.eslintcache
+.prettiercache
+*.cache
+
+# =========================
+# next-sitemap auto-generated
+# =========================
+public/sitemap*.xml
+public/robots.txt

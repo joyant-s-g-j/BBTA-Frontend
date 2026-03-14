@@ -12,6 +12,7 @@ import { EnrollmentForm } from "@/components/course/EnrollmentForm";
 import { CourseGrid } from "@/components/course/CourseGrid";
 import * as api from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { BlogPostContent, generateBlogPostMetadata } from "@/lib/blog-post-page";
 
 interface CoursePageProps {
   params: Promise<{ slug: string }>;
@@ -19,10 +20,14 @@ interface CoursePageProps {
 
 // Generate static params for category listing pages
 export async function generateStaticParams() {
-  const categories = await api.getCourseCategories();
-  return (categories || []).map((cat: { slug: string }) => ({
-    slug: cat.slug,
-  }));
+  const [categories, posts] = await Promise.all([
+    api.getCourseCategories(),
+    api.getBlogPosts(),
+  ]);
+  const allSlugs = new Set<string>();
+  (categories || []).forEach((cat: { slug: string }) => allSlugs.add(cat.slug));
+  (posts || []).forEach((post: { slug: string }) => allSlugs.add(post.slug));
+  return Array.from(allSlugs).map((slug) => ({ slug }));
 }
 
 // Generate metadata
@@ -41,12 +46,20 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
 
   // For direct course slugs, metadata before redirect
   const course = await api.getCourseBySlug(slug);
-  if (!course) {
-    return { title: "Not Found" };
+  if (course) {
+    return {
+      title: course.title,
+      description: course.shortDescription,
+    };
   }
+
+  const blogMetadata = await generateBlogPostMetadata(slug);
+  if (blogMetadata) {
+    return blogMetadata;
+  }
+
   return {
-    title: course.title,
-    description: course.shortDescription,
+    title: "Not Found",
   };
 }
 
@@ -113,6 +126,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <CTABanner title="Can't Decide Which Course?" description="Contact us for a free consultation and we'll help you choose the perfect program for your goals." ctaText="Get in Touch" ctaHref="/contact" variant="dark" />
       </>
     );
+  }
+
+  const blogPost = await api.getBlogPost(slug);
+  if (blogPost) {
+    return <BlogPostContent slug={slug} />;
   }
 
   // Direct course slug — redirect to /{category-slug}/{course-slug}
