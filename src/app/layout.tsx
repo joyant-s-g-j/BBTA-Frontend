@@ -7,6 +7,8 @@ import { PromoBanner } from "@/components/layout/PromoBanner";
 import { Toaster } from "sonner";
 import "./globals.css";
 
+import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION, DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE } from "@/lib/constants";
+
 // Configure Inter font for body text
 const inter = Inter({
   variable: "--font-inter",
@@ -25,31 +27,34 @@ const playfair = Playfair_Display({
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await import("@/lib/api").then(api => api.getSeoByPage("home"));
 
-  const title = seo?.metaTitle || "BBTA - Bangladesh Barista Training Academy | Professional Coffee Training";
-  const description = seo?.metaDescription || "Bangladesh's premier barista training academy. ISO certified courses in espresso, latte art, roasting, and cafe management. Transform your passion for coffee into a professional career.";
+  const title = seo?.metaTitle || `${SITE_NAME} | Professional Coffee Training`;
+  const description = seo?.metaDescription || DEFAULT_DESCRIPTION;
   const keywords = seo?.keywords
     ? seo.keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
-    : ["barista training", "coffee courses", "Bangladesh", "Dhaka", "latte art", "espresso training", "cafe management", "coffee roasting", "SCA certification", "BBTA"];
+    : DEFAULT_KEYWORDS;
   const ogTitle = seo?.ogTitle || title;
   const ogDescription = seo?.ogDescription || description;
-  const ogImage = seo?.ogImage || "/og-image.jpg";
+  const ogImage = seo?.ogImage || DEFAULT_OG_IMAGE;
 
   return {
-    metadataBase: new URL("https://bbta-frontend.vercel.app"),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: title,
-      template: `%s | BBTA - Bangladesh Barista Training Academy`,
+      template: `%s | ${SITE_NAME}`,
     },
     description,
     keywords,
     authors: [{ name: "Bangladesh Barista Training Academy" }],
     creator: "BBTA",
     publisher: "Bangladesh Barista Training Academy",
+    alternates: {
+      canonical: SITE_URL,
+    },
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: "https://bbta-frontend.vercel.app",
-      siteName: "BBTA - Bangladesh Barista Training Academy",
+      url: SITE_URL,
+      siteName: SITE_NAME,
       title: ogTitle,
       description: ogDescription,
       images: [
@@ -57,7 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: "BBTA - Bangladesh Barista Training Academy",
+          alt: SITE_NAME,
         },
       ],
     },
@@ -84,6 +89,11 @@ export async function generateMetadata(): Promise<Metadata> {
       apple: "/apple-touch-icon.png",
     },
     manifest: "/site.webmanifest",
+    verification: {
+      // These are populated dynamically from admin settings (globalSeo)
+      // google: "your-google-verification-code",
+      // other: { "facebook-domain-verification": "your-fb-verification-code" },
+    },
   };
 }
 
@@ -105,7 +115,15 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Global Header Scripts */}
+        {/* Google Site Verification - dynamic */}
+        {settings?.globalSeo?.googleVerification && (
+          <meta name="google-site-verification" content={settings.globalSeo.googleVerification} />
+        )}
+        {/* Facebook Domain Verification - dynamic */}
+        {settings?.globalSeo?.facebookVerification && (
+          <meta name="facebook-domain-verification" content={settings.globalSeo.facebookVerification} />
+        )}
+        {/* Global Header Scripts (Google Analytics, Meta Pixel, etc.) */}
         {settings?.globalSeo?.headerScripts && parse(settings.globalSeo.headerScripts)}
       </head>
       <body

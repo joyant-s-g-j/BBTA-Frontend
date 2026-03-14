@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { BannerSlider } from "@/components/sections/BannerSlider";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { CourseGrid } from "@/components/course/CourseGrid";
+import { OrganizationSchema, WebSiteSchema, FAQSchema } from "@/components/seo/JsonLd";
 import * as api from "@/lib/api";
 
 // Lazy-load below-fold sections for reduced initial JS payload
@@ -36,6 +37,7 @@ export default async function HomePage() {
     careerBenefits,
     mediaCoverage,
     sh,
+    settings,
   ] = await Promise.all([
     api.getBannerSlides(),
     api.getHero(),
@@ -51,10 +53,20 @@ export default async function HomePage() {
     api.getCareerBenefits(),
     api.getMediaCoverage(),
     api.getAllSectionHeaders(),
+    api.getSettings(),
   ]);
 
   return (
     <>
+      {/* JSON-LD Structured Data for SEO */}
+      <OrganizationSchema
+        logo={settings?.logo}
+        description={settings?.tagline}
+        socialLinks={settings?.socialLinks}
+      />
+      <WebSiteSchema name={settings?.siteName} />
+      <FAQSchema items={faqs} />
+
       <BannerSlider
         slides={bannerSlides}
         ctaText={hero?.ctaText}

@@ -6,9 +6,7 @@ import { Calendar, ArrowLeft, ArrowRight, Clock, Tag, Share2, ChevronRight } fro
 import { Badge } from "@/components/ui/badge";
 import { CTABanner } from "@/components/sections/CTABanner";
 import * as api from "@/lib/api";
-
-const SITE_NAME = "BBTA - Bangladesh Barista Training Academy";
-const SITE_URL = "https://bbta-frontend.vercel.app";
+import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -24,7 +22,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     const description = post.metaDescription || post.excerpt;
     const ogTitle = post.ogTitle || title;
     const ogDescription = post.ogDescription || description;
-    const ogImage = post.ogImage || post.image || `${SITE_URL}/og-image.jpg`;
+    const ogImage = post.ogImage || post.image || DEFAULT_OG_IMAGE;
     const keywords = post.keywords
         ? post.keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
         : [post.category, "BBTA", "barista", "coffee", "blog", post.author].filter(Boolean);

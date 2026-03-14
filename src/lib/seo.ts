@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { getSeoByPage } from "./api";
-
-const SITE_NAME = "BBTA - Bangladesh Barista Training Academy";
-const SITE_URL = "https://bbta-frontend.vercel.app";
+import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, DEFAULT_DESCRIPTION } from "./constants";
 
 interface SeoDefaults {
     title?: string;
@@ -20,7 +18,7 @@ function formatPageTitle(page: string): string {
 /**
  * Generates dynamic page metadata by fetching SEO data from backend.
  * Falls back to provided defaults if no backend data exists.
- * 
+ *
  * Usage in page.tsx:
  * ```ts
  * export async function generateMetadata() {
@@ -38,16 +36,14 @@ export async function generatePageMetadata(
     const seo = await getSeoByPage(page);
 
     const fallbackTitle = defaults.title || formatPageTitle(page);
-    const fallbackDescription =
-        defaults.description ||
-        "Bangladesh Barista Training Academy offers professional coffee education, barista training, and career-focused programs.";
+    const fallbackDescription = defaults.description || DEFAULT_DESCRIPTION;
 
     const title = seo?.metaTitle || fallbackTitle;
     const description = seo?.metaDescription || fallbackDescription;
     const keywords = seo?.keywords || defaults.keywords || "";
     const ogTitle = seo?.ogTitle || title;
     const ogDescription = seo?.ogDescription || description;
-    const ogImage = seo?.ogImage || defaults.ogImage || `${SITE_URL}/og-image.jpg`;
+    const ogImage = seo?.ogImage || defaults.ogImage || DEFAULT_OG_IMAGE;
 
     const keywordsArray = keywords
         ? keywords.split(",").map((k: string) => k.trim()).filter(Boolean)
@@ -57,10 +53,13 @@ export async function generatePageMetadata(
         title,
         description,
         ...(keywordsArray.length > 0 && { keywords: keywordsArray }),
+        alternates: {
+            canonical: `${SITE_URL}/${page === "home" ? "" : page}`,
+        },
         openGraph: {
             type: "website",
             locale: "en_US",
-            url: SITE_URL,
+            url: `${SITE_URL}/${page === "home" ? "" : page}`,
             siteName: SITE_NAME,
             title: `${ogTitle} | ${SITE_NAME}`,
             description: ogDescription,
@@ -78,6 +77,17 @@ export async function generatePageMetadata(
             title: `${ogTitle} | ${SITE_NAME}`,
             description: ogDescription,
             images: [ogImage],
+        },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                "max-video-preview": -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+            },
         },
     };
 }
