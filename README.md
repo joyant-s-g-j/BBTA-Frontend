@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BBTA Frontend ☕ - Bangladesh Barista Training Academy Website
 
-## Getting Started
+**BBTA Frontend** is the public-facing Next.js website for Bangladesh Barista Training Academy. It delivers all academy content (courses, blog, media, legal pages, job placement, accommodation, etc.) from API-driven data with SEO-first architecture.
 
-First, run the development server:
+### 🔗 Live Domain
+Production: **[https://bbta.com.bd](https://bbta.com.bd)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
+☕ **Modern Public Website** – Fast, responsive, and content-driven academy website.
+📚 **Course Experience** – Category pages, course detail pages, and structured content sections.
+📰 **Direct Blog Slugs** – Blog detail URLs use direct slug format (`/post-slug`) for better parity and SEO.
+🧭 **SEO-Ready Architecture** – Structured metadata and discoverability-focused setup.
+🔐 **Dynamic Robots + Verification** – `robots.txt` and verification meta tags are managed dynamically.
+📈 **Tracking Support** – Header/body/footer scripts are injectable from admin settings.
+📱 **Fully Responsive UI** – Optimized navigation, content sections, and mobile UX.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
+- **Framework**: [Next.js](https://nextjs.org/) (App Router), React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4 + shadcn/ui patterns
+- **State/Form**: React Hook Form + Zod
+- **Animations/UI**: Motion, Swiper, Lucide Icons
+- **Rendering Strategy**: SSR + SSG + Revalidation-aware API fetch layer
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### 👨‍💻 Made By
+Made by **Joyant Sheikhar Gupta Joy** — [Portfolio](https://www.joyantsgj.dev)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🏢 Built Under
+Built under **[Code Thousand Startup](https://www.codethousand.net/)**
