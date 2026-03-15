@@ -8,13 +8,13 @@ Production: **[https://bbta.com.bd](https://bbta.com.bd)**
 ---
 
 ## ✨ Features
-☕ **Modern Public Website** – Fast, responsive, and content-driven academy website.
-📚 **Course Experience** – Category pages, course detail pages, and structured content sections.
-📰 **Direct Blog Slugs** – Blog detail URLs use direct slug format (`/post-slug`) for better parity and SEO.
-🧭 **SEO-Ready Architecture** – Structured metadata and discoverability-focused setup.
-🔐 **Dynamic Robots + Verification** – `robots.txt` and verification meta tags are managed dynamically.
-📈 **Tracking Support** – Header/body/footer scripts are injectable from admin settings.
-📱 **Fully Responsive UI** – Optimized navigation, content sections, and mobile UX.
+- ☕ **Modern Public Website** – Fast, responsive, and content-driven academy website.
+- 📚 **Course Experience** – Category pages, course detail pages, and structured content sections.
+- 📰 **Direct Blog Slugs** – Blog detail URLs use direct slug format (`/post-slug`) for better parity and SEO.
+- 🧭 **SEO-Ready Architecture** – Structured metadata and discoverability-focused setup.
+- 🔐 **Dynamic Robots + Verification** – `robots.txt` and verification meta tags are managed dynamically.
+- 📈 **Tracking Support** – Header/body/footer scripts are injectable from admin settings.
+- 📱 **Fully Responsive UI** – Optimized navigation, content sections, and mobile UX.
 
 ## 🛠️ Tech Stack
 - **Framework**: [Next.js](https://nextjs.org/) (App Router), React 19
